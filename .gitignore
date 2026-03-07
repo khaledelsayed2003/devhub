@@ -11,3 +11,4 @@ config/.env
 # SQLite
 instance/
 *.db
+*.sqlite3
