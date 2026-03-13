@@ -9,6 +9,22 @@ class Project(models.Model):
     source_link = models.CharField(max_length=2000, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     
-    
     def __str__(self):
         return self.title
+    
+
+class Review(models.Model):
+    VOTE_TYPE = (
+        ('like', 'Like'),
+        ('dislike', 'Dislike'),
+    )
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    # owner = I will add it later once i create the Profile model
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    body = models.TextField(null=True, blank=True)
+    value = models.CharField(max_length=150, choices=VOTE_TYPE)
+    created = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.value
+    
