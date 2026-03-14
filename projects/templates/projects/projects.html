@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>Here you can find the projects</h1>
+<div class="container mt-5">
+    <h1 class="mb-4 fw-bold">Projects</h1>
 
-<ul>
-    {% for project in projects %}
-    <li>title:<a href="{% url 'project' project.id %}">{{ project.title }}</a></li>
-    {% endfor %}
-</ul>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Project</th>
+                    <th>Positive Votes</th>
+                    <th>Total Votes</th>
+                    <th>Created</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in projects %}
+                <tr>
+                    <td class="fw-semibold">{{ project.title }}</td>
+                    <td>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-success" style="width: {{ project.vote_ratio }}%">
+                                {{ project.vote_ratio }}%
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{ project.vote_total }}</td>
+                    <td>{{ project.created|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'project' project.id %}" class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock content %}

@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>{{ project.title }}</h1>
-<br>
-{% for tag in project.tags.all %}
-<span>{{ tag }}</span>
-{% endfor %}
-<hr>
-<p>{{ project.description }}</p>
-{% endblock content %}
+<div class="container mt-5">
 
+    <a href="{% url 'projects' %}" class="btn btn-outline-secondary mb-4">← Back to Projects</a>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <h1 class="fw-bold mb-3">{{ project.title }}</h1>
+
+            <div class="mb-3">
+                {% for tag in project.tags.all %}
+                <span class="badge bg-dark me-1">{{ tag }}</span>
+                {% endfor %}
+            </div>
+
+            <hr>
+
+            <p class="text-muted fs-5">{{ project.description }}</p>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
 
 
