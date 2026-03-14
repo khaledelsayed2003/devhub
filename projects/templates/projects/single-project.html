@@ -4,6 +4,10 @@
 {% block content %}
 <h1>{{ project.title }}</h1>
 <br>
+{% for tag in project.tags.all %}
+<span>{{ tag }}</span>
+{% endfor %}
+<hr>
 <p>{{ project.description }}</p>
 {% endblock content %}
 
