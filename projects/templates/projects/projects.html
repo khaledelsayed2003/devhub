@@ -13,6 +13,7 @@
                     <th>Total Votes</th>
                     <th>Created</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +29,9 @@
                     </td>
                     <td>{{ project.vote_total }}</td>
                     <td>{{ project.created|date:"M d, Y" }}</td>
+                    <td>
+                        <a href="{% url 'update-project' project.id %}" class="btn btn-sm btn-info">Update</a>
+                    </td>
                     <td>
                         <a href="{% url 'project' project.id %}" class="btn btn-sm btn-primary">View</a>
                     </td>
