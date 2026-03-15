@@ -4,7 +4,7 @@
 
 <h1>Project Form</h1>
 
-<form method="POST">
+<form action="{% url 'create-project' %}" method="POST">
     {% csrf_token %}
     {% for field in form %}
     <div class="mb-3">
