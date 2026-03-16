@@ -35,3 +35,9 @@ def updateProject(request, pk):
         form = ProjectForm(instance=project)
     
     return render(request, 'projects/project_form.html', {'form': form})
+
+def deleteProject(request, pk):
+    project = Project.objects.get(id=pk)
+    if project:
+        project.delete()
+        return redirect('projects')
