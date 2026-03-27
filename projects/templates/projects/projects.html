@@ -251,7 +251,9 @@
       <div class="projects-grid">
         {% for project in projects %}
         <article class="project-card reveal interactive-card">
-          <div class="project-art {% cycle 'art-cyan' 'art-blue' 'art-pink' %}"></div>
+          <div class="project-art {% cycle 'art-cyan' 'art-blue' 'art-pink' %}">
+            <img class="project-art-image" src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+          </div>
           <div class="project-copy">
             <h3><a href="{% url 'project' project.id %}">{{ project.title }}</a></h3>
             <p>{{ project.description|default:"A collaborative design platform that helps product teams generate layout concepts, review visual systems, and iterate faster with AI-assisted workflows."|truncatechars:180 }}</p>
