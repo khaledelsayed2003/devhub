@@ -6,8 +6,8 @@ from .forms import ProjectForm
 
 
 def projects(request):
-    projectsList = Project.objects.all()
-    return render(request, 'projects/projects.html', {'projects': projectsList})
+    projects_list = Project.objects.prefetch_related('tags').all().order_by('-created')
+    return render(request, 'projects/projects.html', {'projects': projects_list})
 
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)

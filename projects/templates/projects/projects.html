@@ -1,48 +1,316 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevHub | Where Developers Show Their Best Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'styles/landing.css' %}">
+</head>
+<body>
+  <div class="site-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#hero-intro" aria-label="DevHub home">
+      <span class="brand-mark">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <span class="brand-name">DevHub</span>
+    </a>
 
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4 fw-bold">Projects</h1>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>Project</th>
-                    <th>Positive Votes</th>
-                    <th>Total Votes</th>
-                    <th>Created</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for project in projects %}
-                <tr>
-                    <td class="fw-semibold">{{ project.title }}</td>
-                    <td>
-                        <div class="progress" style="height: 20px;">
-                            <div class="progress-bar bg-success" style="width: {{ project.vote_ratio }}%">
-                                {{ project.vote_ratio }}%
-                            </div>
-                        </div>
-                    </td>
-                    <td>{{ project.vote_total }}</td>
-                    <td>{{ project.created|date:"M d, Y" }}</td>
-                    <td>
-                        <a href="{% url 'update-project' project.id %}" class="btn btn-sm btn-info">Update</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'delete-project' project.id %}" class="btn btn-sm btn-danger">Delete</a>
-                    </td>
-                    <td>
-                        <a href="{% url 'project' project.id %}" class="btn btn-sm btn-primary">View</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="topbar-menu" id="mobileMenu">
+      <nav class="nav">
+        <a href="#developers">Developers</a>
+        <a href="#projects">Projects</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+          <span class="theme-icon" aria-hidden="true">
+            <span class="moon-icon"></span>
+            <span class="sun-icon"></span>
+          </span>
+        </button>
+        <a class="ghost-button" href="#login">Login</a>
+        <a class="primary-button" href="#signup">Sign Up</a>
+      </div>
     </div>
-</div>
-{% endblock content %}
+  </header>
+
+  <main>
+    <section class="hero section" id="hero">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Built For Serious Developers</p>
+        <h1>Show your work, share your stack, and get discovered for what you actually build.</h1>
+        <p class="hero-text" id="hero-intro">
+          DevHub is where developers publish meaningful projects with real context: the problem they solved, the technologies they used, the architecture behind the build, and the lessons that made the product better.
+        </p>
+
+        <form class="search-box" role="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.43 4.44 1.41-1.42-4.43-4.43A6.5 6.5 0 0 0 10.5 4Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z"/>
+          </svg>
+          <input type="text" placeholder="Search developers or projects..." aria-label="Search developers or projects">
+        </form>
+
+        <div class="hero-actions">
+          <a class="primary-button large-button" href="{% url 'create-project' %}">Post Your Project</a>
+          <a class="ghost-button large-button" href="#projects">Explore Projects</a>
+        </div>
+
+        <div class="hero-strip">
+          <div class="mini-stat reveal">
+            <strong>12k+</strong>
+            <span>developers sharing real builds</span>
+          </div>
+          <div class="mini-stat reveal">
+            <strong>840</strong>
+            <span>projects with public tech stacks</span>
+          </div>
+          <div class="mini-stat reveal">
+            <strong>320</strong>
+            <span>fresh showcases this week</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-orbit orbit-a"></div>
+        <div class="hero-orbit orbit-b"></div>
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <div class="hero-spark spark-a"></div>
+        <div class="hero-spark spark-b"></div>
+        <div class="hero-spark spark-c"></div>
+
+        <div class="stage" id="heroStage">
+          <div class="stage-floor"></div>
+          <div class="hero-note reveal">
+            <span>Post projects. Show stack. Get discovered.</span>
+          </div>
+
+          <article class="floating-card card-left reveal interactive-card">
+            <span class="card-tag">Project Signal</span>
+            <h2>Every post explains the build</h2>
+            <p>Developers can publish the product idea, the stack they chose, the tradeoffs they made, and the next milestone they are chasing.</p>
+            <div class="chip-row">
+              <span>React</span>
+              <span>Node</span>
+              <span>PostgreSQL</span>
+            </div>
+          </article>
+
+          <article class="floating-card card-right reveal interactive-card">
+            <span class="card-tag">Developer Identity</span>
+            <h2>Your profile is your proof</h2>
+            <p>Show the projects you shipped, the systems you designed, and the technologies you use best so the right people can find you fast.</p>
+            <div class="chip-row">
+              <span>Frontend</span>
+              <span>DevOps</span>
+              <span>AI</span>
+            </div>
+          </article>
+
+          <article class="console reveal">
+            <div class="console-top">
+              <span class="window-dot dot-red"></span>
+              <span class="window-dot dot-yellow"></span>
+              <span class="window-dot dot-green"></span>
+              <span class="console-title">devhub.network</span>
+            </div>
+
+            <div class="console-screen">
+              <div class="screen-grid"></div>
+              <div class="signal signal-a"></div>
+              <div class="signal signal-b"></div>
+              <div class="scanline"></div>
+
+              <div class="screen-layout">
+                <div class="screen-panel panel-primary">
+                  <span class="screen-label">Featured Build</span>
+                  <strong>Publish projects with real engineering context</strong>
+                  <p>Instead of posting vague screenshots, developers can explain what the project does, the tech stack behind it, the architecture choices, and what they plan to improve next.</p>
+                  <div class="screen-pills">
+                    <span>Clear project story</span>
+                    <span>Visible stack</span>
+                    <span>Meaningful feedback</span>
+                  </div>
+                </div>
+
+                <div class="screen-metrics">
+                  <div class="metric-card interactive-card">
+                    <span>Profiles updated today</span>
+                    <strong>214</strong>
+                  </div>
+                  <div class="metric-card interactive-card">
+                    <span>Stacks published</span>
+                    <strong>1,906</strong>
+                  </div>
+                  <div class="metric-card interactive-card">
+                    <span>Project feedback sent</span>
+                    <strong>8,421</strong>
+                  </div>
+                </div>
+
+                <div class="beam-stack" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="console-base">
+              <div class="base-lights"></div>
+              <div class="base-shadow"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-label="DevHub highlights">
+      <div class="ticker-track">
+        <span>Post your project with stack details</span>
+        <span>Show architecture decisions</span>
+        <span>Get developer feedback</span>
+        <span>Build a serious portfolio</span>
+        <span>Discover impressive developers</span>
+        <span>Explore real production work</span>
+      </div>
+    </section>
+
+    <section class="showcase section" id="developers">
+      <div class="section-head reveal">
+        <span class="section-label">Developers</span>
+        <h2>Developers who explain their craft, not just their title</h2>
+      </div>
+
+      <div class="developers-grid">
+        <article class="dev-card reveal interactive-card">
+          <div class="dev-avatar avatar-cyan">NK</div>
+          <div class="dev-copy">
+            <h3>Nina K.</h3>
+            <p>Frontend Architect</p>
+            <span>Builds motion-rich product interfaces and documents how design systems stay scalable across teams.</span>
+          </div>
+          <div class="dev-tech">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>Motion</span>
+          </div>
+        </article>
+
+        <article class="dev-card reveal interactive-card">
+          <div class="dev-avatar avatar-violet">MR</div>
+          <div class="dev-copy">
+            <h3>Marco R.</h3>
+            <p>AI Engineer</p>
+            <span>Publishes practical machine learning tools with clear notes on data flow, model choices, and product impact.</span>
+          </div>
+          <div class="dev-tech">
+            <span>Python</span>
+            <span>FastAPI</span>
+            <span>LLMs</span>
+          </div>
+        </article>
+
+        <article class="dev-card reveal interactive-card">
+          <div class="dev-avatar avatar-green">SJ</div>
+          <div class="dev-copy">
+            <h3>Sara J.</h3>
+            <p>Platform Lead</p>
+            <span>Breaks down backend architecture, deployment strategy, and reliability decisions in a way other engineers can learn from.</span>
+          </div>
+          <div class="dev-tech">
+            <span>Go</span>
+            <span>Kubernetes</span>
+            <span>gRPC</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="showcase section" id="projects">
+      <div class="section-head reveal">
+        <span class="section-label">Projects</span>
+        <h2>Projects with meaningful descriptions and visible stacks</h2>
+      </div>
+
+      <div class="projects-grid">
+        {% for project in projects %}
+        <article class="project-card reveal interactive-card">
+          <div class="project-art {% cycle 'art-cyan' 'art-blue' 'art-pink' %}"></div>
+          <div class="project-copy">
+            <h3><a href="{% url 'project' project.id %}">{{ project.title }}</a></h3>
+            <p>{{ project.description|default:"A collaborative design platform that helps product teams generate layout concepts, review visual systems, and iterate faster with AI-assisted workflows."|truncatechars:180 }}</p>
+            <div class="project-meta">
+              {% for tag in project.tags.all|slice:":3" %}
+              <span>{{ tag.name }}</span>
+              {% empty %}
+              <span>React</span>
+              <span>Node.js</span>
+              <span>PostgreSQL</span>
+              {% endfor %}
+            </div>
+            <a class="ghost-button" href="{% url 'project' project.id %}">View Project</a>
+          </div>
+        </article>
+        {% empty %}
+        <article class="project-card reveal interactive-card">
+          <div class="project-art art-cyan"></div>
+          <div class="project-copy">
+            <h3>Neural Canvas</h3>
+            <p>A collaborative design platform that helps product teams generate layout concepts, review visual systems, and iterate faster with AI-assisted workflows.</p>
+            <div class="project-meta">
+              <span>React</span>
+              <span>Node.js</span>
+              <span>PostgreSQL</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal interactive-card">
+          <div class="project-art art-blue"></div>
+          <div class="project-copy">
+            <h3>Orbit Deploy</h3>
+            <p>An edge deployment platform that helps developers ship frontend apps with preview environments, rollback safety, and realtime release monitoring.</p>
+            <div class="project-meta">
+              <span>Next.js</span>
+              <span>Rust</span>
+              <span>Cloudflare</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card reveal interactive-card">
+          <div class="project-art art-pink"></div>
+          <div class="project-copy">
+            <h3>Pulse Stack</h3>
+            <p>An observability toolkit that gives product and infrastructure teams a shared view of incidents, performance drift, and team response timelines.</p>
+            <div class="project-meta">
+              <span>Go</span>
+              <span>Kafka</span>
+              <span>Grafana</span>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <script src="{% static 'js/landing.js' %}"></script>
+</body>
+</html>
