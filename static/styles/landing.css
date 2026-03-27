@@ -1071,10 +1071,12 @@ body.light-theme .project-card:hover {
 
 .project-art {
   position: relative;
-  height: 170px;
+  height: 220px;
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid rgba(151, 185, 255, 0.16);
+  display: grid;
+  place-items: center;
 }
 
 .project-art-image {
@@ -1083,6 +1085,7 @@ body.light-theme .project-card:hover {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  background: rgba(10, 18, 35, 0.42);
 }
 
 .project-art::before,
@@ -1090,17 +1093,18 @@ body.light-theme .project-card:hover {
   content: "";
   position: absolute;
   border-radius: 18px;
+  pointer-events: none;
 }
 
 .project-art::before {
-  inset: 16px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  inset: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transform: rotate(-8deg);
 }
 
 .project-art::after {
-  inset: 30px 34px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  inset: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transform: rotate(10deg);
 }
 
