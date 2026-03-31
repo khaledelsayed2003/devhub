@@ -3,11 +3,24 @@ from django.http import HttpResponse
 from .models import Project
 from .forms import ProjectForm
 
-
+def home(request):
+    return render(request, 'base.html')
 
 def projects(request):
     projects_list = Project.objects.prefetch_related('tags').all().order_by('-created')
-    return render(request, 'projects/projects.html', {'projects': projects_list})
+    featured_project = (
+        Project.objects.prefetch_related('tags')
+        .order_by('-vote_total', '-vote_ratio', '-created')
+        .first()
+    )
+    return render(
+        request,
+        'projects/projects.html',
+        {
+            'projects': projects_list,
+            'featured_project': featured_project,
+        }
+    )
 
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)

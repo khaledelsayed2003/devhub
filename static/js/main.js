@@ -2,10 +2,16 @@ const themeToggle = document.getElementById("themeToggle");
 const heroStage = document.getElementById("heroStage");
 const revealItems = document.querySelectorAll(".reveal");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const compactHero = window.matchMedia("(max-width: 1180px)");
+const coarsePointer = window.matchMedia("(pointer: coarse)");
 const menuToggle = document.getElementById("menuToggle");
 const mobileMenu = document.getElementById("mobileMenu");
 
 function syncThemeButton() {
+  if (!themeToggle) {
+    return;
+  }
+
   themeToggle.setAttribute(
     "aria-label",
     document.body.classList.contains("light-theme") ? "Switch to dark theme" : "Switch to light theme"
@@ -60,7 +66,9 @@ function closeMenu() {
 }
 
 function setupHeroTilt() {
-  if (!heroStage || reducedMotion.matches) {
+  if (!heroStage || reducedMotion.matches || compactHero.matches || coarsePointer.matches) {
+    document.documentElement.style.setProperty("--hero-rotate-x", "0deg");
+    document.documentElement.style.setProperty("--hero-rotate-y", "0deg");
     return;
   }
 
@@ -105,6 +113,8 @@ function setupReveals() {
     return;
   }
 
+  document.documentElement.classList.add("reveal-ready");
+
   if (reducedMotion.matches || !("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));
     return;
@@ -120,8 +130,8 @@ function setupReveals() {
       });
     },
     {
-      threshold: 0.18,
-      rootMargin: "0px 0px -8% 0px"
+      threshold: 0.05,
+      rootMargin: "0px 0px -4% 0px"
     }
   );
 
@@ -136,7 +146,9 @@ setupHeroTilt();
 setupReveals();
 syncMenuButton();
 
-themeToggle.addEventListener("click", toggleTheme);
+if (themeToggle) {
+  themeToggle.addEventListener("click", toggleTheme);
+}
 
 if (menuToggle) {
   menuToggle.addEventListener("click", toggleMenu);

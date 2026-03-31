@@ -1,21 +1,161 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DevHub | Post Your Project{% endblock title %}
+
+{% block body_class %}projects-page-body{% endblock body_class %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'styles/projects.css' %}">
+{% endblock extra_css %}
+
+{% block landing_content %}{% endblock landing_content %}
 
 {% block content %}
+  <section class="project-form-page section">
+    <div class="project-form-shell">
+      <div class="project-form-intro">
+        <span class="projects-kicker">Publish On DevHub</span>
+        <h1>Turn your project into a story developers want to explore.</h1>
+        <p>
+          Share the build clearly: what it does, how you built it, what tools you used, and where other developers can try or inspect it.
+        </p>
 
-<h1>Project Form</h1>
+        <div class="project-form-highlights">
+          <article class="project-form-highlight">
+            <strong>Project Signal</strong>
+            <span>Upload a strong visual, explain the build, and make the purpose obvious at a glance.</span>
+          </article>
+          <article class="project-form-highlight">
+            <strong>Stack Clarity</strong>
+            <span>Pick the technologies one by one so the right people understand what powers your project.</span>
+          </article>
+          <article class="project-form-highlight">
+            <strong>Optional Links</strong>
+            <span>Add a live demo or source code only when it truly exists. The page adapts automatically.</span>
+          </article>
+        </div>
+      </div>
 
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="mb-3">
-        <label class="form-label fw-semibold">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-        <div class="text-danger small mt-1">{{ field.errors }}</div>
-        {% endif %}
+      <div class="project-form-card">
+        <div class="project-form-card-top">
+          <div>
+            <span class="projects-kicker">Add Project</span>
+            <h2>Publish your next build</h2>
+          </div>
+          <div class="project-form-window">
+            <span class="window-dot dot-red"></span>
+            <span class="window-dot dot-yellow"></span>
+            <span class="window-dot dot-green"></span>
+          </div>
+        </div>
+
+        <form action="" method="POST" enctype="multipart/form-data" class="project-form-grid" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="project-form-errors">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <div class="project-form-field project-form-field-full">
+            <label for="{{ form.title.id_for_label }}" class="project-form-label">{{ form.title.label }}</label>
+            {{ form.title }}
+            <p class="project-form-help">{{ form.title.help_text }}</p>
+            {% for error in form.title.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-field project-form-field-full">
+            <label for="{{ form.featured_image.id_for_label }}" class="project-form-label">{{ form.featured_image.label }}</label>
+
+            <div class="project-form-upload">
+              <div class="project-form-upload-copy">
+                <strong>Choose a cover image</strong>
+                <span>Use a sharp screenshot or polished mockup that represents the project well on cards and detail pages.</span>
+              </div>
+              <div class="project-form-upload-controls">
+                <label for="{{ form.featured_image.id_for_label }}" class="ghost-button project-upload-trigger">Select Image</label>
+                <span class="project-upload-name" id="projectUploadName">No file selected</span>
+              </div>
+              {{ form.featured_image }}
+            </div>
+
+            <div class="project-form-preview" id="projectImagePreview">
+              <div class="project-form-preview-shell">
+                <span class="project-form-preview-badge">Preview</span>
+                <div class="project-form-preview-art" id="projectPreviewArt">
+                  <span>Featured image preview will appear here</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="project-form-help">{{ form.featured_image.help_text }}</p>
+            {% for error in form.featured_image.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-field project-form-field-full">
+            <label for="{{ form.description.id_for_label }}" class="project-form-label">{{ form.description.label }}</label>
+            {{ form.description }}
+            <p class="project-form-help">{{ form.description.help_text }}</p>
+            {% for error in form.description.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-field">
+            <label for="{{ form.demo_link.id_for_label }}" class="project-form-label">{{ form.demo_link.label }}</label>
+            {{ form.demo_link }}
+            <p class="project-form-help">{{ form.demo_link.help_text }}</p>
+            {% for error in form.demo_link.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-field">
+            <label for="{{ form.source_link.id_for_label }}" class="project-form-label">{{ form.source_link.label }}</label>
+            {{ form.source_link }}
+            <p class="project-form-help">{{ form.source_link.help_text }}</p>
+            {% for error in form.source_link.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-field project-form-field-full">
+            <div class="project-form-label-row">
+              <label class="project-form-label">{{ form.tags.label }}</label>
+              <span class="project-form-label-note">Select one by one</span>
+            </div>
+            <div class="project-tag-picker">
+              {% for checkbox in form.tags %}
+                <label class="project-tag-option" for="{{ checkbox.id_for_label }}">
+                  {{ checkbox.tag }}
+                  <span>{{ checkbox.choice_label }}</span>
+                </label>
+              {% endfor %}
+            </div>
+            <p class="project-form-help">{{ form.tags.help_text }}</p>
+            {% for error in form.tags.errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+
+          <div class="project-form-actions project-form-field-full">
+            <button type="submit" class="primary-button large-button">Publish Project</button>
+            <a href="{% url 'projects' %}" class="ghost-button large-button">Back to Projects</a>
+          </div>
+        </form>
+      </div>
     </div>
-    {% endfor %}
-    <input type="submit">
-</form>
-
+  </section>
 {% endblock content %}
+
+{% block extra_js %}
+  <script src="{% static 'js/project-form.js' %}"></script>
+{% endblock extra_js %}
