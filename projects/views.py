@@ -3,8 +3,6 @@ from django.http import HttpResponse
 from .models import Project
 from .forms import ProjectForm
 
-def home(request):
-    return render(request, 'base.html')
 
 def projects(request):
     projects_list = Project.objects.prefetch_related('tags').all().order_by('-created')

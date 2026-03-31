@@ -6,11 +6,265 @@
 
 {% block extra_css %}{% endblock extra_css %}
 
-{% block landing_content %}{% endblock landing_content %}
-
 {% block content %}
-  <section class="section">
-    <h1>Here will be the User Profiles</h1>
+  <section class="hero section" id="hero">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">Built For Serious Developers</p>
+      <h1>Show your work, share your stack, and get discovered for what you actually build.</h1>
+      <p class="hero-text" id="hero-intro">
+        DevHub is where developers publish meaningful projects with real context: the problem they solved, the technologies they used, the architecture behind the build, and the lessons that made the product better.
+      </p>
+
+      <form class="search-box" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10.5 4a6.5 6.5 0 1 0 4.03 11.6l4.43 4.44 1.41-1.42-4.43-4.43A6.5 6.5 0 0 0 10.5 4Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z"/>
+        </svg>
+        <input type="text" placeholder="Search by developer name..." aria-label="Search by developer name">
+        <button class="primary-button search-box-button" type="submit">Search</button>
+      </form>
+
+      <div class="hero-actions">
+        <a class="primary-button large-button" href="{% url 'create-project' %}">Post Your Project</a>
+        <a class="ghost-button large-button" href="{% url 'profiles' %}#developers">Explore Developers</a>
+      </div>
+
+      <div class="hero-strip">
+        <div class="mini-stat reveal">
+          <strong>12k+</strong>
+          <span>developers sharing real builds</span>
+        </div>
+        <div class="mini-stat reveal">
+          <strong>840</strong>
+          <span>projects with public tech stacks</span>
+        </div>
+        <div class="mini-stat reveal">
+          <strong>320</strong>
+          <span>fresh showcases this week</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-orbit orbit-a"></div>
+      <div class="hero-orbit orbit-b"></div>
+      <div class="glow glow-a"></div>
+      <div class="glow glow-b"></div>
+      <div class="hero-spark spark-a"></div>
+      <div class="hero-spark spark-b"></div>
+      <div class="hero-spark spark-c"></div>
+
+      <div class="stage" id="heroStage">
+        <div class="stage-floor"></div>
+        <div class="hero-note reveal">
+          <span>Post projects. Show stack. Get discovered.</span>
+        </div>
+
+        <article class="floating-card card-left reveal interactive-card">
+          <span class="card-tag">Project Signal</span>
+          <h2>Every post explains the build</h2>
+          <p>Developers can publish the product idea, the stack they chose, the tradeoffs they made, and the next milestone they are chasing.</p>
+          <div class="chip-row">
+            <span>React</span>
+            <span>Node</span>
+            <span>PostgreSQL</span>
+          </div>
+        </article>
+
+        <article class="floating-card card-right reveal interactive-card">
+          <span class="card-tag">Developer Identity</span>
+          <h2>Your profile is your proof</h2>
+          <p>Show the projects you shipped, the systems you designed, and the technologies you use best so the right people can find you fast.</p>
+          <div class="chip-row">
+            <span>Frontend</span>
+            <span>DevOps</span>
+            <span>AI</span>
+          </div>
+        </article>
+
+        <article class="console reveal">
+          <div class="console-top">
+            <span class="window-dot dot-red"></span>
+            <span class="window-dot dot-yellow"></span>
+            <span class="window-dot dot-green"></span>
+            <span class="console-title">devhub.network</span>
+          </div>
+
+          <div class="console-screen">
+            <div class="screen-grid"></div>
+            <div class="signal signal-a"></div>
+            <div class="signal signal-b"></div>
+            <div class="scanline"></div>
+
+            <div class="screen-layout">
+              <div class="screen-panel panel-primary">
+                <span class="screen-label">Featured Build</span>
+                <strong>Publish projects with real engineering context</strong>
+                <p>Instead of posting vague screenshots, developers can explain what the project does, the tech stack behind it, the architecture choices, and what they plan to improve next.</p>
+                <div class="screen-pills">
+                  <span>Clear project story</span>
+                  <span>Visible stack</span>
+                  <span>Meaningful feedback</span>
+                </div>
+              </div>
+
+              <div class="screen-metrics">
+                <div class="metric-card interactive-card">
+                  <span>Profiles updated today</span>
+                  <strong>214</strong>
+                </div>
+                <div class="metric-card interactive-card">
+                  <span>Stacks published</span>
+                  <strong>1,906</strong>
+                </div>
+                <div class="metric-card interactive-card">
+                  <span>Project feedback sent</span>
+                  <strong>8,421</strong>
+                </div>
+              </div>
+
+              <div class="beam-stack" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="console-base">
+            <div class="base-lights"></div>
+            <div class="base-shadow"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticker" aria-label="DevHub highlights">
+    <div class="ticker-track">
+      <span>Post your project with stack details</span>
+      <span>Show architecture decisions</span>
+      <span>Get developer feedback</span>
+      <span>Build a serious portfolio</span>
+      <span>Discover impressive developers</span>
+      <span>Explore real production work</span>
+    </div>
+  </section>
+
+  <section class="showcase section" id="developers">
+    <div class="section-head reveal">
+      <span class="section-label">Developers</span>
+      <h2>Developers who explain their craft, not just their title</h2>
+    </div>
+
+    <div class="developers-grid">
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-cyan">NK</div>
+          <div class="dev-copy">
+            <h3>Nina K.</h3>
+            <p>Frontend Architect</p>
+          </div>
+        </div>
+        <span>Builds motion-rich product interfaces and documents how design systems stay scalable across teams.</span>
+        <div class="dev-tech">
+          <span>React</span>
+          <span>TypeScript</span>
+          <span>Motion</span>
+        </div>
+      </article>
+
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-violet">MR</div>
+          <div class="dev-copy">
+            <h3>Marco R.</h3>
+            <p>AI Engineer</p>
+          </div>
+        </div>
+        <span>Publishes practical machine learning tools with clear notes on data flow, model choices, and product impact.</span>
+        <div class="dev-tech">
+          <span>Python</span>
+          <span>FastAPI</span>
+          <span>LLMs</span>
+        </div>
+      </article>
+
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-green">SJ</div>
+          <div class="dev-copy">
+            <h3>Sara J.</h3>
+            <p>Platform Lead</p>
+          </div>
+        </div>
+        <span>Breaks down backend architecture, deployment strategy, and reliability decisions in a way other engineers can learn from.</span>
+        <div class="dev-tech">
+          <span>Go</span>
+          <span>Kubernetes</span>
+          <span>gRPC</span>
+        </div>
+      </article>
+
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-cyan">AL</div>
+          <div class="dev-copy">
+            <h3>Amir L.</h3>
+            <p>Full Stack Engineer</p>
+          </div>
+        </div>
+        <span>Designs polished product flows end-to-end and shares practical breakdowns of architecture, APIs, and deployment decisions.</span>
+        <div class="dev-tech">
+          <span>Django</span>
+          <span>JavaScript</span>
+          <span>PostgreSQL</span>
+        </div>
+      </article>
+
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-violet">TR</div>
+          <div class="dev-copy">
+            <h3>Talia R.</h3>
+            <p>Product Engineer</p>
+          </div>
+        </div>
+        <span>Turns complex ideas into clean shipping products and explains tradeoffs clearly so other developers can learn from each release.</span>
+        <div class="dev-tech">
+          <span>Next.js</span>
+          <span>Supabase</span>
+          <span>UX</span>
+        </div>
+      </article>
+
+      <article class="dev-card reveal interactive-card">
+        <div class="dev-card-top">
+          <div class="avatar avatar-lg avatar-green">KM</div>
+          <div class="dev-copy">
+            <h3>Khaled M.</h3>
+            <p>Backend Engineer</p>
+          </div>
+        </div>
+        <span>Builds reliable APIs, async systems, and automation pipelines with a strong focus on maintainability and developer experience.</span>
+        <div class="dev-tech">
+          <span>Python</span>
+          <span>Docker</span>
+          <span>REST</span>
+        </div>
+      </article>
+    </div>
+
+    <nav class="developer-pagination reveal" aria-label="Developers pagination">
+      <a class="pager-button is-disabled" href="{% url 'profiles' %}#developers" aria-disabled="true">Prev</a>
+      <a class="pager-button is-active" href="{% url 'profiles' %}#developers">01</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">02</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">03</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">04</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">05</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">06</a>
+      <a class="pager-button" href="{% url 'profiles' %}#developers">Next</a>
+    </nav>
   </section>
 {% endblock content %}
 
