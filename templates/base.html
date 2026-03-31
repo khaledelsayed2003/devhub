@@ -57,6 +57,31 @@
   </main>
   {% endblock page %}
 
+  <footer class="site-footer">
+    <div class="site-footer__inner section">
+      <div class="site-footer__brand">
+        <h3>DevHub</h3>
+        <p>Where developers share real work, real stacks, and real progress.</p>
+      </div>
+
+      <div class="site-footer__links">
+        <a href="{% url 'profiles' %}#developers">Developers</a>
+        <a href="{% url 'projects' %}">Projects</a>
+        <a href="{% url 'create-project' %}">Add Project</a>
+      </div>
+
+      <div class="site-footer__links">
+        <a href="https://github.com/khaledelsayed2003">GitHub</a>
+        <a href="https://www.linkedin.com/in/khaledelsayed2003/">LinkedIn</a>
+        <a href="mailto:khaledelsayed.se@gmail.com">Contact</a>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>&copy; 2026 DevHub. Built by Khaled Elsayed.</p>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{% static 'js/main.js' %}"></script>
   {% block extra_js %}{% endblock extra_js %}
