@@ -161,7 +161,9 @@
       {% for developer in developers %}
       <article class="dev-card reveal interactive-card">
         <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-cyan">{{ developer.name|slice:":1" }}{{ developer.name|slice:"1:2" }}</div>
+          <div class="avatar avatar-lg avatar-cyan">
+            <img class="avatar-image" src="{{ developer.profile_image.url }}" alt="{{ developer.name }}">
+          </div>
           <div class="dev-copy">
             <h3>{{ developer.name }}</h3>
             <p>{{ developer.short_intro }}</p>

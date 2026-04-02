@@ -1603,6 +1603,8 @@ html.reveal-ready .reveal.is-visible {
 }
 
 .avatar {
+  position: relative;
+  overflow: hidden;
   display: grid;
   place-items: center;
   border: 3px solid rgba(75, 232, 255, 0.75);
@@ -1614,6 +1616,15 @@ html.reveal-ready .reveal.is-visible {
     radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.18), transparent 32%),
     linear-gradient(135deg, rgba(12, 24, 49, 0.96), rgba(38, 64, 117, 0.92));
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.avatar-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
 }
 
 .avatar-xl { width: 150px; height: 150px; font-size: 2rem; }
