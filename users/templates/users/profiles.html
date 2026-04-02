@@ -158,101 +158,23 @@
     </div>
 
     <div class="developers-grid">
+      {% for developer in developers %}
       <article class="dev-card reveal interactive-card">
         <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-cyan">NK</div>
+          <div class="avatar avatar-lg avatar-cyan">{{ developer.name|slice:":1" }}{{ developer.name|slice:"1:2" }}</div>
           <div class="dev-copy">
-            <h3>Nina K.</h3>
-            <p>Frontend Architect</p>
+            <h3>{{ developer.name }}</h3>
+            <p>{{ developer.short_intro }}</p>
           </div>
         </div>
-        <span>Builds motion-rich product interfaces and documents how design systems stay scalable across teams.</span>
+        <span>{{ developer.bio }}</span>
         <div class="dev-tech">
           <span>React</span>
           <span>TypeScript</span>
           <span>Motion</span>
         </div>
       </article>
-
-      <article class="dev-card reveal interactive-card">
-        <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-violet">MR</div>
-          <div class="dev-copy">
-            <h3>Marco R.</h3>
-            <p>AI Engineer</p>
-          </div>
-        </div>
-        <span>Publishes practical machine learning tools with clear notes on data flow, model choices, and product impact.</span>
-        <div class="dev-tech">
-          <span>Python</span>
-          <span>FastAPI</span>
-          <span>LLMs</span>
-        </div>
-      </article>
-
-      <article class="dev-card reveal interactive-card">
-        <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-green">SJ</div>
-          <div class="dev-copy">
-            <h3>Sara J.</h3>
-            <p>Platform Lead</p>
-          </div>
-        </div>
-        <span>Breaks down backend architecture, deployment strategy, and reliability decisions in a way other engineers can learn from.</span>
-        <div class="dev-tech">
-          <span>Go</span>
-          <span>Kubernetes</span>
-          <span>gRPC</span>
-        </div>
-      </article>
-
-      <article class="dev-card reveal interactive-card">
-        <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-cyan">AL</div>
-          <div class="dev-copy">
-            <h3>Amir L.</h3>
-            <p>Full Stack Engineer</p>
-          </div>
-        </div>
-        <span>Designs polished product flows end-to-end and shares practical breakdowns of architecture, APIs, and deployment decisions.</span>
-        <div class="dev-tech">
-          <span>Django</span>
-          <span>JavaScript</span>
-          <span>PostgreSQL</span>
-        </div>
-      </article>
-
-      <article class="dev-card reveal interactive-card">
-        <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-violet">TR</div>
-          <div class="dev-copy">
-            <h3>Talia R.</h3>
-            <p>Product Engineer</p>
-          </div>
-        </div>
-        <span>Turns complex ideas into clean shipping products and explains tradeoffs clearly so other developers can learn from each release.</span>
-        <div class="dev-tech">
-          <span>Next.js</span>
-          <span>Supabase</span>
-          <span>UX</span>
-        </div>
-      </article>
-
-      <article class="dev-card reveal interactive-card">
-        <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-green">KM</div>
-          <div class="dev-copy">
-            <h3>Khaled M.</h3>
-            <p>Backend Engineer</p>
-          </div>
-        </div>
-        <span>Builds reliable APIs, async systems, and automation pipelines with a strong focus on maintainability and developer experience.</span>
-        <div class="dev-tech">
-          <span>Python</span>
-          <span>Docker</span>
-          <span>REST</span>
-        </div>
-      </article>
+      {% endfor %}
     </div>
 
     <nav class="developer-pagination reveal" aria-label="Developers pagination">

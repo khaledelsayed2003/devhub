@@ -52,7 +52,13 @@
         </div>
 
         <div class="project-detail-copy">
-          <p class="project-detail-owner">Built on DevHub</p>
+          
+          {% if project.owner.name %}
+          <p class="project-detail-owner">By {{ project.owner.name }}</p>
+          {% else %}
+          <p class="project-detail-owner">By DevHub developer</p>
+          {% endif %}
+          
           <h1>{{ project.title }}</h1>
           <p class="project-detail-summary">
             {% if project.description %}

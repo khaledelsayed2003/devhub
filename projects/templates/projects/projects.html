@@ -45,7 +45,7 @@
                   <h2>{{ featured_project.title }}</h2>
                   <p class="projects-pendulum-rating">{{ featured_project.vote_ratio }}% rating</p>
                   <p class="projects-pendulum-meta">{{ featured_project.vote_total }} vote{{ featured_project.vote_total|pluralize }}</p>
-                  <p class="projects-pendulum-category">Made by DevHub developer</p>
+                  <p class="projects-pendulum-category">Made by <b>{{ featured_project.owner.name }}</b></p>
                   <a class="ghost-button projects-spotlight-cta" href="{% url 'project' featured_project.id %}">Preview</a>
                 </div>
               </div>
@@ -102,7 +102,11 @@
           <div class="project-tile-body">
             <h2><a href="{% url 'project' project.id %}">{{ project.title }}</a></h2>
 
-            <p class="project-tile-byline">By DevHub Developer</p>
+            {% if project.owner.name %}
+            <p class="project-tile-byline">By {{ project.owner.name }}</p>
+            {% else %}
+            <p class="project-tile-byline">By DevHub developer</p>
+            {% endif %}
 
             <p class="project-tile-feedback">{{ project.vote_ratio }}% Positive Feedback <span>({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</span></p>
 
