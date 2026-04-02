@@ -1297,6 +1297,20 @@ body.light-theme .project-detail-feedback textarea {
 
 .project-upload-trigger {
   cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.project-upload-trigger:hover,
+.project-upload-trigger:focus-visible {
+  border-color: rgba(75, 232, 255, 0.42);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(75, 232, 255, 0.14);
+}
+
+.project-upload-trigger:active {
+  transform: translateY(1px) scale(0.985);
+  border-color: rgba(75, 232, 255, 0.62);
+  background: rgba(75, 232, 255, 0.12);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(75, 232, 255, 0.2);
 }
 
 .project-form-preview-shell {
@@ -1381,11 +1395,22 @@ body.light-theme .project-detail-feedback textarea {
 }
 
 .project-tag-option:has(input:checked) {
-  border-color: rgba(75, 232, 255, 0.52);
+  border-color: rgba(75, 232, 255, 0.92);
   background:
-    linear-gradient(135deg, rgba(75, 232, 255, 0.18), rgba(164, 95, 255, 0.16)),
-    rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 0 1px rgba(75, 232, 255, 0.18), 0 16px 30px rgba(0, 0, 0, 0.14);
+    linear-gradient(135deg, rgba(75, 232, 255, 0.24), rgba(164, 95, 255, 0.18)),
+    rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 2px rgba(75, 232, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 16px 30px rgba(0, 0, 0, 0.16);
+}
+
+.project-tag-option:has(input:checked):hover {
+  border-color: #8cf3ff;
+  box-shadow:
+    0 0 0 2px rgba(75, 232, 255, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 18px 34px rgba(0, 0, 0, 0.18);
 }
 
 .project-form-error,
@@ -1417,6 +1442,31 @@ body.light-theme .project-detail-feedback textarea {
 .project-form-actions .primary-button,
 .project-form-actions .ghost-button {
   min-width: 190px;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, filter 180ms ease, background 180ms ease;
+}
+
+.project-form-actions .primary-button:hover,
+.project-form-actions .ghost-button:hover,
+.project-form-actions .primary-button:focus-visible,
+.project-form-actions .ghost-button:focus-visible {
+  transform: translateY(-1px) scale(1.012);
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.18);
+}
+
+.project-form-actions .primary-button:active,
+.project-form-actions .ghost-button:active {
+  transform: translateY(3px) scale(0.958);
+}
+
+.project-form-actions .primary-button:active {
+  filter: saturate(1.08) brightness(0.96);
+  box-shadow: inset 0 3px 12px rgba(22, 30, 62, 0.22), 0 10px 18px rgba(106, 143, 255, 0.18);
+}
+
+.project-form-actions .ghost-button:active {
+  border-color: rgba(75, 232, 255, 0.58);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.18), 0 10px 18px rgba(0, 0, 0, 0.12);
 }
 
 body.light-theme .project-form-intro,
@@ -1430,6 +1480,55 @@ body.light-theme .project-form-textarea,
 body.light-theme .project-tag-picker label,
 body.light-theme .project-form-preview-art {
   border-color: var(--line-strong);
+}
+
+body.light-theme .project-upload-trigger:hover,
+body.light-theme .project-upload-trigger:focus-visible {
+  border-color: rgba(45, 100, 236, 0.4);
+  box-shadow: 0 14px 28px rgba(61, 91, 151, 0.12), 0 0 0 1px rgba(45, 100, 236, 0.12);
+}
+
+body.light-theme .project-upload-trigger:active {
+  border-color: rgba(45, 100, 236, 0.58);
+  background: rgba(45, 100, 236, 0.08);
+  box-shadow: inset 0 2px 10px rgba(61, 91, 151, 0.12), 0 0 0 1px rgba(45, 100, 236, 0.16);
+}
+
+body.light-theme .project-tag-option:has(input:checked) {
+  border-color: rgba(45, 100, 236, 0.72);
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.14), rgba(133, 69, 255, 0.1)),
+    rgba(255, 255, 255, 0.82);
+  box-shadow:
+    0 0 0 2px rgba(45, 100, 236, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 14px 26px rgba(61, 91, 151, 0.12);
+}
+
+body.light-theme .project-tag-option:has(input:checked):hover {
+  border-color: rgba(45, 100, 236, 0.82);
+  box-shadow:
+    0 0 0 2px rgba(45, 100, 236, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 16px 30px rgba(61, 91, 151, 0.14);
+}
+
+body.light-theme .project-form-actions .primary-button:hover,
+body.light-theme .project-form-actions .ghost-button:hover,
+body.light-theme .project-form-actions .primary-button:focus-visible,
+body.light-theme .project-form-actions .ghost-button:focus-visible {
+  transform: translateY(-1px) scale(1.012);
+  box-shadow: 0 18px 30px rgba(61, 91, 151, 0.14);
+}
+
+body.light-theme .project-form-actions .primary-button:active {
+  box-shadow: inset 0 3px 12px rgba(61, 91, 151, 0.14), 0 10px 18px rgba(61, 91, 151, 0.14);
+}
+
+body.light-theme .project-form-actions .ghost-button:active {
+  border-color: rgba(45, 100, 236, 0.5);
+  background: rgba(45, 100, 236, 0.08);
+  box-shadow: inset 0 2px 10px rgba(61, 91, 151, 0.12), 0 10px 18px rgba(61, 91, 151, 0.1);
 }
 
 @media (max-width: 1100px) {
