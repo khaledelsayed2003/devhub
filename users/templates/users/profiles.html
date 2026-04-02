@@ -171,9 +171,9 @@
         </div>
         <span>{{ developer.bio }}</span>
         <div class="dev-tech">
-          <span>React</span>
-          <span>TypeScript</span>
-          <span>Motion</span>
+          {% for skill in developer.skill_set.all %}
+          <span>{{ skill }}</span>
+          {% endfor %}
         </div>
       </article>
       {% endfor %}

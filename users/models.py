@@ -33,4 +33,4 @@ class Skill(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return str(self.user.name)
+        return str(self.name)
