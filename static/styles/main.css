@@ -733,6 +733,72 @@ body.light-theme .section-label {
   border-color: var(--line-strong);
 }
 
+body.light-theme .console-top {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(238, 245, 255, 0.82));
+}
+
+body.light-theme .console-title {
+  color: #61718d;
+}
+
+body.light-theme .console-screen {
+  background:
+    linear-gradient(180deg, rgba(252, 253, 255, 0.96), rgba(231, 240, 255, 0.94)),
+    radial-gradient(circle at 20% 15%, rgba(45, 100, 236, 0.12), transparent 20%),
+    radial-gradient(circle at 80% 18%, rgba(133, 69, 255, 0.12), transparent 22%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 34px 90px rgba(61, 91, 151, 0.16);
+}
+
+body.light-theme .screen-grid {
+  background-image:
+    linear-gradient(rgba(18, 32, 58, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 32, 58, 0.05) 1px, transparent 1px);
+  opacity: 0.4;
+}
+
+body.light-theme .screen-panel,
+body.light-theme .metric-card {
+  border-color: rgba(45, 100, 236, 0.14);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 18px 40px rgba(61, 91, 151, 0.08);
+}
+
+body.light-theme .metric-card::after {
+  background: radial-gradient(circle, rgba(45, 100, 236, 0.12), transparent 70%);
+}
+
+body.light-theme .beam-stack span {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(45, 100, 236, 0.26));
+}
+
+body.light-theme .beam-stack span:nth-child(2) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(106, 143, 255, 0.28));
+}
+
+body.light-theme .beam-stack span:nth-child(3) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(133, 69, 255, 0.24));
+}
+
+body.light-theme .beam-stack span:nth-child(4) {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(93, 231, 180, 0.22));
+}
+
+body.light-theme .console-base {
+  background: linear-gradient(180deg, rgba(214, 228, 255, 0.94), rgba(170, 192, 235, 0.92));
+}
+
+body.light-theme .base-lights {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.92), transparent);
+}
+
+body.light-theme .base-shadow {
+  background: radial-gradient(circle, rgba(45, 100, 236, 0.14), rgba(233, 241, 255, 0) 66%);
+}
+
 .console {
   left: 13%;
   right: 9%;
