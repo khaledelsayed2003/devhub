@@ -161,11 +161,13 @@
       {% for developer in developers %}
       <article class="dev-card reveal interactive-card">
         <div class="dev-card-top">
-          <div class="avatar avatar-lg avatar-cyan">
-            <img class="avatar-image" src="{{ developer.profile_image.url }}" alt="{{ developer.name }}">
-          </div>
+          <a class="dev-card-avatar-link" href="{% url 'user-profile' developer.id %}" aria-label="Open {{ developer.name }} profile">
+            <div class="avatar avatar-lg avatar-cyan">
+              <img class="avatar-image" src="{{ developer.profile_image.url }}" alt="{{ developer.name }}">
+            </div>
+          </a>
           <div class="dev-copy">
-            <h3>{{ developer.name }}</h3>
+            <h3><a class="dev-card-name-link" href="{% url 'user-profile' developer.id %}">{{ developer.name }}</a></h3>
             <p>{{ developer.short_intro }}</p>
           </div>
         </div>
@@ -175,6 +177,7 @@
           <span>{{ skill }}</span>
           {% endfor %}
         </div>
+        <a class="ghost-button dev-card-link" href="{% url 'user-profile' developer.id %}">View Profile</a>
       </article>
       {% endfor %}
     </div>

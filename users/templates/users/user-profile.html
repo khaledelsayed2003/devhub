@@ -1,1 +1,139 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
+{% block title %}DevHub | {{ profile.name|default:profile.username }}{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="user-profile-page section">
+    <a href="{% url 'profiles' %}#developers" class="ghost-button user-profile-back-link">Back to developers</a>
+
+    <div class="user-profile-shell">
+      <aside class="user-profile-sidebar">
+        <article class="user-profile-card reveal interactive-card">
+          <div class="user-profile-card-top">
+            <div class="avatar avatar-xl avatar-cyan">
+              <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username }}">
+            </div>
+
+            <div class="user-profile-card-copy">
+              <span class="section-label">Developer Profile</span>
+              <h1>{{ profile.name|default:profile.username }}</h1>
+              <p>{{ profile.short_intro|default:"A DevHub creator sharing real projects, practical skills, and the thinking behind the work." }}</p>
+            </div>
+          </div>
+
+          <div class="user-profile-meta">
+            <div class="user-profile-meta-item">
+              <span>Location</span>
+              <strong>{{ profile.location|default:"Remote" }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Skills</span>
+              <strong>{{ profile.skill_set.count }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Projects</span>
+              <strong>{{ projects|length }}</strong>
+            </div>
+          </div>
+
+          <div class="user-profile-socials">
+            {% if profile.social_github %}
+              <a href="{{ profile.social_github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+            {% endif %}
+            {% if profile.social_linkedin %}
+              <a href="{{ profile.social_linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+            {% endif %}
+            {% if profile.social_youtube %}
+              <a href="{{ profile.social_youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YouTube</a>
+            {% endif %}
+            {% if profile.social_website %}
+              <a href="{{ profile.social_website }}" target="_blank" rel="noopener noreferrer" aria-label="Website">Website</a>
+            {% endif %}
+            {% if profile.social_insta %}
+              <a href="{{ profile.social_insta }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+            {% endif %}
+          </div>
+
+          {% if profile.email %}
+            <a class="primary-button large-button user-profile-contact" href="mailto:{{ profile.email }}">Send Message</a>
+          {% else %}
+            <a class="ghost-button large-button user-profile-contact" href="{% url 'projects' %}">Explore Projects</a>
+          {% endif %}
+        </article>
+      </aside>
+
+      <div class="user-profile-main">
+        <header class="user-profile-hero reveal">
+          <span class="section-label">About Me</span>
+          <h2>What {{ profile.name|default:profile.username }} builds and why it matters</h2>
+          <p>
+            {{ profile.bio|default:"This developer uses DevHub to share practical projects, the technologies behind them, and the lessons that shaped the final build. The profile is designed to give visitors a quick understanding of strengths, interests, and shipped work." }}
+          </p>
+        </header>
+
+        <section class="user-profile-section reveal">
+          <span class="section-label">Skills</span>
+          <h2>Core skills with context</h2>
+
+          <div class="user-profile-skill-list">
+            {% for skill in topSkills %}
+              <article class="user-profile-skill-row">
+                <h3>{{ skill.name }}</h3>
+                <p>{{ skill.description }}</p>
+              </article>
+            {% empty %}
+              <p class="user-profile-empty">Detailed skills will appear here once this developer adds descriptions for the tools they use best.</p>
+            {% endfor %}
+          </div>
+        </section>
+
+        {% if otherSkills %}
+          <section class="user-profile-section reveal">
+            <span class="section-label">Other Skills</span>
+            <h2>More tools in the stack</h2>
+            <div class="user-profile-chip-cloud">
+              {% for skill in otherSkills %}
+                <span>{{ skill.name }}</span>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+        <section class="user-profile-section reveal">
+          <span class="section-label">Projects</span>
+          <h2>Projects published on DevHub</h2>
+
+          <div class="user-profile-projects">
+            {% for project in projects %}
+              <article class="user-profile-project-card interactive-card">
+                <a class="user-profile-project-media" href="{% url 'project' project.id %}">
+                  <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+                </a>
+
+                <div class="user-profile-project-body">
+                  <p class="user-profile-project-byline">By {{ profile.name|default:profile.username }}</p>
+                  <h3><a href="{% url 'project' project.id %}">{{ project.title }}</a></h3>
+                  <p class="user-profile-project-feedback">{{ project.vote_ratio }}% positive feedback <span>({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</span></p>
+
+                  <div class="user-profile-project-tags">
+                    {% for tag in project.tags.all|slice:":4" %}
+                      <span>{{ tag.name }}</span>
+                    {% empty %}
+                      <span>General</span>
+                    {% endfor %}
+                  </div>
+
+                  <a class="ghost-button user-profile-project-link" href="{% url 'project' project.id %}">Open Project</a>
+                </div>
+              </article>
+            {% empty %}
+              <p class="user-profile-empty">No projects have been published by this developer yet.</p>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
