@@ -1865,10 +1865,18 @@ html.reveal-ready .reveal.is-visible {
 
 .user-profile-socials {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;
-  gap: 12px;
-  margin-top: 2px;
+  gap: 10px;
+  margin-top: 8px;
+  overflow-x: auto;
+  padding-top: 6px;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.user-profile-socials::-webkit-scrollbar {
+  display: none;
 }
 
 .user-profile-socials a,
@@ -1886,6 +1894,57 @@ html.reveal-ready .reveal.is-visible {
     rgba(255, 255, 255, 0.04);
   font-weight: 700;
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.user-profile-socials a {
+  width: 58px;
+  padding: 0;
+}
+
+.user-profile-socials a svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.user-profile-social-github {
+  color: #f5f8ff;
+}
+
+.user-profile-social-linkedin {
+  color: #0a66c2;
+}
+
+.user-profile-social-youtube {
+  color: #ff3434;
+}
+
+.user-profile-social-website {
+  color: #4be8ff;
+}
+
+.user-profile-social-instagram {
+  color: #ff5dbf;
+}
+
+body.light-theme .user-profile-social-github {
+  color: #111827;
+}
+
+body.light-theme .user-profile-social-linkedin {
+  color: #0a66c2;
+}
+
+body.light-theme .user-profile-social-youtube {
+  color: #e11d48;
+}
+
+body.light-theme .user-profile-social-website {
+  color: #0ea5e9;
+}
+
+body.light-theme .user-profile-social-instagram {
+  color: #d946ef;
 }
 
 .user-profile-socials a:hover,
