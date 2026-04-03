@@ -10,14 +10,14 @@
 
     <div class="user-profile-shell">
       <aside class="user-profile-sidebar">
-        <article class="user-profile-card reveal interactive-card">
+        <article class="user-profile-card">
           <div class="user-profile-card-top">
+            <span class="section-label user-profile-card-label">Developer Profile</span>
             <div class="avatar avatar-xl avatar-cyan">
               <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username }}">
             </div>
 
             <div class="user-profile-card-copy">
-              <span class="section-label">Developer Profile</span>
               <h1>{{ profile.name|default:profile.username }}</h1>
               <p>{{ profile.short_intro|default:"A DevHub creator sharing real projects, practical skills, and the thinking behind the work." }}</p>
             </div>
@@ -27,6 +27,10 @@
             <div class="user-profile-meta-item">
               <span>Location</span>
               <strong>{{ profile.location|default:"Remote" }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Joined</span>
+              <strong>{{ profile.created|date:"M Y" }}</strong>
             </div>
             <div class="user-profile-meta-item">
               <span>Skills</span>
@@ -65,7 +69,7 @@
       </aside>
 
       <div class="user-profile-main">
-        <header class="user-profile-hero reveal">
+        <header class="user-profile-hero">
           <span class="section-label">About Me</span>
           <h2>What {{ profile.name|default:profile.username }} builds and why it matters</h2>
           <p>
@@ -73,7 +77,7 @@
           </p>
         </header>
 
-        <section class="user-profile-section reveal">
+        <section class="user-profile-section">
           <span class="section-label">Skills</span>
           <h2>Core skills with context</h2>
 
@@ -90,7 +94,7 @@
         </section>
 
         {% if otherSkills %}
-          <section class="user-profile-section reveal">
+          <section class="user-profile-section">
             <span class="section-label">Other Skills</span>
             <h2>More tools in the stack</h2>
             <div class="user-profile-chip-cloud">
@@ -101,13 +105,12 @@
           </section>
         {% endif %}
 
-        <section class="user-profile-section reveal">
+        <section class="user-profile-section">
           <span class="section-label">Projects</span>
-          <h2>Projects published on DevHub</h2>
 
           <div class="user-profile-projects">
             {% for project in projects %}
-              <article class="user-profile-project-card interactive-card">
+              <article class="user-profile-project-card">
                 <a class="user-profile-project-media" href="{% url 'project' project.id %}">
                   <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
                 </a>
