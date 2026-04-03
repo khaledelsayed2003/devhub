@@ -12,78 +12,309 @@
 
 {% block content %}
   <section class="project-detail-page section">
-    <a href="{% url 'projects' %}" class="detail-back-link">Back to Projects</a>
+    <a href="{% url 'projects' %}" class="detail-back-link">Back to all projects</a>
 
     <div class="project-detail-shell">
       <aside class="project-detail-sidebar">
-        <span class="projects-kicker">Tools & Stacks</span>
-
-        <div class="project-detail-tags">
-          {% for tag in project.tags.all %}
-            <span>{{ tag.name }}</span>
-          {% empty %}
-            <span>General</span>
-          {% endfor %}
+        <div class="project-detail-panel project-detail-panel-stack">
+          <span class="projects-kicker">Tools & Stacks</span>
+          <h2 class="project-detail-side-title">Built with the tools that power the idea.</h2>
+          <div class="project-detail-tags">
+            {% for tag in project.tags.all %}
+              <span>{{ tag.name }}</span>
+            {% empty %}
+              <span>General</span>
+            {% endfor %}
+          </div>
         </div>
 
-        {% if project.demo_link %}
-          <a class="detail-inline-link" href="{{ project.demo_link }}" target="_blank" rel="noopener noreferrer">Live Demo</a>
-        {% endif %}
-
-        {% if project.source_link %}
-          <a class="detail-inline-link" href="{{ project.source_link }}" target="_blank" rel="noopener noreferrer">Source Code</a>
-        {% endif %}
+        <div class="project-detail-panel project-detail-links">
+          <span class="projects-kicker">Project Links</span>
+          <div class="project-detail-link-list">
+            {% if project.demo_link %}
+              <a class="detail-inline-link detail-cta-link" href="{{ project.demo_link }}" target="_blank" rel="noopener noreferrer">Live Demo</a>
+            {% endif %}
+            {% if project.source_link %}
+              <a class="detail-inline-link detail-cta-link" href="{{ project.source_link }}" target="_blank" rel="noopener noreferrer">Source Code</a>
+            {% endif %}
+            {% if not project.demo_link and not project.source_link %}
+              <span class="project-detail-empty">Links will appear here when they are added.</span>
+            {% endif %}
+          </div>
+        </div>
 
         <div class="detail-feedback-card">
           <span class="projects-kicker">Feedback</span>
-          <strong>{{ project.vote_ratio }}% positive feedback</strong>
+          <strong>{{ project.vote_ratio }}% positive</strong>
           <span>{{ project.vote_total }} vote{{ project.vote_total|pluralize }}</span>
         </div>
       </aside>
 
       <div class="project-detail-main">
-        <div class="project-detail-hero">
-          <div class="project-detail-window">
-            <div class="window-dot dot-red"></div>
-            <div class="window-dot dot-yellow"></div>
-            <div class="window-dot dot-green"></div>
+        <header class="project-detail-header">
+          <div class="project-detail-copy">
+            {% if project.owner.name %}
+            <p class="project-detail-owner">Made by {{ project.owner.name }}</p>
+            {% else %}
+            <p class="project-detail-owner">Shared by the DevHub community</p>
+            {% endif %}
+
+            <h1>{{ project.title }}</h1>
+
+            <div class="project-detail-meta-strip">
+              <div class="project-meta-pill">
+                <span>Published</span>
+                <strong>{{ project.created|date:"M d, Y" }}</strong>
+              </div>
+              <div class="project-meta-pill">
+                <span>Location</span>
+                <strong>{% if project.owner.location %}{{ project.owner.location }}{% else %}Remote{% endif %}</strong>
+              </div>
+              <div class="project-meta-pill">
+                <span>Response</span>
+                <strong>{{ project.vote_ratio }}% positive</strong>
+              </div>
+            </div>
           </div>
-          <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+        </header>
+
+        <div class="project-detail-hero">
+          <div class="project-detail-art-frame">
+            <div class="project-detail-art-glow project-detail-art-glow-a"></div>
+            <div class="project-detail-art-glow project-detail-art-glow-b"></div>
+            <button
+              type="button"
+              class="project-detail-art-trigger"
+              id="projectImageOpenBtn"
+              aria-label="Open project image"
+            >
+              <img
+                src="{{ project.featured_image.url }}"
+                alt="{{ project.title }}"
+                id="projectDetailImage"
+              >
+            </button>
+          </div>
         </div>
 
-        <div class="project-detail-copy">
-          
-          {% if project.owner.name %}
-          <p class="project-detail-owner">By {{ project.owner.name }}</p>
-          {% else %}
-          <p class="project-detail-owner">By DevHub developer</p>
-          {% endif %}
-          
-          <h1>{{ project.title }}</h1>
-          <p class="project-detail-summary">
-            {% if project.description %}
-              {{ project.description|truncatechars:180 }}
-            {% else %}
-              A polished developer project with a clear story, visible stack, and practical engineering notes.
-            {% endif %}
-          </p>
+        <div class="project-detail-content">
+          <div class="project-detail-story">
+            <article class="project-detail-section project-detail-about">
+              <span class="project-detail-section-label">About The Project</span>
+              <h2>The build story behind {{ project.title }}</h2>
+              <p>
+                {{ project.description|default:"This project page showcases the full story behind the build, the engineering choices that shaped it, and the context that helps other developers understand the work." }}
+              </p>
+            </article>
+
+            <article class="project-detail-section project-detail-feedback">
+              <span class="project-detail-section-label">Feedback</span>
+              <h2>What other developers think</h2>
+              <p class="detail-feedback-summary">{{ project.vote_ratio }}% positive feedback ({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</p>
+              <textarea rows="6" placeholder="Write your comments here..." aria-label="Project feedback"></textarea>
+              <button type="button" class="primary-button detail-feedback-button">Leave Feedback</button>
+            </article>
+
+            <article class="project-detail-section project-detail-reviews">
+              <span class="project-detail-section-label">Community Notes</span>
+              <h2>Recent comments</h2>
+              <div class="project-detail-review-list">
+                {% for review in project.review_set.all %}
+                  {% if review.body %}
+                  <article class="project-detail-review {% if review.value == 'like' %}project-detail-review-positive{% else %}project-detail-review-negative{% endif %}">
+                    <div class="project-detail-review-mark" aria-hidden="true">
+                      {% if review.value == 'like' %}
+                        <span class="project-detail-review-icon">👍</span>
+                      {% else %}
+                        <span class="project-detail-review-icon">👎</span>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <h3>
+                        {% if review.value == 'like' %}
+                          <span class="project-detail-review-sentiment">Loved it</span>
+                        {% else %}
+                          <span class="project-detail-review-sentiment">Needs work</span>
+                        {% endif %}
+                      </h3>
+                      <p>{{ review.body }}</p>
+                    </div>
+                  </article>
+                  {% endif %}
+                {% empty %}
+                  <p class="project-detail-empty">No written comments yet. Be the first one to leave thoughtful feedback.</p>
+                {% endfor %}
+              </div>
+            </article>
+          </div>
+
+          <aside class="project-detail-sideflow">
+            <article class="project-detail-section project-detail-owner-card">
+              <span class="project-detail-section-label">Creator</span>
+              <div class="project-detail-creator">
+                {% if project.owner %}
+                  <div class="avatar avatar-md avatar-cyan">
+                    <img class="avatar-image" src="{{ project.owner.profile_image.url }}" alt="{{ project.owner.name|default:project.title }}">
+                  </div>
+                {% else %}
+                  <div class="avatar avatar-md avatar-cyan">DH</div>
+                {% endif %}
+                <div>
+                  <h3>{% if project.owner.name %}{{ project.owner.name }}{% else %}DevHub community creator{% endif %}</h3>
+                  <p>{% if project.owner.short_intro %}{{ project.owner.short_intro }}{% else %}This project was published on DevHub and is here to show the build, the stack, and the thinking behind it.{% endif %}</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="project-detail-section project-detail-actions">
+              <span class="project-detail-section-label">Quick Actions</span>
+              <h2>Open or share this build</h2>
+              <div class="project-detail-action-list">
+                {% if project.demo_link %}
+                  <a class="detail-inline-link detail-action-button" href="{{ project.demo_link }}" target="_blank" rel="noopener noreferrer">Live Demo</a>
+                {% endif %}
+                {% if project.source_link %}
+                  <a class="detail-inline-link detail-action-button" href="{{ project.source_link }}" target="_blank" rel="noopener noreferrer">Source Code</a>
+                {% endif %}
+                <button type="button" class="detail-inline-link detail-action-button" id="shareProjectBtn">Share Project</button>
+                <button type="button" class="detail-inline-link detail-action-button" id="copyProjectLinkBtn">Copy Link</button>
+              </div>
+              <p class="project-detail-action-note" id="projectActionStatus" aria-live="polite"></p>
+            </article>
+          </aside>
         </div>
       </div>
     </div>
-
-    <div class="project-detail-content">
-      <article class="project-detail-section">
-        <h2>About The Project</h2>
-        <p>
-          {{ project.description|default:"This project page will showcase the full story behind the build, the engineering choices that shaped it, and the context that helps other developers understand the work." }}
-        </p>
-      </article>
-
-      <article class="project-detail-section project-detail-feedback">
-        <h2>Feedback</h2>
-        <p class="detail-feedback-summary">{{ project.vote_ratio }}% positive feedback ({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</p>
-        <textarea rows="6" placeholder="Write your comments here..." aria-label="Project feedback"></textarea>
-      </article>
-    </div>
   </section>
+
+  <div class="project-image-modal" id="projectImageModal" aria-hidden="true">
+    <div class="project-image-modal-backdrop" data-image-close></div>
+    <div class="project-image-modal-dialog" role="dialog" aria-modal="true" aria-label="Expanded project image">
+      <div class="project-image-modal-stage">
+        <div class="project-image-modal-toolbar">
+          <button type="button" class="project-image-modal-button" id="projectImageShotBtn">Save image</button>
+          <button type="button" class="project-image-modal-button project-image-modal-button-close" id="projectImageCloseBtn">Close</button>
+        </div>
+        <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" id="projectModalImage">
+      </div>
+    </div>
+  </div>
 {% endblock content %}
+
+{% block extra_js %}
+  <script>
+    const shareProjectBtn = document.getElementById("shareProjectBtn");
+    const copyProjectLinkBtn = document.getElementById("copyProjectLinkBtn");
+    const projectActionStatus = document.getElementById("projectActionStatus");
+    const projectImageModal = document.getElementById("projectImageModal");
+    const projectImageOpenBtn = document.getElementById("projectImageOpenBtn");
+    const projectImageCloseBtn = document.getElementById("projectImageCloseBtn");
+    const projectImageShotBtn = document.getElementById("projectImageShotBtn");
+    const projectModalImage = document.getElementById("projectModalImage");
+
+    function setProjectActionStatus(message) {
+      if (!projectActionStatus) {
+        return;
+      }
+
+      projectActionStatus.textContent = message;
+    }
+
+    if (shareProjectBtn) {
+      shareProjectBtn.addEventListener("click", async () => {
+        const shareData = {
+          title: document.title,
+          text: "Check out this project on DevHub.",
+          url: window.location.href
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+            setProjectActionStatus("Project shared.");
+          } catch (error) {
+            if (error && error.name !== "AbortError") {
+              setProjectActionStatus("Sharing was cancelled or unavailable.");
+            }
+          }
+          return;
+        }
+
+        setProjectActionStatus("Sharing is not supported here. Try Copy Link instead.");
+      });
+    }
+
+    if (copyProjectLinkBtn) {
+      copyProjectLinkBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          setProjectActionStatus("Project link copied.");
+        } catch (error) {
+          setProjectActionStatus("Could not copy the link.");
+        }
+      });
+    }
+
+    function openProjectImageModal() {
+      if (!projectImageModal) {
+        return;
+      }
+
+      projectImageModal.classList.add("is-open");
+      projectImageModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("project-image-modal-open");
+    }
+
+    function closeProjectImageModal() {
+      if (!projectImageModal) {
+        return;
+      }
+
+      projectImageModal.classList.remove("is-open");
+      projectImageModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("project-image-modal-open");
+    }
+
+    if (projectImageOpenBtn) {
+      projectImageOpenBtn.addEventListener("click", openProjectImageModal);
+    }
+
+    if (projectImageCloseBtn) {
+      projectImageCloseBtn.addEventListener("click", closeProjectImageModal);
+    }
+
+    if (projectImageModal) {
+      projectImageModal.addEventListener("click", (event) => {
+        if (event.target.hasAttribute("data-image-close")) {
+          closeProjectImageModal();
+        }
+      });
+    }
+
+    if (projectImageShotBtn && projectModalImage) {
+      projectImageShotBtn.addEventListener("click", () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = projectModalImage.naturalWidth;
+          canvas.height = projectModalImage.naturalHeight;
+
+          const context = canvas.getContext("2d");
+          context.drawImage(projectModalImage, 0, 0);
+
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = "{{ project.title|slugify }}-screenshot.png";
+          link.click();
+        } catch (error) {
+          setProjectActionStatus("Could not save the image screenshot.");
+        }
+      });
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && projectImageModal && projectImageModal.classList.contains("is-open")) {
+        closeProjectImageModal();
+      }
+    });
+  </script>
+{% endblock extra_js %}
