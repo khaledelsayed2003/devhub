@@ -2255,11 +2255,78 @@ body.light-theme .site-footer__bottom p {
   gap: 12px;
 }
 
+.site-footer__socials-compact {
+  position: relative;
+  display: block;
+  width: 108px;
+  min-height: 126px;
+  justify-self: start;
+  margin-top: -10px;
+}
+
 .site-footer__links a {
   width: fit-content;
   color: var(--muted);
   font-weight: 600;
   transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.08), rgba(164, 95, 255, 0.08)),
+    rgba(255, 255, 255, 0.04);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill:nth-child(1) {
+  top: 0;
+  left: 31px;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill:nth-child(2) {
+  top: 44px;
+  left: 0;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill:nth-child(3) {
+  top: 44px;
+  left: 62px;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill:nth-child(4) {
+  top: 88px;
+  left: 31px;
+}
+
+.site-footer__socials-compact a.site-footer__social-pill svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.site-footer__social-pill-github {
+  color: #f5f8ff;
+}
+
+.site-footer__social-pill-linkedin {
+  color: #0a66c2;
+}
+
+.site-footer__social-pill-contact {
+  color: #4be8ff;
+}
+
+.site-footer__social-pill-whatsapp {
+  color: #25d366;
 }
 
 .site-footer__links a:hover,
@@ -2269,10 +2336,30 @@ body.light-theme .site-footer__bottom p {
   text-shadow: 0 0 18px rgba(75, 232, 255, 0.18);
 }
 
+.site-footer__socials-compact a.site-footer__social-pill:hover,
+.site-footer__socials-compact a.site-footer__social-pill:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(75, 232, 255, 0.42);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.14);
+  text-shadow: none;
+}
+
 body.light-theme .site-footer__links a:hover,
 body.light-theme .site-footer__links a:focus-visible {
   color: #12203a;
   text-shadow: 0 0 14px rgba(45, 100, 236, 0.12);
+}
+
+body.light-theme .site-footer__socials-compact a.site-footer__social-pill {
+  border-color: rgba(74, 102, 173, 0.16);
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.08), rgba(133, 69, 255, 0.06)),
+    rgba(255, 255, 255, 0.8);
+}
+
+body.light-theme .site-footer__socials-compact a.site-footer__social-pill:hover,
+body.light-theme .site-footer__socials-compact a.site-footer__social-pill:focus-visible {
+  box-shadow: 0 14px 22px rgba(61, 91, 151, 0.12);
 }
 
 .site-footer__bottom {
