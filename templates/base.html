@@ -50,7 +50,16 @@
       </div>
     </div>
   </header>
-
+  {% if messages %}
+    <div class="messages-container">
+      {% for message in messages %}
+        <div class="alert {{ message.tags }}">
+          <span>{{ message }}</span>
+          <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
   {% block page %}
   <main>
     {% block content %}{% endblock content %}
