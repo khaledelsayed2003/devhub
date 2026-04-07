@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Profile
@@ -8,7 +8,7 @@ from django.contrib import messages
 
 # Create your views here.
 
-def loginPage(request):
+def loginUser(request):
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
@@ -23,6 +23,10 @@ def loginPage(request):
             messages.error(request, "Invalid username or password")
 
     return render(request, 'users/login.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
 
 def profiles(request):
     users = Profile.objects.all()

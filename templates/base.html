@@ -47,7 +47,7 @@
           </span>
         </button>
         {% if request.user.is_authenticated %}
-          <button type="button" class="ghost-button topbar-auth-button">Logout</button>
+          <a class="ghost-button topbar-auth-button" href="{% url 'logout' %}">Logout</a>
         {% else %}
           <a class="ghost-button" href="{% url 'login' %}">Login</a>
           <a class="primary-button" href="#">Sign Up</a>

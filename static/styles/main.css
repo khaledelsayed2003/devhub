@@ -250,6 +250,10 @@ body.light-theme .topbar {
 }
 
 .topbar-auth-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
   cursor: pointer;
 }
 
