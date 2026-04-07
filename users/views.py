@@ -1,9 +1,28 @@
+from django.contrib.auth import authenticate, login
 from django.db.models import Prefetch, Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Profile
 from projects.models import Project
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 # Create your views here.
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', '').strip()
+        password = request.POST.get('password', '')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"Logged in successfully. Welcome back {user.username}")
+            return redirect('profiles')
+        else:
+            messages.error(request, "Invalid username or password")
+
+    return render(request, 'users/login.html')
 
 def profiles(request):
     users = Profile.objects.all()
