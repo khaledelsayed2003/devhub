@@ -36,7 +36,9 @@
         <a href="{% url 'profiles' %}#developers">Developers</a>
         <a href="{% url 'projects' %}">Projects</a>
         <a href="{% url 'profiles' %}#developers">Inbox</a>
+        {% if request.user.is_authenticated %}
         <a href="{% url 'create-project' %}">Add Project</a>
+        {% endif %}
       </nav>
 
       <div class="topbar-actions">
@@ -81,7 +83,9 @@
       <div class="site-footer__links">
         <a href="{% url 'profiles' %}#developers">Developers</a>
         <a href="{% url 'projects' %}">Projects</a>
+        {% if request.user.is_authenticated %}
         <a href="{% url 'create-project' %}">Add Project</a>
+        {% endif %}
       </div>
 
       <div class="site-footer__links site-footer__socials-compact">
