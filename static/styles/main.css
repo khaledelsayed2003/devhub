@@ -249,6 +249,10 @@ body.light-theme .topbar {
   gap: 12px;
 }
 
+.topbar-auth-button {
+  cursor: pointer;
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
