@@ -9,6 +9,10 @@ from django.contrib import messages
 # Create your views here.
 
 def loginUser(request):
+    
+    if request.user.is_authenticated:
+        return redirect('profiles')
+    
     if request.method == 'POST':
         username = request.POST.get('username', '').strip()
         password = request.POST.get('password', '')
