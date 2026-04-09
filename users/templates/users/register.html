@@ -1,1 +1,143 @@
-<h1>Register Page!</h1>
+{% extends 'base.html' %}
+
+{% block title %}DevHub | Sign Up{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="auth-page section">
+    <div class="auth-shell">
+      <div class="auth-panel auth-panel-copy">
+        <span class="auth-hero-label" aria-label="Join DevHub">
+          <span>J</span><span>o</span><span>i</span><span>n</span>
+          <span>D</span><span>e</span><span>v</span><span>H</span><span>u</span><span>b</span>
+        </span>
+        <h1 class="auth-hero-title">
+          <span style="--word-ch: 5">Build</span>
+          <span style="--word-ch: 4">your</span>
+          <span style="--word-ch: 7">profile.</span>
+          <span style="--word-ch: 5">Share</span>
+          <span style="--word-ch: 4">your</span>
+          <span style="--word-ch: 5">proof.</span>
+        </h1>
+        <p class="auth-lead auth-lead-typed" aria-label="Create your account to publish projects, shape your developer identity, and grow a portfolio that feels real.">
+          <span style="--word-ch: 6">Create</span>
+          <span style="--word-ch: 4">your</span>
+          <span style="--word-ch: 7">account</span>
+          <span style="--word-ch: 2">to</span>
+          <span style="--word-ch: 7">publish</span>
+          <span style="--word-ch: 9">projects,</span>
+          <span style="--word-ch: 5">shape</span>
+          <span style="--word-ch: 4">your</span>
+          <span style="--word-ch: 9">developer</span>
+          <span style="--word-ch: 9">identity,</span>
+          <span style="--word-ch: 3">and</span>
+          <span style="--word-ch: 4">grow</span>
+          <span style="--word-ch: 1">a</span>
+          <span style="--word-ch: 9">portfolio</span>
+          <span style="--word-ch: 4">that</span>
+          <span style="--word-ch: 5">feels</span>
+          <span style="--word-ch: 5">real.</span>
+        </p>
+
+        <div class="auth-bio-card">
+          <div class="auth-bio-avatar" aria-hidden="true">
+            <span class="brand-mark auth-bio-logo">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div class="auth-bio-copy">
+            <span class="auth-bio-label">Proof of Work</span>
+            <p>Start a profile that shows your stack, your thinking, and the projects that make your developer story feel complete.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="auth-panel auth-panel-form">
+        <div class="auth-form-top">
+          <span class="auth-login-badge">Sign Up</span>
+          <p>Create your DevHub account and start building your presence.</p>
+        </div>
+
+        {% if form.errors %}
+          <div class="auth-message-list" aria-live="polite">
+            {% for field in form %}
+              {% for error in field.errors %}
+                <p class="auth-message auth-message-error">{{ error }}</p>
+              {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+              <p class="auth-message auth-message-error">{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <form method="POST" class="auth-form">
+          {% csrf_token %}
+
+          <label class="auth-field">
+            <span class="auth-label">Username</span>
+            <input
+              type="text"
+              name="username"
+              class="auth-input"
+              placeholder="Choose a username"
+              value="{{ form.username.value|default:'' }}"
+              required
+              autocomplete="username"
+            >
+          </label>
+
+          <label class="auth-field">
+            <span class="auth-label">Password</span>
+            <input
+              type="password"
+              name="password1"
+              class="auth-input"
+              placeholder="Create a password"
+              required
+              autocomplete="new-password"
+            >
+          </label>
+
+          <label class="auth-field">
+            <span class="auth-label">Confirm Password</span>
+            <input
+              type="password"
+              name="password2"
+              class="auth-input"
+              placeholder="Confirm your password"
+              required
+              autocomplete="new-password"
+            >
+          </label>
+
+          <div class="auth-form-actions">
+            <button type="submit" class="primary-button large-button auth-submit">Create Account</button>
+          </div>
+        </form>
+
+        <p class="auth-signup-line">
+          Already have an account?
+          <a href="{% url 'login' %}">Login</a>
+        </p>
+
+        <div class="auth-support">
+          <div class="auth-support-card">
+            <span class="auth-support-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2 4 5v6c0 5.25 3.4 10.16 8 11 4.6-.84 8-5.75 8-11V5l-8-3Zm0 2.18 6 2.25V11c0 4.16-2.57 8.12-6 8.97C8.57 19.12 6 15.16 6 11V6.43l6-2.25Zm1 3.82h-2v3H8v2h3v3h2v-3h3v-2h-3V8Z"/>
+              </svg>
+            </span>
+            <div>
+              <strong>Start strong</strong>
+              <p>Your account gives you a home for your profile, your shipped work, and the developer identity you want people to remember.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

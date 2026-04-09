@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Profile
@@ -29,7 +30,18 @@ def loginUser(request):
     return render(request, 'users/login.html')
 
 def registerUser(request):
-    return render(request, 'users/register.html')
+    form = UserCreationForm()
+    
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            messages.success(request, "Account has been created successfully!")
+            return redirect('profiles')
+            
+    return render(request, 'users/register.html', {'form': form})
 
 def logoutUser(request):
     logout(request)

@@ -2821,6 +2821,7 @@ body.light-theme .site-footer__bottom {
 .auth-lead-typed span:nth-child(14) { animation-delay: 4.08s; }
 .auth-lead-typed span:nth-child(15) { animation-delay: 4.28s; }
 .auth-lead-typed span:nth-child(16) { animation-delay: 4.44s; }
+.auth-lead-typed span:nth-child(17) { animation-delay: 4.62s; }
 
 .auth-bio-card {
   display: grid;
