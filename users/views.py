@@ -28,6 +28,9 @@ def loginUser(request):
 
     return render(request, 'users/login.html')
 
+def registerUser(request):
+    return render(request, 'users/register.html')
+
 def logoutUser(request):
     logout(request)
     messages.success(request, "Logged out successfully")
