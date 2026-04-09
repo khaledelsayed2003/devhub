@@ -52,7 +52,7 @@
           <a class="ghost-button topbar-auth-button" href="{% url 'logout' %}">Logout</a>
         {% else %}
           <a class="ghost-button" href="{% url 'login' %}">Login</a>
-          <a class="primary-button" href="#">Sign Up</a>
+          <a class="primary-button" href="{% url 'register' %}">Sign Up</a>
         {% endif %}
       </div>
     </div>
