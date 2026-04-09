@@ -3006,6 +3006,66 @@ body.light-theme .site-footer__bottom {
   transform: translateY(-1px);
 }
 
+.auth-password-wrap {
+  position: relative;
+  display: block;
+}
+
+.auth-password-wrap .auth-input {
+  padding-right: 54px;
+}
+
+.auth-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid rgba(151, 185, 255, 0.16);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.08), rgba(164, 95, 255, 0.08)),
+    rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.auth-password-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.auth-password-toggle .auth-eye-closed {
+  display: none;
+}
+
+.auth-password-toggle.is-visible {
+  color: var(--cyan);
+  border-color: rgba(75, 232, 255, 0.38);
+  box-shadow: 0 0 18px rgba(75, 232, 255, 0.12);
+}
+
+.auth-password-toggle.is-visible .auth-eye-open {
+  display: none;
+}
+
+.auth-password-toggle.is-visible .auth-eye-closed {
+  display: block;
+}
+
+.auth-password-toggle:hover,
+.auth-password-toggle:focus-visible {
+  color: var(--text);
+  border-color: rgba(75, 232, 255, 0.42);
+}
+
 .auth-form-actions {
   display: flex;
   flex-wrap: wrap;
@@ -3141,6 +3201,18 @@ body.light-theme .auth-bio-card {
 body.light-theme .auth-input:focus {
   border-color: rgba(45, 100, 236, 0.42);
   box-shadow: 0 0 0 1px rgba(45, 100, 236, 0.14), 0 18px 36px rgba(61, 91, 151, 0.12);
+}
+
+body.light-theme .auth-password-toggle {
+  border-color: rgba(74, 102, 173, 0.16);
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.08), rgba(133, 69, 255, 0.06)),
+    rgba(255, 255, 255, 0.76);
+}
+
+body.light-theme .auth-password-toggle.is-visible {
+  color: var(--blue);
+  border-color: rgba(45, 100, 236, 0.34);
 }
 
 body.light-theme .auth-login-badge {
