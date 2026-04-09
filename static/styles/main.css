@@ -3105,6 +3105,26 @@ body.light-theme .site-footer__bottom {
   color: var(--text);
 }
 
+.auth-forgot-link {
+  justify-self: end;
+  width: fit-content;
+  margin-top: -6px;
+  color: var(--cyan);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.auth-forgot-link:hover,
+.auth-forgot-link:focus-visible {
+  color: var(--text);
+  text-shadow: 0 0 16px rgba(75, 232, 255, 0.18);
+}
+
+body.light-theme .auth-forgot-link {
+  color: var(--blue);
+}
+
 .auth-support {
   display: grid;
 }
