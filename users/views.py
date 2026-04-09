@@ -32,12 +32,16 @@ def loginUser(request):
 def registerUser(request):
     form = UserCreationForm()
     
+    if request.user.is_authenticated:
+        return redirect('profiles')
+    
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
             user.save()
+            login(request, user)
             messages.success(request, "Account has been created successfully!")
             return redirect('profiles')
             
