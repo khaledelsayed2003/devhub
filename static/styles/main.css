@@ -2980,6 +2980,12 @@ body.light-theme .site-footer__bottom {
   color: var(--text);
 }
 
+.auth-field-help {
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .auth-input {
   width: 100%;
   min-height: 52px;
@@ -3380,6 +3386,11 @@ body.light-theme .auth-support-icon {
 
 .auth-page-register .auth-label {
   font-size: 0.88rem;
+}
+
+.auth-page-register .auth-field-help {
+  font-size: 0.76rem;
+  line-height: 1.35;
 }
 
 .auth-page-register .auth-input {

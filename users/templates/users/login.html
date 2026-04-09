@@ -77,11 +77,12 @@
               type="text"
               name="username"
               class="auth-input"
-              placeholder="Enter your username"
+              placeholder="Your DevHub username"
               value="{{ request.POST.username|default:'' }}"
               required
               autocomplete="username"
             >
+            <span class="auth-field-help">Use the username you created when signing up.</span>
           </label>
 
           <label class="auth-field">
@@ -91,7 +92,7 @@
                 type="password"
                 name="password"
                 class="auth-input auth-password-input"
-                placeholder="Enter your password"
+                placeholder="Your account password"
                 required
                 autocomplete="current-password"
               >
@@ -104,6 +105,7 @@
                 </svg>
               </button>
             </span>
+            <span class="auth-field-help">Use the password connected to this DevHub account.</span>
           </label>
 
           <div class="auth-form-actions">

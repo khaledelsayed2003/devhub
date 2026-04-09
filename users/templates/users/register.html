@@ -87,11 +87,12 @@
               type="text"
               name="first_name"
               class="auth-input"
-              placeholder="Enter your name"
+              placeholder="Your display name, e.g. Khaled Elsayed"
               value="{{ form.first_name.value|default:'' }}"
               required
               autocomplete="name"
             >
+            <span class="auth-field-help">This name will be used to introduce your profile.</span>
           </label>
 
           <label class="auth-field">
@@ -100,11 +101,12 @@
               type="email"
               name="email"
               class="auth-input"
-              placeholder="Enter your email"
+              placeholder="name@example.com"
               value="{{ form.email.value|default:'' }}"
               required
               autocomplete="email"
             >
+            <span class="auth-field-help">Use an email you can access for account updates.</span>
           </label>
 
           <label class="auth-field">
@@ -113,11 +115,12 @@
               type="text"
               name="username"
               class="auth-input"
-              placeholder="Choose a username"
+              placeholder="Letters, numbers, and @ . + - _ only"
               value="{{ form.username.value|default:'' }}"
               required
               autocomplete="username"
             >
+            <span class="auth-field-help">Choose a unique username that represents you on DevHub.</span>
           </label>
 
           <label class="auth-field">
@@ -127,7 +130,7 @@
                 type="password"
                 name="password1"
                 class="auth-input auth-password-input"
-                placeholder="Create a password"
+                placeholder="8+ chars, not common, not all numbers"
                 required
                 autocomplete="new-password"
               >
@@ -140,6 +143,7 @@
                 </svg>
               </button>
             </span>
+            <span class="auth-field-help">Use at least 8 characters. Avoid common passwords, all-number passwords, or anything too similar to your name/email.</span>
           </label>
 
           <label class="auth-field">
@@ -149,7 +153,7 @@
                 type="password"
                 name="password2"
                 class="auth-input auth-password-input"
-                placeholder="Confirm your password"
+                placeholder="Type the same password again"
                 required
                 autocomplete="new-password"
               >
@@ -162,6 +166,7 @@
                 </svg>
               </button>
             </span>
+            <span class="auth-field-help">This must match the password above exactly.</span>
           </label>
 
           <div class="auth-form-actions">
