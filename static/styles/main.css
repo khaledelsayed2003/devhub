@@ -2736,6 +2736,28 @@ body.light-theme .site-footer__bottom {
   transform: translateY(-4px) scale(1.06);
 }
 
+.auth-hero-label .auth-hero-word {
+  display: inline-flex;
+  gap: 0.02em;
+}
+
+.auth-hero-label .auth-hero-word:hover {
+  transform: none;
+}
+
+.auth-hero-label .auth-hero-word span:hover {
+  transform: translateY(-4px) scale(1.06);
+}
+
+.auth-hero-word-brand {
+  margin-left: 0.22em;
+  white-space: nowrap;
+}
+
+.auth-hero-label-register {
+  margin-top: 30px;
+}
+
 .auth-hero-title {
   display: block;
   max-width: none;
@@ -3219,6 +3241,116 @@ body.light-theme .auth-support-icon {
     text-shadow: 0 0 18px currentColor;
     filter: saturate(1.12);
   }
+}
+
+.auth-page-register .auth-shell {
+  align-items: center;
+}
+
+.auth-page-register .auth-panel-copy {
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+.auth-page-register .auth-hero-title {
+  margin-top: 92px;
+  margin-bottom: 52px;
+  font-size: clamp(2.8rem, 5.4vw, 5.1rem);
+  line-height: 0.96;
+}
+
+.auth-page-register .auth-lead-typed {
+  min-height: 3.4rem;
+  margin-bottom: 84px;
+}
+
+.auth-page-register .auth-bio-card {
+  padding: 14px 16px;
+  border-radius: 22px;
+}
+
+.auth-page-register .auth-bio-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+}
+
+.auth-page-register .auth-bio-copy p {
+  line-height: 1.55;
+}
+
+.auth-page-register .auth-panel-form {
+  gap: 12px;
+  padding: 20px 22px;
+}
+
+.auth-page-register .auth-form-top {
+  gap: 7px;
+}
+
+.auth-page-register .auth-form-top p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.auth-page-register .auth-login-badge {
+  padding: 9px 15px;
+  font-size: 1rem;
+}
+
+.auth-page-register .auth-form {
+  gap: 10px;
+}
+
+.auth-page-register .auth-field {
+  gap: 6px;
+}
+
+.auth-page-register .auth-label {
+  font-size: 0.88rem;
+}
+
+.auth-page-register .auth-input {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 0.92rem;
+}
+
+.auth-page-register .auth-form-actions {
+  margin-top: 2px;
+}
+
+.auth-page-register .auth-submit {
+  min-height: 46px;
+}
+
+.auth-page-register .auth-signup-line {
+  margin-top: -4px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.auth-page-register .auth-support-card {
+  padding: 12px 14px;
+  gap: 10px;
+  border-radius: 18px;
+}
+
+.auth-page-register .auth-support-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+}
+
+.auth-page-register .auth-support-card strong {
+  margin-bottom: 4px;
+  font-size: 0.94rem;
+}
+
+.auth-page-register .auth-support-card p {
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 /* Flash Messages */
