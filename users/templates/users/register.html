@@ -78,6 +78,32 @@
           {% csrf_token %}
 
           <label class="auth-field">
+            <span class="auth-label">Name</span>
+            <input
+              type="text"
+              name="first_name"
+              class="auth-input"
+              placeholder="Enter your name"
+              value="{{ form.first_name.value|default:'' }}"
+              required
+              autocomplete="name"
+            >
+          </label>
+
+          <label class="auth-field">
+            <span class="auth-label">Email</span>
+            <input
+              type="email"
+              name="email"
+              class="auth-input"
+              placeholder="Enter your email"
+              value="{{ form.email.value|default:'' }}"
+              required
+              autocomplete="email"
+            >
+          </label>
+
+          <label class="auth-field">
             <span class="auth-label">Username</span>
             <input
               type="text"
