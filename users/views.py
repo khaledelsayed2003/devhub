@@ -77,3 +77,6 @@ def userProfile(request, pk):
     }
 
     return render(request, 'users/user-profile.html', context)
+
+def userAccount(request):
+    return render(request, 'users/account.html')
