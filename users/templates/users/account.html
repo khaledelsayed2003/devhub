@@ -1,1 +1,255 @@
-<h1>User Account!</h1>
+{% extends 'base.html' %}
+
+{% block title %}DevHub | Account{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="user-profile-page account-page section">
+    <a href="{% url 'profiles' %}#developers" class="ghost-button user-profile-back-link">Back to developers</a>
+
+    <div class="user-profile-shell">
+      <aside class="user-profile-sidebar">
+        <article class="user-profile-card account-profile-card">
+          <div class="user-profile-card-top">
+            <div class="account-card-topbar">
+              <span class="section-label user-profile-card-label">Your Account</span>
+              <a class="ghost-button account-action-button account-action-icon-button account-action-edit" href="#">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 21h6l10.6-10.6a1.9 1.9 0 0 0 0-2.8l-3.2-3.2a1.9 1.9 0 0 0-2.8 0L3 15v6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  <path d="m12.5 5.5 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                </svg>
+                <span>Edit</span>
+              </a>
+            </div>
+
+            <div class="avatar avatar-xl avatar-cyan">
+              <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username }}">
+            </div>
+
+            <div class="user-profile-card-copy">
+              <h1>{{ profile.name|default:profile.username }}</h1>
+              <p>{{ profile.short_intro|default:"This is your developer home on DevHub. Shape the story, refine the details, and keep your best work ready to explore." }}</p>
+            </div>
+          </div>
+
+          <div class="user-profile-meta">
+            <div class="user-profile-meta-item">
+              <span>Location</span>
+              <strong>{{ profile.location|default:"Remote" }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Joined</span>
+              <strong>{{ profile.created|date:"M Y" }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Projects</span>
+              <strong>{{ profile.project_set.count }}</strong>
+            </div>
+            <div class="user-profile-meta-item">
+              <span>Skills</span>
+              <strong>{{ profile.skill_set.count }}</strong>
+            </div>
+          </div>
+
+          <div class="user-profile-socials">
+            {% if profile.social_github %}
+              <a class="user-profile-social-github" href="{{ profile.social_github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.5 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.67.35-1.12.63-1.37-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.7.12 2.49.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.95-2.33 4.82-4.56 5.08.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if profile.social_linkedin %}
+              <a class="user-profile-social-linkedin" href="{{ profile.social_linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.55c0-1.02-.77-1.85-1.9-1.85-1.12 0-1.9.83-1.9 1.85 0 1 .75 1.85 1.85 1.85h.02c1.15 0 1.93-.84 1.93-1.85ZM20.44 13.02c0-3.3-1.76-4.84-4.12-4.84-1.9 0-2.75 1.07-3.22 1.82V8.5H9.72c.04.99 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.68.88-1.38 1.91-1.38 1.35 0 1.89 1.05 1.89 2.59V20H20.4l.04-6.98Z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if profile.social_youtube %}
+              <a class="user-profile-social-youtube" href="{{ profile.social_youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M21.58 7.19a2.99 2.99 0 0 0-2.1-2.12C17.63 4.5 12 4.5 12 4.5s-5.63 0-7.48.57a2.99 2.99 0 0 0-2.1 2.12A31.8 31.8 0 0 0 2 12a31.8 31.8 0 0 0 .42 4.81 2.99 2.99 0 0 0 2.1 2.12c1.85.57 7.48.57 7.48.57s5.63 0 7.48-.57a2.99 2.99 0 0 0 2.1-2.12c.28-1.58.42-3.2.42-4.81s-.14-3.23-.42-4.81ZM10 15.5v-7l6 3.5-6 3.5Z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if profile.social_website %}
+              <a class="user-profile-social-website" href="{{ profile.social_website }}" target="_blank" rel="noopener noreferrer" aria-label="Website">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.92 9h-3.01a15.7 15.7 0 0 0-1.38-5.08A8.04 8.04 0 0 1 18.92 11ZM12 4.04c1.02 1.46 1.81 3.92 1.95 6.96h-3.9C10.19 7.96 10.98 5.5 12 4.04ZM4.08 13h3.01c.12 1.84.56 3.56 1.29 5.08A8.04 8.04 0 0 1 4.08 13Zm3.01-2H4.08a8.04 8.04 0 0 1 4.3-5.08A15.35 15.35 0 0 0 7.09 11Zm4.91 8.96c-1.02-1.46-1.81-3.92-1.95-6.96h3.9c-.14 3.04-.93 5.5-1.95 6.96ZM14.95 13h3.96a13.6 13.6 0 0 1-1.29 5.08A15.35 15.35 0 0 1 14.95 13Z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if profile.social_insta %}
+              <a class="user-profile-social-instagram" href="{{ profile.social_insta }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm9.75 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+
+        </article>
+      </aside>
+
+      <div class="user-profile-main">
+        <header class="user-profile-hero">
+          <div class="account-section-heading">
+            <div>
+              <span class="section-label">About Me</span>
+              <h2>Control how your developer story shows up</h2>
+            </div>
+            <div class="account-inline-actions">
+              <a class="ghost-button account-action-button account-action-icon-button account-action-edit" href="#">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 21h6l10.6-10.6a1.9 1.9 0 0 0 0-2.8l-3.2-3.2a1.9 1.9 0 0 0-2.8 0L3 15v6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  <path d="m12.5 5.5 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                </svg>
+                <span>Edit</span>
+              </a>
+            </div>
+          </div>
+
+          <p>
+            {{ profile.bio|default:"This is the space where you shape your first impression on DevHub. Update your intro, your bio, your socials, and the details that help visitors understand what you build best." }}
+          </p>
+        </header>
+
+        <section class="user-profile-section account-section">
+          <div class="account-section-heading">
+            <div>
+              <span class="section-label">Skills</span>
+              <h2>Skills you can organize and update anytime</h2>
+            </div>
+            <div class="account-inline-actions">
+              <a class="primary-button account-action-button account-action-icon-button account-action-add" href="#">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                </svg>
+                <span>Add Skill</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="account-skill-list">
+            {% for skill in profile.skill_set.all %}
+              <article class="account-skill-row">
+                <div class="account-skill-copy">
+                  <h3>{{ skill.name }}</h3>
+                  <p>{{ skill.description|default:"Add a short explanation here to show how you actually use this skill in your projects." }}</p>
+                </div>
+
+                <div class="account-inline-actions account-row-actions">
+                  <a class="ghost-button account-action-button account-action-icon-button account-action-edit" href="#">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M3 21h6l10.6-10.6a1.9 1.9 0 0 0 0-2.8l-3.2-3.2a1.9 1.9 0 0 0-2.8 0L3 15v6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      <path d="m12.5 5.5 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                    </svg>
+                    <span>Edit</span>
+                  </a>
+                  <button class="ghost-button account-action-button account-action-icon-button account-action-danger" type="button">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                      <path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                    </svg>
+                    <span>Delete</span>
+                  </button>
+                </div>
+              </article>
+            {% empty %}
+              <div class="account-empty-state">
+                <p class="user-profile-empty">No skills yet. Start by adding the tools, languages, and platforms that define your stack.</p>
+                <a class="primary-button account-action-button account-action-icon-button account-action-add" href="#">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                  </svg>
+                  <span>Add your first skill</span>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="user-profile-section account-section">
+          <div class="account-section-heading">
+            <div>
+              <span class="section-label">Projects</span>
+              <h2>Published builds you can edit, update, or remove</h2>
+            </div>
+            <div class="account-inline-actions">
+              <a class="primary-button account-action-button account-action-icon-button account-action-add" href="{% url 'create-project' %}">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                </svg>
+                <span>Add Project</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="user-profile-projects">
+            {% for project in profile.project_set.all %}
+              <article class="user-profile-project-card account-project-card">
+                <a class="user-profile-project-media" href="{% url 'project' project.id %}">
+                  <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+                </a>
+
+                <div class="user-profile-project-body">
+                  <p class="user-profile-project-byline">Owned by you</p>
+                  <h3><a href="{% url 'project' project.id %}">{{ project.title }}</a></h3>
+                  <p>{{ project.description|truncatechars:150 }}</p>
+
+                  <div class="user-profile-project-tags">
+                    {% for tag in project.tags.all|slice:":4" %}
+                      <span>{{ tag.name }}</span>
+                    {% empty %}
+                      <span>General</span>
+                    {% endfor %}
+                  </div>
+
+                  <div class="account-project-actions">
+                    <a class="ghost-button account-action-button account-action-icon-button account-action-view" href="{% url 'project' project.id %}">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                      </svg>
+                      <span>View</span>
+                    </a>
+                    <a class="ghost-button account-action-button account-action-icon-button account-action-edit" href="{% url 'update-project' project.id %}">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3 21h6l10.6-10.6a1.9 1.9 0 0 0 0-2.8l-3.2-3.2a1.9 1.9 0 0 0-2.8 0L3 15v6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                        <path d="m12.5 5.5 6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                      </svg>
+                      <span>Edit</span>
+                    </a>
+                    <a class="ghost-button account-action-button account-action-icon-button account-action-danger" href="{% url 'delete-project' project.id %}">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                      </svg>
+                      <span>Delete</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            {% empty %}
+              <div class="account-empty-state">
+                <p class="user-profile-empty">You have not published a project yet. Add one to start building your portfolio story.</p>
+                <a class="primary-button account-action-button account-action-icon-button account-action-add" href="{% url 'create-project' %}">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                  </svg>
+                  <span>Create your first project</span>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
