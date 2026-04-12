@@ -98,3 +98,7 @@ def userProfile(request, pk):
 def userAccount(request):
     profile = request.user.profile
     return render(request, 'users/account.html', {'profile': profile})
+
+@login_required(login_url='login')
+def editAccount(request):
+    return render(request, 'users/profile_form.html')
