@@ -80,11 +80,8 @@
             {% endif %}
           </div>
 
-          {% if profile.email %}
             <a class="primary-button large-button user-profile-contact" href="mailto:{{ profile.email }}">Send Message</a>
-          {% else %}
-            <a class="ghost-button large-button user-profile-contact" href="{% url 'projects' %}">Explore Projects</a>
-          {% endif %}
+
         </article>
       </aside>
 
