@@ -1,11 +1,303 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h1>Edit Profile</h1>
+{% block title %}DevHub | Edit Account{% endblock title %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="profile-form-page section">
+    <div class="profile-form-topbar">
+      <a href="{% url 'account' %}" class="ghost-button user-profile-back-link">Back to account</a>
+      <div class="profile-form-top-message" aria-label="Complete your account to look real fast.">
+        <span class="profile-form-top-message-word">
+          <span>C</span><span>o</span><span>m</span><span>p</span><span>l</span><span>e</span><span>t</span><span>e</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>y</span><span>o</span><span>u</span><span>r</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>a</span><span>c</span><span>c</span><span>o</span><span>u</span><span>n</span><span>t</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>t</span><span>o</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>l</span><span>o</span><span>o</span><span>k</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>r</span><span>e</span><span>a</span><span>l</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>f</span><span>a</span><span>s</span><span>t</span><span>.</span>
+        </span>
+      </div>
+      <span class="profile-form-topbar-spacer" aria-hidden="true"></span>
+    </div>
+
+    <div class="profile-form-shell">
+      <aside class="profile-form-intro">
+        <span class="section-label">Edit Profile</span>
+        <h1>Shape the version of you that people see first.</h1>
+        <p>
+          Update the essentials, refine your story, and make every detail feel intentional before visitors land on your profile.
+        </p>
+
+        <div class="profile-form-highlight">
+          <div class="profile-form-highlight-copy">
+            <h2>What this page sharpens</h2>
+            <p>Complete the essentials so your profile feels credible, clear, and ready to explore.</p>
+          </div>
+          <div class="profile-form-highlight-grid">
+            <span>Name + intro</span>
+            <span>Avatar photo</span>
+            <span>Bio + story</span>
+            <span>Social presence</span>
+            <span>Public details</span>
+            <span>First impression</span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="profile-form-card">
+        <div class="profile-form-card-head">
+          <span class="section-label">Account Details</span>
+          <h2>Edit your public profile</h2>
+          <p>Keep your profile tight, memorable, and aligned with the kind of work you want people to associate with you.</p>
+        </div>
+
+        <form class="profile-edit-form" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="profile-form-errors">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <section class="profile-form-section">
+            <div class="profile-form-section-head">
+              <span class="section-label">Identity</span>
+              <h3>Core details</h3>
+            </div>
+
+            <div class="profile-form-grid">
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                  <div class="profile-form-errors">{% for error in form.name.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                  <div class="profile-form-errors">{% for error in form.username.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                  <div class="profile-form-errors">{% for error in form.email.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.location.id_for_label }}">{{ form.location.label }}</label>
+                {{ form.location }}
+                {% if form.location.errors %}
+                  <div class="profile-form-errors">{% for error in form.location.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+          <section class="profile-form-section">
+            <div class="profile-form-section-head">
+              <span class="section-label">Avatar</span>
+              <h3>Profile image</h3>
+            </div>
+
+            <div class="profile-avatar-editor">
+              <div class="profile-avatar-preview-wrap">
+                <div class="profile-avatar-preview avatar avatar-xl avatar-cyan" id="profileAvatarPreview">
+                  {% if form.instance.profile_image %}
+                    <img class="avatar-image" src="{{ form.instance.profile_image.url }}" alt="{{ form.instance.name|default:form.instance.username }}">
+                  {% else %}
+                    <span>{{ form.instance.name|default:form.instance.username|default:"D"|slice:":1"|upper }}</span>
+                  {% endif %}
+                </div>
+                <p class="profile-form-file-note">This is how your avatar will appear across DevHub.</p>
+              </div>
+
+              <div class="profile-form-file-panel">
+                <label class="profile-form-label" for="{{ form.profile_image.id_for_label }}">{{ form.profile_image.label }}</label>
+                <div class="profile-form-upload-box">
+                  {{ form.profile_image }}
+                  <label class="profile-form-upload-button" for="{{ form.profile_image.id_for_label }}">Upload image</label>
+                  <span class="profile-form-upload-name" id="profileImageName">
+                    {% if form.instance.profile_image %}{{ form.instance.profile_image.name|cut:"profiles/" }}{% else %}No file selected{% endif %}
+                  </span>
+                </div>
+                <p class="profile-form-file-note">Choose a clean square image. PNG, JPG, WEBP all work nicely.</p>
+                {% if form.profile_image.errors %}
+                  <div class="profile-form-errors">{% for error in form.profile_image.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+          <section class="profile-form-section">
+            <div class="profile-form-section-head">
+              <span class="section-label">Profile Story</span>
+              <h3>Intro and bio</h3>
+            </div>
+
+            <div class="profile-form-story-grid">
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.short_intro.id_for_label }}">{{ form.short_intro.label }}</label>
+                {{ form.short_intro }}
+                <p class="profile-form-help">Keep it short and sharp. This is the quick line people read first.</p>
+                {% if form.short_intro.errors %}
+                  <div class="profile-form-errors">{% for error in form.short_intro.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-form-field profile-form-field-wide">
+                <label class="profile-form-label" for="{{ form.bio.id_for_label }}">{{ form.bio.label }}</label>
+                {{ form.bio }}
+                <p class="profile-form-help">Use this space to explain what you build, how you think, and what makes your work yours.</p>
+                {% if form.bio.errors %}
+                  <div class="profile-form-errors">{% for error in form.bio.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+          <section class="profile-form-section">
+            <div class="profile-form-section-head">
+              <span class="section-label">Social Links</span>
+              <h3>Link the places where your work lives</h3>
+            </div>
+
+            <div class="profile-social-form-grid">
+              <div class="profile-social-field profile-social-github">
+                <div class="profile-social-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.5 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.67.35-1.12.63-1.37-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.7.12 2.49.35 1.9-1.33 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.95-2.33 4.82-4.56 5.08.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.5A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/>
+                  </svg>
+                </div>
+                <div class="profile-social-input">
+                  <label class="profile-form-label" for="{{ form.social_github.id_for_label }}">GitHub</label>
+                  {{ form.social_github }}
+                </div>
+                {% if form.social_github.errors %}
+                  <div class="profile-form-errors profile-social-errors">{% for error in form.social_github.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-social-field profile-social-linkedin">
+                <div class="profile-social-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6.94 8.5H3.56V20h3.38V8.5Zm.22-3.55c0-1.02-.77-1.85-1.9-1.85-1.12 0-1.9.83-1.9 1.85 0 1 .75 1.85 1.85 1.85h.02c1.15 0 1.93-.84 1.93-1.85ZM20.44 13.02c0-3.3-1.76-4.84-4.12-4.84-1.9 0-2.75 1.07-3.22 1.82V8.5H9.72c.04.99 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.68.88-1.38 1.91-1.38 1.35 0 1.89 1.05 1.89 2.59V20H20.4l.04-6.98Z"/>
+                  </svg>
+                </div>
+                <div class="profile-social-input">
+                  <label class="profile-form-label" for="{{ form.social_linkedin.id_for_label }}">LinkedIn</label>
+                  {{ form.social_linkedin }}
+                </div>
+                {% if form.social_linkedin.errors %}
+                  <div class="profile-form-errors profile-social-errors">{% for error in form.social_linkedin.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-social-field profile-social-youtube">
+                <div class="profile-social-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M21.58 7.19a2.99 2.99 0 0 0-2.1-2.12C17.63 4.5 12 4.5 12 4.5s-5.63 0-7.48.57a2.99 2.99 0 0 0-2.1 2.12A31.8 31.8 0 0 0 2 12a31.8 31.8 0 0 0 .42 4.81 2.99 2.99 0 0 0 2.1 2.12c1.85.57 7.48.57 7.48.57s5.63 0 7.48-.57a2.99 2.99 0 0 0 2.1-2.12c.28-1.58.42-3.2.42-4.81s-.14-3.23-.42-4.81ZM10 15.5v-7l6 3.5-6 3.5Z"/>
+                  </svg>
+                </div>
+                <div class="profile-social-input">
+                  <label class="profile-form-label" for="{{ form.social_youtube.id_for_label }}">YouTube</label>
+                  {{ form.social_youtube }}
+                </div>
+                {% if form.social_youtube.errors %}
+                  <div class="profile-form-errors profile-social-errors">{% for error in form.social_youtube.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-social-field profile-social-website">
+                <div class="profile-social-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.92 9h-3.01a15.7 15.7 0 0 0-1.38-5.08A8.04 8.04 0 0 1 18.92 11ZM12 4.04c1.02 1.46 1.81 3.92 1.95 6.96h-3.9C10.19 7.96 10.98 5.5 12 4.04ZM4.08 13h3.01c.12 1.84.56 3.56 1.29 5.08A8.04 8.04 0 0 1 4.08 13Zm3.01-2H4.08a8.04 8.04 0 0 1 4.3-5.08A15.35 15.35 0 0 0 7.09 11Zm4.91 8.96c-1.02-1.46-1.81-3.92-1.95-6.96h3.9c-.14 3.04-.93 5.5-1.95 6.96ZM14.95 13h3.96a13.6 13.6 0 0 1-1.29 5.08A15.35 15.35 0 0 1 14.95 13Z"/>
+                  </svg>
+                </div>
+                <div class="profile-social-input">
+                  <label class="profile-form-label" for="{{ form.social_website.id_for_label }}">Website</label>
+                  {{ form.social_website }}
+                </div>
+                {% if form.social_website.errors %}
+                  <div class="profile-form-errors profile-social-errors">{% for error in form.social_website.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-social-field profile-social-instagram">
+                <div class="profile-social-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm9.75 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+                  </svg>
+                </div>
+                <div class="profile-social-input">
+                  <label class="profile-form-label" for="{{ form.social_insta.id_for_label }}">Instagram</label>
+                  {{ form.social_insta }}
+                </div>
+                {% if form.social_insta.errors %}
+                  <div class="profile-form-errors profile-social-errors">{% for error in form.social_insta.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+          <div class="profile-form-actions">
+            <a href="{% url 'account' %}" class="ghost-button large-button">Cancel</a>
+            <button type="submit" class="primary-button large-button">Save Changes</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
 {% endblock content %}
+
+{% block extra_js %}
+  <script>
+    (function () {
+      const input = document.getElementById("{{ form.profile_image.id_for_label }}");
+      const preview = document.getElementById("profileAvatarPreview");
+      const fileName = document.getElementById("profileImageName");
+
+      if (!input || !preview || !fileName) return;
+
+      input.addEventListener("change", function () {
+        const file = this.files && this.files[0];
+
+        if (!file) {
+          fileName.textContent = "No file selected";
+          return;
+        }
+
+        fileName.textContent = file.name;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          preview.innerHTML = '<img class="avatar-image" src="' + event.target.result + '" alt="Avatar preview">';
+        };
+        reader.readAsDataURL(file);
+      });
+    }());
+  </script>
+{% endblock extra_js %}
