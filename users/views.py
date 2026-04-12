@@ -55,7 +55,19 @@ def logoutUser(request):
 
 def profiles(request):
     users = Profile.objects.all()
-    return render(request, 'users/profiles.html', {'developers': users})
+    own_profile_id = None
+
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        own_profile_id = request.user.profile.id
+
+    return render(
+        request,
+        'users/profiles.html',
+        {
+            'developers': users,
+            'own_profile_id': own_profile_id,
+        },
+    )
 
 def userProfile(request, pk):
     profile = get_object_or_404(
@@ -65,6 +77,9 @@ def userProfile(request, pk):
         ),
         id=pk,
     )
+
+    if request.user.is_authenticated and hasattr(request.user, 'profile') and str(request.user.profile.id) == str(profile.id):
+        return render(request, 'users/account.html', {'profile': profile})
 
     topSkills = profile.skill_set.exclude(description__isnull=True).exclude(description__exact="")
     otherSkills = profile.skill_set.filter(Q(description__isnull=True) | Q(description=""))
