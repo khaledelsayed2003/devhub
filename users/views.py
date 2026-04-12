@@ -34,7 +34,7 @@ def registerUser(request):
     form = CustomUserCreationForm()
     
     if request.user.is_authenticated:
-        return redirect('edit-account')
+        return redirect('profiles')
     
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -43,8 +43,8 @@ def registerUser(request):
             user.username = user.username.lower()
             user.save()
             login(request, user)
-            messages.success(request, "Account has been created successfully!")
-            return redirect('profiles')
+            messages.success(request, "Account created successfully 🎉 Please complete your profile to get started.")
+            return redirect('edit-account')
             
     return render(request, 'users/register.html', {'form': form})
 
