@@ -34,7 +34,7 @@ def registerUser(request):
     form = CustomUserCreationForm()
     
     if request.user.is_authenticated:
-        return redirect('profiles')
+        return redirect('edit-account')
     
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -101,5 +101,16 @@ def userAccount(request):
 
 @login_required(login_url='login')
 def editAccount(request):
-    form = ProfileForm
+    profile = request.user.profile
+    form = ProfileForm(instance=profile)
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your profile has been updated successfully ✨")
+            return redirect('account')
+        else:
+            messages.error(request, "Please fix the errors below ❌")
+    
     return render(request, 'users/profile_form.html', {'form': form})
