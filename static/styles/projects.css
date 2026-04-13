@@ -2,6 +2,328 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Clash+Display:wght@500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap");
 
+.project-delete-page {
+  padding-top: 40px;
+  padding-bottom: 56px;
+}
+
+.project-delete-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
+  gap: 24px;
+  align-items: center;
+  min-height: calc(100vh - 240px);
+}
+
+.project-delete-copy {
+  display: grid;
+  gap: 18px;
+  max-width: 760px;
+  padding: 18px 12px 18px 0;
+}
+
+.project-delete-copy h1 {
+  margin: 0;
+  color: #f0ede6;
+  font-family: "Clash Display", "Space Grotesk", sans-serif;
+  font-size: clamp(2.2rem, 4.2vw, 4.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.project-delete-copy > p {
+  max-width: 58ch;
+  margin: 0;
+  color: rgba(240, 237, 230, 0.72);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.project-delete-points {
+  display: grid;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.project-delete-point {
+  display: grid;
+  gap: 8px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 116, 116, 0.16);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 113, 113, 0.08), rgba(255, 170, 120, 0.04)),
+    rgba(255, 255, 255, 0.025);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+}
+
+.project-delete-point strong {
+  color: #fff2ee;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.project-delete-point span {
+  color: rgba(240, 237, 230, 0.62);
+  line-height: 1.65;
+}
+
+.project-delete-card {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  padding: 28px;
+  border: 1px solid rgba(255, 113, 113, 0.22);
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 113, 113, 0.16), transparent 28%),
+    radial-gradient(circle at left bottom, rgba(255, 180, 120, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    linear-gradient(135deg, rgba(18, 25, 46, 0.96), rgba(10, 15, 29, 0.98));
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(255, 113, 113, 0.08);
+  overflow: hidden;
+}
+
+.project-delete-card-glow {
+  position: absolute;
+  inset: auto -70px -90px auto;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 113, 113, 0.24), transparent 68%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.project-delete-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.project-delete-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 24px;
+  color: #ff9b76;
+  background:
+    linear-gradient(135deg, rgba(255, 113, 113, 0.18), rgba(255, 180, 120, 0.12)),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(255, 150, 120, 0.16);
+}
+
+.project-delete-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.project-delete-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 147, 120, 0.2);
+  border-radius: 999px;
+  color: #ffb29e;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.project-delete-card-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.project-delete-eyebrow {
+  margin: 0;
+  color: rgba(240, 237, 230, 0.56);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-delete-card-copy h2 {
+  margin: 0;
+  color: #fff7f4;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  word-break: break-word;
+}
+
+.project-delete-description {
+  margin: 0;
+  color: rgba(240, 237, 230, 0.7);
+  line-height: 1.75;
+}
+
+.project-delete-summary {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.project-delete-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.project-delete-summary-row span {
+  color: rgba(240, 237, 230, 0.58);
+}
+
+.project-delete-summary-row strong {
+  color: #fff6f2;
+  text-align: right;
+}
+
+.project-delete-actions {
+  display: grid;
+  gap: 12px;
+}
+
+.project-delete-confirm,
+.project-delete-cancel {
+  min-height: 54px;
+  border-radius: 18px;
+  font-weight: 800;
+}
+
+.project-delete-confirm {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #ff6a79, #ff8f59);
+  box-shadow: 0 24px 40px rgba(255, 106, 121, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.project-delete-confirm:hover,
+.project-delete-confirm:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 48px rgba(255, 106, 121, 0.28);
+  filter: saturate(1.08);
+}
+
+.project-delete-cancel {
+  width: 100%;
+}
+
+body.light-theme .project-delete-copy h1 {
+  color: #14213d;
+}
+
+body.light-theme .project-delete-copy > p {
+  color: rgba(20, 33, 61, 0.72);
+}
+
+body.light-theme .project-delete-point {
+  border-color: rgba(210, 79, 114, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 216, 225, 0.9), rgba(255, 241, 235, 0.96)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 36px rgba(61, 91, 151, 0.08);
+}
+
+body.light-theme .project-delete-point strong {
+  color: #16243f;
+}
+
+body.light-theme .project-delete-point span {
+  color: rgba(20, 33, 61, 0.68);
+}
+
+body.light-theme .project-delete-card {
+  border-color: rgba(210, 79, 114, 0.18);
+  background:
+    radial-gradient(circle at top right, rgba(255, 178, 158, 0.26), transparent 28%),
+    radial-gradient(circle at left bottom, rgba(255, 225, 206, 0.4), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 255, 0.95)),
+    #ffffff;
+  box-shadow:
+    0 30px 72px rgba(61, 91, 151, 0.14),
+    0 0 0 1px rgba(210, 79, 114, 0.06);
+}
+
+body.light-theme .project-delete-pill {
+  border-color: rgba(210, 79, 114, 0.16);
+  color: #c55273;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+body.light-theme .project-delete-eyebrow {
+  color: rgba(20, 33, 61, 0.56);
+}
+
+body.light-theme .project-delete-card-copy h2,
+body.light-theme .project-delete-summary-row strong {
+  color: #14213d;
+}
+
+body.light-theme .project-delete-description,
+body.light-theme .project-delete-summary-row span {
+  color: rgba(20, 33, 61, 0.68);
+}
+
+body.light-theme .project-delete-summary {
+  border-color: rgba(74, 102, 173, 0.12);
+  background: rgba(244, 247, 255, 0.82);
+}
+
+@media (max-width: 980px) {
+  .project-delete-shell {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .project-delete-copy {
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-delete-page {
+    padding-top: 24px;
+    padding-bottom: 38px;
+  }
+
+  .project-delete-copy h1 {
+    font-size: clamp(1.9rem, 9vw, 3rem);
+  }
+
+  .project-delete-card {
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .project-delete-card-head,
+  .project-delete-summary-row {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .project-delete-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+  }
+}
+
 .projects-page-body::before {
   opacity: 0.28;
 }

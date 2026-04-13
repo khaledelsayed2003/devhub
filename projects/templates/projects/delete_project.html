@@ -1,26 +1,78 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DevHub | Delete Project{% endblock title %}
+
+{% block body_class %}projects-page-body{% endblock body_class %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'styles/projects.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
-<div class="container mt-5" style="max-width: 500px;">
-    <div class="card shadow-sm border-danger">
-        <div class="card-body p-5 text-center">
+  <section class="project-delete-page section">
+    <div class="project-delete-shell">
+      <div class="project-delete-copy">
+        <span class="projects-kicker">Danger Zone</span>
+        <h1>Delete this project only if you are sure it should disappear from your profile.</h1>
+        <p>
+          This will remove the project from DevHub, take it out of your portfolio, and make its public page unavailable immediately.
+        </p>
 
-            <div class="mb-3" style="font-size: 3rem;">⚠️</div>
-
-            <h3 class="fw-bold mb-2">Delete Project</h3>
-            <p class="text-muted mb-1">You are about to delete:</p>
-            <h5 class="fw-bold text-danger mb-4">"{{ project.title }}"</h5>
-            <p class="text-muted small mb-4">This action cannot be undone.</p>
-
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="d-flex gap-2 justify-content-center">
-                    <button type="submit" class="btn btn-danger px-4">Yes, Delete</button>
-                    <a href="{% url 'projects' %}" class="btn btn-outline-secondary px-4">Cancel</a>
-                </div>
-            </form>
-
+        <div class="project-delete-points">
+          <article class="project-delete-point">
+            <strong>Removed from your profile</strong>
+            <span>The project card and detail page will no longer appear anywhere on your account.</span>
+          </article>
+          <article class="project-delete-point">
+            <strong>No undo button</strong>
+            <span>Once you confirm, this action cannot be reversed from the interface.</span>
+          </article>
+          <article class="project-delete-point">
+            <strong>Best used carefully</strong>
+            <span>If you only want to improve the content, editing the project is usually the safer move.</span>
+          </article>
         </div>
+      </div>
+
+      <article class="project-delete-card">
+        <div class="project-delete-card-glow" aria-hidden="true"></div>
+        <div class="project-delete-card-head">
+          <div class="project-delete-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3 2.8 19a1 1 0 0 0 .87 1.5h16.66A1 1 0 0 0 21.2 19L12 3Z" fill="currentColor" opacity="0.18"/>
+              <path d="M12 8v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2"/>
+              <circle cx="12" cy="16.5" r="1.2" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="project-delete-pill">Permanent action</span>
+        </div>
+
+        <div class="project-delete-card-copy">
+          <p class="project-delete-eyebrow">You are about to delete</p>
+          <h2>{{ project.title }}</h2>
+          <p class="project-delete-description">
+            Review the title once more before confirming. If you still need this build on your profile, cancel and go back.
+          </p>
+        </div>
+
+        <div class="project-delete-summary">
+          <div class="project-delete-summary-row">
+            <span>Owner</span>
+            <strong>{{ project.owner.name|default:project.owner.username }}</strong>
+          </div>
+          <div class="project-delete-summary-row">
+            <span>Published</span>
+            <strong>{{ project.created|date:"M d, Y" }}</strong>
+          </div>
+        </div>
+
+        <form action="" method="POST" class="project-delete-actions">
+          {% csrf_token %}
+          <button type="submit" class="project-delete-confirm">Delete project</button>
+          <a href="{% url 'project' project.id %}" class="ghost-button project-delete-cancel">Keep project</a>
+        </form>
+      </article>
     </div>
-</div>
+  </section>
 {% endblock content %}
