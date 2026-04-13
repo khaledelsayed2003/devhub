@@ -12,3 +12,12 @@ config/.env
 instance/
 *.db
 *.sqlite3
+
+
+# ignore uploaded images
+static/images/profiles/*
+!static/images/profiles/default.png
+
+static/images/*
+!static/images/default.png
+!static/images/profiles/
