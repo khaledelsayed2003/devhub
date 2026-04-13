@@ -42,7 +42,7 @@ def createProject(request):
     else:
         form = ProjectForm()
     
-    return render(request, 'projects/project_form.html', {'form': form})
+    return render(request, 'projects/project_form.html', {'form': form, 'is_update': False})
 
 @login_required(login_url='login')
 def updateProject(request, pk):
@@ -57,7 +57,7 @@ def updateProject(request, pk):
     else:
         form = ProjectForm(instance=project)
     
-    return render(request, 'projects/project_form.html', {'form': form})
+    return render(request, 'projects/project_form.html', {'form': form, 'is_update': True})
 
 @login_required(login_url='login')
 def deleteProject(request, pk):

@@ -2353,6 +2353,42 @@ body.light-theme .project-detail-review-negative .project-detail-review-sentimen
   box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(75, 232, 255, 0.2);
 }
 
+.project-upload-clear {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  color: #ff7b93;
+  border-color: rgba(255, 123, 147, 0.26);
+  background:
+    linear-gradient(135deg, rgba(255, 123, 147, 0.12), rgba(255, 98, 132, 0.08)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.project-upload-clear:hover,
+.project-upload-clear:focus-visible {
+  border-color: rgba(255, 123, 147, 0.42);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 123, 147, 0.12);
+}
+
+.project-upload-clear svg {
+  width: 18px;
+  height: 18px;
+}
+
+.project-upload-default {
+  color: #ffd79a;
+  border-color: rgba(255, 215, 154, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255, 215, 154, 0.12), rgba(255, 188, 92, 0.08)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.project-upload-default:hover,
+.project-upload-default:focus-visible {
+  border-color: rgba(255, 215, 154, 0.38);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 215, 154, 0.12);
+}
+
 .project-form-preview-shell {
   padding: 18px;
   border-radius: 26px;
@@ -2391,6 +2427,8 @@ body.light-theme .project-detail-review-negative .project-detail-review-sentimen
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .project-tag-picker {
@@ -2526,6 +2564,22 @@ body.light-theme .project-upload-trigger:hover,
 body.light-theme .project-upload-trigger:focus-visible {
   border-color: rgba(45, 100, 236, 0.4);
   box-shadow: 0 14px 28px rgba(61, 91, 151, 0.12), 0 0 0 1px rgba(45, 100, 236, 0.12);
+}
+
+body.light-theme .project-upload-clear {
+  color: #d24f72;
+  border-color: rgba(210, 79, 114, 0.2);
+  background:
+    linear-gradient(135deg, rgba(255, 216, 225, 0.86), rgba(255, 241, 244, 0.96)),
+    rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .project-upload-default {
+  color: #a06c16;
+  border-color: rgba(210, 154, 34, 0.22);
+  background:
+    linear-gradient(135deg, rgba(255, 236, 186, 0.92), rgba(255, 248, 222, 0.98)),
+    rgba(255, 255, 255, 0.9);
 }
 
 body.light-theme .project-upload-trigger:active {

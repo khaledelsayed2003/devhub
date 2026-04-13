@@ -4,6 +4,8 @@ from .models import Project
 
 
 class ProjectForm(ModelForm):
+    remove_featured_image = forms.BooleanField(required=False, widget=forms.HiddenInput())
+
     class Meta:
         model = Project
         fields = ['title', 'featured_image', 'description', 'demo_link', 'source_link', 'tags']
@@ -12,7 +14,7 @@ class ProjectForm(ModelForm):
                 'class': 'project-form-input',
                 'placeholder': 'Give your project a clear, memorable name',
             }),
-            'featured_image': forms.ClearableFileInput(attrs={
+            'featured_image': forms.FileInput(attrs={
                 'class': 'project-form-file-input',
                 'accept': 'image/*',
             }),
@@ -50,3 +52,21 @@ class ProjectForm(ModelForm):
         self.fields['demo_link'].help_text = 'Optional. Add it only if the project has a live demo.'
         self.fields['source_link'].help_text = 'Optional. Add it only if the code is publicly available.'
         self.fields['tags'].help_text = 'Select the technologies that best represent this build.'
+
+    def save(self, commit=True):
+        project = super().save(commit=False)
+        remove_featured_image = self.cleaned_data.get('remove_featured_image')
+        image_field = Project._meta.get_field('featured_image')
+        default_image = image_field.default
+
+        if project.pk and remove_featured_image:
+            current_image = getattr(project, 'featured_image', None)
+            if current_image and current_image.name and current_image.name != default_image:
+                current_image.delete(save=False)
+            project.featured_image = default_image
+
+        if commit:
+            project.save()
+            self.save_m2m()
+
+        return project

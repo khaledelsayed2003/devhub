@@ -76,9 +76,23 @@
                 <strong>Choose a cover image</strong>
                 <span>Use a sharp screenshot or polished mockup that represents the project well on cards and detail pages.</span>
               </div>
+              {{ form.remove_featured_image }}
               <div class="project-form-upload-controls">
                 <label for="{{ form.featured_image.id_for_label }}" class="ghost-button project-upload-trigger">Select Image</label>
-                <span class="project-upload-name" id="projectUploadName">No file selected</span>
+                <button type="button" class="ghost-button project-upload-clear" id="projectUploadClear" aria-label="Clear selected image and restore current project image">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                    <path d="M9 7V5h6v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path d="M7 7l1 12h8l1-12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                    <path d="M10 11v5M14 11v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
+                  </svg>
+                </button>
+                {% if is_update %}
+                <button type="button" class="ghost-button project-upload-default" id="projectUploadDefault">Use Default</button>
+                {% endif %}
+                <span class="project-upload-name" id="projectUploadName">
+                  {% if form.instance.featured_image %}{{ form.instance.featured_image.name|cut:"projects/" }}{% else %}No file selected{% endif %}
+                </span>
               </div>
               {{ form.featured_image }}
             </div>
@@ -86,8 +100,19 @@
             <div class="project-form-preview" id="projectImagePreview">
               <div class="project-form-preview-shell">
                 <span class="project-form-preview-badge">Preview</span>
-                <div class="project-form-preview-art" id="projectPreviewArt">
-                  <span>Featured image preview will appear here</span>
+                <div
+                  class="project-form-preview-art"
+                  id="projectPreviewArt"
+                  {% if form.instance.featured_image %}
+                  data-existing-src="{{ form.instance.featured_image.url }}"
+                  data-existing-name="{{ form.instance.featured_image.name|cut:'projects/' }}"
+                  {% endif %}
+                >
+                  {% if form.instance.featured_image %}
+                    <img src="{{ form.instance.featured_image.url }}" alt="{{ form.instance.title }} featured image">
+                  {% else %}
+                    <span>Featured image preview will appear here</span>
+                  {% endif %}
                 </div>
               </div>
             </div>
