@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DevHub | Delete Skill{% endblock title %}
+
+{% block body_class %}projects-page-body{% endblock body_class %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'styles/projects.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+  <section class="project-delete-page section">
+    <div class="project-delete-shell">
+      <div class="project-delete-copy">
+        <span class="projects-kicker">Danger Zone</span>
+        <h1>Delete this skill only if you are sure it should disappear from your profile.</h1>
+        <p>
+          This will remove the skill from your public profile and from the account section where you manage the strengths you want people to see first.
+        </p>
+
+        <div class="project-delete-points">
+          <article class="project-delete-point">
+            <strong>Removed from your profile</strong>
+            <span>This skill will no longer appear in your skill list or contribute to how visitors understand your stack.</span>
+          </article>
+          <article class="project-delete-point">
+            <strong>No undo button</strong>
+            <span>Once you confirm, the skill entry is deleted and you would need to create it again manually.</span>
+          </article>
+          <article class="project-delete-point">
+            <strong>Edit is often safer</strong>
+            <span>If the skill still matters but the wording is weak, updating it is usually better than deleting it.</span>
+          </article>
+        </div>
+      </div>
+
+      <article class="project-delete-card">
+        <div class="project-delete-card-glow" aria-hidden="true"></div>
+        <div class="project-delete-card-head">
+          <div class="project-delete-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3 2.8 19a1 1 0 0 0 .87 1.5h16.66A1 1 0 0 0 21.2 19L12 3Z" fill="currentColor" opacity="0.18"/>
+              <path d="M12 8v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2"/>
+              <circle cx="12" cy="16.5" r="1.2" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="project-delete-pill">Permanent action</span>
+        </div>
+
+        <div class="project-delete-card-copy">
+          <p class="project-delete-eyebrow">You are about to delete</p>
+          <h2>{{ skill.name }}</h2>
+          <p class="project-delete-description">
+            Review the skill once more before confirming. If you still want this strength on your profile, cancel and keep refining it instead.
+          </p>
+        </div>
+
+        <div class="project-delete-summary">
+          <div class="project-delete-summary-row">
+            <span>Owner</span>
+            <strong>{{ request.user.profile.name|default:request.user.username }}</strong>
+          </div>
+          <div class="project-delete-summary-row">
+            <span>Created</span>
+            <strong>{{ skill.created|date:"M d, Y" }}</strong>
+          </div>
+        </div>
+
+        <form action="" method="POST" class="project-delete-actions">
+          {% csrf_token %}
+          <button type="submit" class="project-delete-confirm">Delete skill</button>
+          <a href="{% url 'account' %}" class="ghost-button project-delete-cancel">Keep skill</a>
+        </form>
+      </article>
+    </div>
+  </section>
+{% endblock content %}

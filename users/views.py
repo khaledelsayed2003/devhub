@@ -145,3 +145,14 @@ def updateSkill(request, pk):
             return redirect('account')
         
     return render(request, 'users/skill_form.html', {'form': form, 'is_update': True})
+
+@login_required(login_url='login')
+def deleteSkill(request, pk):
+    profile = request.user.profile
+    skill = profile.skill_set.get(id=pk)
+    if request.method == 'POST':
+        skill.delete()
+        messages.success(request, "Skill deleted successfully. It is no longer visible on your profile.")
+        return redirect('account')
+    
+    return render(request, 'users/delete_skill.html', {'skill': skill})

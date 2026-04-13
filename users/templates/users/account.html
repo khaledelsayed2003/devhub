@@ -140,13 +140,16 @@
                     </svg>
                     <span>Edit</span>
                   </a>
-                  <button class="ghost-button account-action-button account-action-icon-button account-action-danger" type="button">
+                  <a class="ghost-button account-action-button account-action-icon-button account-action-danger"
+                    href="{% url 'delete-skill' skill.id %}">
+                    
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
                       <path d="M9 9l6 6M15 9l-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
                     </svg>
+
                     <span>Delete</span>
-                  </button>
+                  </a>
                 </div>
               </article>
             {% empty %}
