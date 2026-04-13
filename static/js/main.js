@@ -6,6 +6,7 @@ const compactHero = window.matchMedia("(max-width: 1180px)");
 const coarsePointer = window.matchMedia("(pointer: coarse)");
 const menuToggle = document.getElementById("menuToggle");
 const mobileMenu = document.getElementById("mobileMenu");
+const userMenus = document.querySelectorAll(".user-menu");
 
 function syncThemeButton() {
   if (!themeToggle) {
@@ -63,6 +64,58 @@ function closeMenu() {
 
   mobileMenu.classList.remove("is-open");
   syncMenuButton();
+}
+
+function closeAllUserMenus(exceptMenu = null) {
+  if (!userMenus.length) {
+    return;
+  }
+
+  userMenus.forEach((menu) => {
+    if (menu !== exceptMenu) {
+      menu.removeAttribute("open");
+    }
+  });
+}
+
+function setupUserMenus() {
+  if (!userMenus.length) {
+    return;
+  }
+
+  userMenus.forEach((menu) => {
+    const summary = menu.querySelector("summary");
+    const links = menu.querySelectorAll("a");
+
+    if (summary) {
+      summary.addEventListener("click", () => {
+        const willOpen = !menu.hasAttribute("open");
+        if (willOpen) {
+          closeAllUserMenus(menu);
+        }
+      });
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.removeAttribute("open");
+      });
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    userMenus.forEach((menu) => {
+      if (!menu.contains(event.target)) {
+        menu.removeAttribute("open");
+      }
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeAllUserMenus();
+    }
+  });
 }
 
 function setupHeroTilt() {
@@ -145,6 +198,7 @@ applySavedTheme();
 setupHeroTilt();
 setupReveals();
 syncMenuButton();
+setupUserMenus();
 
 if (themeToggle) {
   themeToggle.addEventListener("click", toggleTheme);
