@@ -181,9 +181,15 @@
           {% endfor %}
         </div>
         {% if own_profile_id == developer.id %}
-        <a class="primary-button dev-card-link" href="{% url 'user-profile' developer.id %}">Open Account</a>
+        <a class="primary-button dev-card-link dev-card-link-account" href="{% url 'user-profile' developer.id %}">Open Account</a>
         {% else %}
-        <a class="ghost-button dev-card-link" href="{% url 'user-profile' developer.id %}">View Profile</a>
+        <a class="ghost-button dev-card-link dev-card-link-view" href="{% url 'user-profile' developer.id %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>View Profile</span>
+        </a>
         {% endif %}
       </article>
       {% endfor %}

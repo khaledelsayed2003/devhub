@@ -1367,7 +1367,8 @@ body.light-theme .project-card:hover {
 }
 
 .dev-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 18px;
   padding: 22px;
   border-radius: 28px;
@@ -1926,7 +1927,7 @@ html.reveal-ready .reveal.is-visible {
 
 .dev-card-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .avatar {
@@ -1963,6 +1964,10 @@ html.reveal-ready .reveal.is-visible {
   gap: 16px;
 }
 
+.dev-tech:empty {
+  display: none;
+}
+
 .dev-card-avatar-link {
   display: inline-flex;
   border-radius: 50%;
@@ -1983,14 +1988,30 @@ html.reveal-ready .reveal.is-visible {
 }
 
 .dev-card-link {
-  margin-top: 18px;
+  margin-top: auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
+  align-self: start;
+  gap: 8px;
+  width: 168px;
   max-width: 100%;
-  min-height: 52px;
+  height: 46px;
+  padding: 0 16px;
+  line-height: 1;
   text-align: center;
+}
+
+.dev-card-link svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
+.dev-card-link span {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
 .dev-card-own {
