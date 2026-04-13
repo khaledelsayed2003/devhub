@@ -605,6 +605,7 @@ body.light-theme .sun-icon {
   align-items: center;
   justify-content: center;
   padding: 12px 18px;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease, filter 180ms ease;
 }
 
 .ghost-button {
@@ -617,6 +618,25 @@ body.light-theme .sun-icon {
   border: 0;
   background: linear-gradient(135deg, var(--cyan), var(--violet));
   box-shadow: 0 18px 30px rgba(106, 143, 255, 0.2);
+}
+
+.ghost-button:hover,
+.ghost-button:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(75, 232, 255, 0.32);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(75, 232, 255, 0.12);
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 38px rgba(106, 143, 255, 0.28), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  filter: saturate(1.06);
+}
+
+.ghost-button:active,
+.primary-button:active {
+  transform: translateY(0);
 }
 
 .large-button {

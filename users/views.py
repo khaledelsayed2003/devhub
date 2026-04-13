@@ -117,5 +117,16 @@ def editAccount(request):
 
 @login_required(login_url='login')
 def createSkill(request):
-    form = SkillForm
+    form = SkillForm()
+    profile = request.user.profile
+    
+    if request.method == 'POST':
+        form = SkillForm(request.POST)
+        if form.is_valid():
+            skill = form.save(commit=False)
+            skill.owner = profile
+            skill.save()
+            messages.success(request, "Skill added successfully. It is now part of your profile.")
+            return redirect('account')
+        
     return render(request, 'users/skill_form.html', {'form': form})

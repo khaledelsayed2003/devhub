@@ -71,3 +71,17 @@ class SkillForm(ModelForm):
         model = Skill
         fields = '__all__'
         exclude = ['owner']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'placeholder': 'React, Django, Flutter, Docker...',
+            }),
+            'description': forms.Textarea(attrs={
+                'rows': 6,
+                'placeholder': 'Explain how you use this skill in real projects, what kind of problems you solve with it, or what makes you strong at it.',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].label = 'Skill Name'
+        self.fields['description'].label = 'How You Use It'

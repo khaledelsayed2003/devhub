@@ -1,11 +1,111 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h1>Skills Form</h1>
+{% block title %}DevHub | Add Skill{% endblock title %}
 
-{% for field in form %}
-{{ field.label }}
-{{ field }}
-{% endfor %} 
-  
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="profile-form-page section">
+    <div class="profile-form-topbar">
+      <a href="{% url 'account' %}" class="ghost-button user-profile-back-link">Back to account</a>
+      <div class="profile-form-top-message" aria-label="Add a skill that explains what you actually do.">
+        <span class="profile-form-top-message-word">
+          <span>A</span><span>d</span><span>d</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>a</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>s</span><span>k</span><span>i</span><span>l</span><span>l</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>w</span><span>i</span><span>t</span><span>h</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>r</span><span>e</span><span>a</span><span>l</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>c</span><span>o</span><span>n</span><span>t</span><span>e</span><span>x</span><span>t</span>
+        </span>
+      </div>
+      <span class="profile-form-topbar-spacer" aria-hidden="true"></span>
+    </div>
+
+    <div class="profile-form-shell">
+      <aside class="profile-form-intro">
+        <span class="section-label">Skill Builder</span>
+        <h1>Turn one skill into something people can actually understand.</h1>
+        <p>
+          A strong skill entry is more than a label. Show how you use it, where it fits in your work, and why it belongs on your profile.
+        </p>
+
+        <div class="profile-form-highlight">
+          <div class="profile-form-highlight-copy">
+            <h2>What makes a skill feel credible</h2>
+            <p>Keep it specific, practical, and connected to the kind of work you want people to notice.</p>
+          </div>
+          <div class="profile-form-highlight-grid">
+            <span>Clear skill name</span>
+            <span>Real project usage</span>
+            <span>Visible strengths</span>
+            <span>Practical context</span>
+            <span>Short and sharp</span>
+            <span>Portfolio-ready</span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="profile-form-card">
+        <div class="profile-form-card-head">
+          <span class="section-label">Add Skill</span>
+          <h2>Create a skill entry that feels specific and useful</h2>
+          <p>Give the skill a strong name, then add a short explanation that helps people understand how you apply it in real work.</p>
+        </div>
+
+        <form method="POST" class="profile-edit-form" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="profile-form-errors">
+              {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <section class="profile-form-section">
+            <div class="profile-form-section-head">
+              <span class="section-label">Skill Details</span>
+              <h3>Name and explanation</h3>
+            </div>
+
+            <div class="profile-form-story-grid">
+              <div class="profile-form-field">
+                <label class="profile-form-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                {{ form.name }}
+                <p class="profile-form-help">Use the exact tool, framework, language, or capability you want visitors to notice.</p>
+                {% if form.name.errors %}
+                  <div class="profile-form-errors">{% for error in form.name.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+
+              <div class="profile-form-field profile-form-field-wide">
+                <label class="profile-form-label" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                {{ form.description }}
+                <p class="profile-form-help">Explain how you use this skill in projects, what kind of work it supports, or what you do especially well with it.</p>
+                {% if form.description.errors %}
+                  <div class="profile-form-errors">{% for error in form.description.errors %}<p>{{ error }}</p>{% endfor %}</div>
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+          <div class="profile-form-actions">
+            <a href="{% url 'account' %}" class="ghost-button large-button">Cancel</a>
+            <button type="submit" class="primary-button large-button">Add Skill</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
 {% endblock content %}
