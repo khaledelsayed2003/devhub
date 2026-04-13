@@ -441,7 +441,7 @@ body.light-theme .project-delete-summary {
   color: rgba(240, 237, 230, 0.6);
   font-size: 0.82rem;
   line-height: 1.45;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .projects-spotlight {
@@ -455,6 +455,7 @@ body.light-theme .project-delete-summary {
   padding-top: 10px;
   min-height: 420px;
   transform: translateX(-58px);
+  overflow: visible;
 }
 
 .projects-spotlight-kicker {
@@ -1074,11 +1075,38 @@ body.light-theme .project-tile:hover {
 
   .projects-hero-head {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .projects-hero {
     gap: 16px;
     padding: 18px;
+  }
+
+  .projects-spotlight {
+    justify-items: center;
+    min-height: auto;
+    padding-top: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .projects-spotlight-kicker {
+    justify-self: center;
+    transform: none;
+    text-align: center;
+    letter-spacing: 0.18em;
+  }
+
+  .projects-pendulum-widget {
+    width: min(100%, 380px);
+    padding-inline: 12px;
+  }
+
+  .projects-pendulum-circle {
+    width: min(100%, 270px);
+    min-height: 270px;
+    padding: 28px 22px;
   }
 
   .projects-hero-title {
@@ -1087,15 +1115,18 @@ body.light-theme .project-tile:hover {
   }
 
   .projects-search-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
+    border-radius: 28px;
+    padding: 12px;
   }
 
   .projects-search-shell svg {
-    display: none;
+    display: block;
   }
 
   .projects-search-shell .primary-button {
     width: 100%;
+    grid-column: 1 / -1;
   }
 }
 
@@ -1124,6 +1155,61 @@ body.light-theme .project-tile:hover {
   .projects-hero p {
     font-size: 0.94rem;
     line-height: 1.65;
+  }
+
+  .projects-spotlight {
+    gap: 12px;
+  }
+
+  .projects-spotlight-kicker {
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+  }
+
+  .projects-pendulum-widget {
+    width: min(100%, 320px);
+    padding-inline: 14px;
+  }
+
+  .projects-pendulum-cable {
+    height: 92px;
+  }
+
+  .projects-pendulum-circle {
+    width: min(100%, 240px);
+    min-height: 240px;
+    gap: 10px;
+    padding: 24px 18px;
+  }
+
+  .projects-pendulum-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+
+  .projects-pendulum-circle h2 {
+    font-size: 1.65rem;
+  }
+
+  .projects-pendulum-rating,
+  .projects-pendulum-meta,
+  .projects-pendulum-category {
+    font-size: 0.88rem;
+  }
+
+  .projects-search-shell {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    border-radius: 24px;
+  }
+
+  .projects-search-shell svg {
+    display: none;
+  }
+
+  .projects-search-shell input,
+  .projects-search-shell .primary-button {
+    min-width: 0;
   }
 
   .projects-grid-page {
