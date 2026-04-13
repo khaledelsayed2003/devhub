@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Skill
 from django.forms import ModelForm
 from django import forms
 
@@ -64,3 +64,10 @@ class ProfileForm(ModelForm):
             profile.save()
 
         return profile
+
+
+class SkillForm(ModelForm):
+    class Meta:
+        model = Skill
+        fields = '__all__'
+        exclude = ['owner']

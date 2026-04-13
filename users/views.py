@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
-from .forms import CustomUserCreationForm, ProfileForm
+from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from .models import Profile
 from projects.models import Project
 from django.contrib.auth.models import User
@@ -114,3 +114,8 @@ def editAccount(request):
             messages.error(request, "Please fix the errors below ❌")
     
     return render(request, 'users/profile_form.html', {'form': form})
+
+@login_required(login_url='login')
+def createSkill(request):
+    form = SkillForm
+    return render(request, 'users/skill_form.html', {'form': form})
