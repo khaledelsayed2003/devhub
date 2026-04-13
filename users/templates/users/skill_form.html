@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}DevHub | Add Skill{% endblock title %}
+{% block title %}DevHub | {% if is_update %}Update Skill{% else %}Add Skill{% endif %}{% endblock title %}
 
 {% block body_class %}users-page-body{% endblock body_class %}
 
@@ -8,7 +8,27 @@
   <section class="profile-form-page section">
     <div class="profile-form-topbar">
       <a href="{% url 'account' %}" class="ghost-button user-profile-back-link">Back to account</a>
-      <div class="profile-form-top-message" aria-label="Add a skill that explains what you actually do.">
+      <div class="profile-form-top-message" aria-label="{% if is_update %}Refine a skill so it reflects your latest strengths.{% else %}Add a skill that explains what you actually do.{% endif %}">
+        {% if is_update %}
+        <span class="profile-form-top-message-word">
+          <span>U</span><span>p</span><span>d</span><span>a</span><span>t</span><span>e</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>y</span><span>o</span><span>u</span><span>r</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>s</span><span>k</span><span>i</span><span>l</span><span>l</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>w</span><span>i</span><span>t</span><span>h</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>b</span><span>e</span><span>t</span><span>t</span><span>e</span><span>r</span>
+        </span>
+        <span class="profile-form-top-message-word">
+          <span>c</span><span>l</span><span>a</span><span>r</span><span>i</span><span>t</span><span>y</span>
+        </span>
+        {% else %}
         <span class="profile-form-top-message-word">
           <span>A</span><span>d</span><span>d</span>
         </span>
@@ -27,22 +47,27 @@
         <span class="profile-form-top-message-word">
           <span>c</span><span>o</span><span>n</span><span>t</span><span>e</span><span>x</span><span>t</span>
         </span>
+        {% endif %}
       </div>
       <span class="profile-form-topbar-spacer" aria-hidden="true"></span>
     </div>
 
     <div class="profile-form-shell">
       <aside class="profile-form-intro">
-        <span class="section-label">Skill Builder</span>
-        <h1>Turn one skill into something people can actually understand.</h1>
+        <span class="section-label">{% if is_update %}Skill Editor{% else %}Skill Builder{% endif %}</span>
+        <h1>{% if is_update %}Refine this skill so it reads like real experience, not just a label.{% else %}Turn one skill into something people can actually understand.{% endif %}</h1>
         <p>
+          {% if is_update %}
+          Tighten the wording, sharpen the explanation, and make sure this skill still matches the kind of work you want people to associate with you.
+          {% else %}
           A strong skill entry is more than a label. Show how you use it, where it fits in your work, and why it belongs on your profile.
+          {% endif %}
         </p>
 
         <div class="profile-form-highlight">
           <div class="profile-form-highlight-copy">
-            <h2>What makes a skill feel credible</h2>
-            <p>Keep it specific, practical, and connected to the kind of work you want people to notice.</p>
+            <h2>{% if is_update %}What makes an edited skill feel stronger{% else %}What makes a skill feel credible{% endif %}</h2>
+            <p>{% if is_update %}Aim for clearer wording, stronger context, and a description that feels current and believable.{% else %}Keep it specific, practical, and connected to the kind of work you want people to notice.{% endif %}</p>
           </div>
           <div class="profile-form-highlight-grid">
             <span>Clear skill name</span>
@@ -57,9 +82,9 @@
 
       <section class="profile-form-card">
         <div class="profile-form-card-head">
-          <span class="section-label">Add Skill</span>
-          <h2>Create a skill entry that feels specific and useful</h2>
-          <p>Give the skill a strong name, then add a short explanation that helps people understand how you apply it in real work.</p>
+          <span class="section-label">{% if is_update %}Update Skill{% else %}Add Skill{% endif %}</span>
+          <h2>{% if is_update %}Update this skill entry with better detail and sharper wording{% else %}Create a skill entry that feels specific and useful{% endif %}</h2>
+          <p>{% if is_update %}Refresh the name or description so this skill still represents your strengths clearly on your profile.{% else %}Give the skill a strong name, then add a short explanation that helps people understand how you apply it in real work.{% endif %}</p>
         </div>
 
         <form method="POST" class="profile-edit-form" novalidate>
@@ -102,7 +127,7 @@
 
           <div class="profile-form-actions">
             <a href="{% url 'account' %}" class="ghost-button large-button">Cancel</a>
-            <button type="submit" class="primary-button large-button">Add Skill</button>
+            <button type="submit" class="primary-button large-button">{% if is_update %}Save Skill Changes{% else %}Add Skill{% endif %}</button>
           </div>
         </form>
       </section>

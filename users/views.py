@@ -129,7 +129,7 @@ def createSkill(request):
             messages.success(request, "Skill added successfully. It is now part of your profile.")
             return redirect('account')
         
-    return render(request, 'users/skill_form.html', {'form': form})
+    return render(request, 'users/skill_form.html', {'form': form, 'is_update': False})
 
 @login_required(login_url='login')
 def updateSkill(request, pk):
@@ -144,4 +144,4 @@ def updateSkill(request, pk):
             messages.success(request, "Skill updated successfully. Your profile now reflects the latest version.")
             return redirect('account')
         
-    return render(request, 'users/skill_form.html', {'form': form})
+    return render(request, 'users/skill_form.html', {'form': form, 'is_update': True})
