@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Project
 from .forms import ProjectForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.urls import reverse
 
 
 def projects(request):
@@ -35,7 +37,8 @@ def createProject(request):
             project = form.save(commit=False)
             project.owner = profile
             project.save()
-            return redirect('projects')
+            messages.success(request, "Project created successfully. Your work is now live on DevHub.")
+            return redirect(f"{reverse('projects')}#project-{project.id}")
     else:
         form = ProjectForm()
     
@@ -49,7 +52,8 @@ def updateProject(request, pk):
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('projects')
+            messages.success(request, "Project updated successfully. Your latest changes are now live.")
+            return redirect('account')
     else:
         form = ProjectForm(instance=project)
     
@@ -61,6 +65,7 @@ def deleteProject(request, pk):
     project = profile.project_set.get(id=pk)
     if request.method == 'POST':
         project.delete()
-        return redirect('projects')
+        messages.success(request, "Project deleted successfully. It is no longer visible on your profile.")
+        return redirect('account')
     
     return render(request, 'projects/delete_project.html', {'project': project})

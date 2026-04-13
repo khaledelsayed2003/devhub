@@ -94,7 +94,7 @@
 
     <div class="projects-grid-page">
       {% for project in projects %}
-        <article class="project-tile reveal">
+        <article id="project-{{ project.id }}" class="project-tile reveal">
           <a class="project-tile-media" href="{% url 'project' project.id %}">
             <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
           </a>
