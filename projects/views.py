@@ -1,14 +1,22 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Project
+from .models import Project, Tag
 from .forms import ProjectForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django.db.models import Q
 
 
 def projects(request):
-    projects_list = Project.objects.prefetch_related('tags').all().order_by('-created')
+    search_query = ''
+    
+    if request.GET.get('search_query_project'):
+        search_query = request.GET.get('search_query_project')
+    
+    projects_list = Project.objects.prefetch_related('tags').filter(
+        Q(title__icontains=search_query) | Q(description__icontains=search_query) |
+        Q(owner__name__icontains=search_query)).order_by('-created')
     featured_project = (
         Project.objects.prefetch_related('tags')
         .order_by('-vote_total', '-vote_ratio', '-created')
@@ -20,6 +28,7 @@ def projects(request):
         {
             'projects': projects_list,
             'featured_project': featured_project,
+            'search_query' : search_query
         }
     )
 
