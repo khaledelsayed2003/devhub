@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
-from .models import Profile
+from .models import Profile, Skill
 from projects.models import Project
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -63,7 +63,9 @@ def profiles(request):
     if request.user.is_authenticated and hasattr(request.user, 'profile'):
         own_profile_id = request.user.profile.id
 
-    users = Profile.objects.filter(name__icontains=search_query)
+    skills = Skill.objects.filter(name__icontains=search_query)
+    users = Profile.objects.distinct().filter(
+        Q(name__icontains=search_query) | Q(short_intro__icontains=search_query) | Q(skill__in=skills))
     return render(
         request,
         'users/profiles.html',
