@@ -54,18 +54,23 @@ def logoutUser(request):
     return redirect('login')
 
 def profiles(request):
-    users = Profile.objects.all()
+    search_query = ''
     own_profile_id = None
+    
+    if request.GET.get('search_query_developer'):
+        search_query = request.GET.get('search_query_developer')
 
     if request.user.is_authenticated and hasattr(request.user, 'profile'):
         own_profile_id = request.user.profile.id
 
+    users = Profile.objects.filter(name__icontains=search_query)
     return render(
         request,
         'users/profiles.html',
         {
             'developers': users,
             'own_profile_id': own_profile_id,
+            'search_query' : search_query,
         },
     )
 
