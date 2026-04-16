@@ -92,7 +92,7 @@
       </div>
     </div>
 
-    <div class="projects-grid-page">
+    <div class="projects-grid-page" id="projects-list">
       {% for project in projects %}
         <article id="project-{{ project.id }}" class="project-tile reveal">
           <a class="project-tile-media" href="{% url 'project' project.id %}">
@@ -133,6 +133,57 @@
         </article>
       {% endfor %}
     </div>
+
+    {% if projects.has_other_pages %}
+      <nav class="projects-pagination reveal" aria-label="Projects pagination">
+        <div class="projects-pagination-status">
+          <span>Page {{ projects.number }} of {{ paginator.num_pages }}</span>
+          <strong>{{ paginator.count }} project{{ paginator.count|pluralize }}</strong>
+        </div>
+
+        <div class="projects-pagination-controls">
+          {% if projects.has_previous %}
+            <a class="projects-pager-button projects-pager-arrow" href="?page={{ projects.previous_page_number }}{% if search_query %}&search_query_project={{ search_query }}{% endif %}#projects-list" aria-label="Previous page">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+              <span>Prev</span>
+            </a>
+          {% else %}
+            <span class="projects-pager-button projects-pager-arrow is-disabled" aria-disabled="true">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+              <span>Prev</span>
+            </span>
+          {% endif %}
+
+          {% for page_number in paginator.page_range %}
+            {% if page_number == projects.number %}
+              <span class="projects-pager-button is-active" aria-current="page">{{ page_number|stringformat:"02d" }}</span>
+            {% elif page_number >= projects.number|add:"-2" and page_number <= projects.number|add:"2" %}
+              <a class="projects-pager-button" href="?page={{ page_number }}{% if search_query %}&search_query_project={{ search_query }}{% endif %}#projects-list">{{ page_number|stringformat:"02d" }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if projects.has_next %}
+            <a class="projects-pager-button projects-pager-arrow" href="?page={{ projects.next_page_number }}{% if search_query %}&search_query_project={{ search_query }}{% endif %}#projects-list" aria-label="Next page">
+              <span>Next</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </a>
+          {% else %}
+            <span class="projects-pager-button projects-pager-arrow is-disabled" aria-disabled="true">
+              <span>Next</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+            </span>
+          {% endif %}
+        </div>
+      </nav>
+    {% endif %}
   </section>
 {% endblock content %}
 

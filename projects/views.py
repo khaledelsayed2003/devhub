@@ -38,7 +38,8 @@ def projects(request):
         {
             'projects': projects_list,
             'featured_project': featured_project,
-            'search_query' : search_query
+            'search_query' : search_query,
+            'paginator' : paginator,
         }
     )
 
