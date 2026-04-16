@@ -758,11 +758,15 @@ body.light-theme .project-delete-summary {
 
 .projects-grid-page {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  justify-content: stretch;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-content: start;
   gap: 32px;
   align-items: start;
   padding-inline: 18px;
+}
+
+.project-tile {
+  max-width: 420px;
 }
 
 .project-tile,
@@ -1264,6 +1268,10 @@ body.light-theme .projects-pager-button.is-active {
   .projects-search-shell .primary-button {
     width: 100%;
     grid-column: 1 / -1;
+  }
+
+  .projects-grid-page {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
