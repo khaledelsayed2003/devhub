@@ -195,16 +195,49 @@
       {% endfor %}
     </div>
 
+    {% if developers.has_other_pages %}
     <nav class="developer-pagination reveal" aria-label="Developers pagination">
-      <a class="pager-button is-disabled" href="{% url 'profiles' %}#developers" aria-disabled="true">Prev</a>
-      <a class="pager-button is-active" href="{% url 'profiles' %}#developers">01</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">02</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">03</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">04</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">05</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">06</a>
-      <a class="pager-button" href="{% url 'profiles' %}#developers">Next</a>
+      {% if developers.has_previous %}
+      <a class="pager-button pager-button-arrow" href="?page={{ developers.previous_page_number }}{% if search_query %}&search_query_developer={{ search_query }}{% endif %}#developers" aria-label="Previous developers page">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+        <span>Prev</span>
+      </a>
+      {% else %}
+      <span class="pager-button pager-button-arrow is-disabled" aria-disabled="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+        <span>Prev</span>
+      </span>
+      {% endif %}
+
+      {% for page_number in paginator.page_range %}
+        {% if page_number == developers.number %}
+        <span class="pager-button is-active" aria-current="page">{{ page_number|stringformat:"02d" }}</span>
+        {% elif page_number >= developers.number|add:"-2" and page_number <= developers.number|add:"2" %}
+        <a class="pager-button" href="?page={{ page_number }}{% if search_query %}&search_query_developer={{ search_query }}{% endif %}#developers">{{ page_number|stringformat:"02d" }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if developers.has_next %}
+      <a class="pager-button pager-button-arrow" href="?page={{ developers.next_page_number }}{% if search_query %}&search_query_developer={{ search_query }}{% endif %}#developers" aria-label="Next developers page">
+        <span>Next</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+      </a>
+      {% else %}
+      <span class="pager-button pager-button-arrow is-disabled" aria-disabled="true">
+        <span>Next</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        </svg>
+      </span>
+      {% endif %}
     </nav>
+    {% endif %}
   </section>
 {% endblock content %}
 

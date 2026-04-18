@@ -1,5 +1,20 @@
 from .models import Profile, Skill
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+
+def paginateProfiles(request, profiles, results_per_page=3):
+    page = request.GET.get('page')
+    paginator = Paginator(profiles, results_per_page)
+
+    try:
+        profiles = paginator.page(page)
+    except PageNotAnInteger:
+        profiles = paginator.page(1)
+    except EmptyPage:
+        profiles = paginator.page(paginator.num_pages)
+
+    return profiles, paginator
 
 
 def searchProfiles(request):

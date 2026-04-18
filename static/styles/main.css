@@ -3797,6 +3797,17 @@ body.light-theme .site-footer__bottom {
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
+.pager-button-arrow {
+  gap: 8px;
+  min-width: 86px;
+}
+
+.pager-button-arrow svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+}
+
 .pager-button:hover {
   transform: translateY(-2px);
   color: var(--text);

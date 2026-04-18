@@ -7,7 +7,7 @@ from projects.models import Project
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .utils import searchProfiles
+from .utils import paginateProfiles, searchProfiles
 
 # Create your views here.
 
@@ -56,6 +56,7 @@ def logoutUser(request):
 
 def profiles(request):
     users, search_query = searchProfiles(request)
+    users, paginator = paginateProfiles(request, users, 3)
     own_profile_id = None
     
     if request.user.is_authenticated and hasattr(request.user, 'profile'):
@@ -68,6 +69,7 @@ def profiles(request):
             'developers': users,
             'own_profile_id': own_profile_id,
             'search_query' : search_query,
+            'paginator': paginator,
         },
     )
 
