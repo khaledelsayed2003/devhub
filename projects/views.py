@@ -6,25 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
-from .utils import searchProjects
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .utils import searchProjects, paginateProjects
 
 
 def projects(request):
     projects_list, search_query = searchProjects(request)
-    
-    page = request.GET.get('page')
-    cards_per_page = 4 
-    paginator = Paginator(projects_list, cards_per_page)
-    
-    try:
-        projects_list = paginator.page(page) 
-    except PageNotAnInteger:
-        page = 1
-        projects_list = paginator.page(page) 
-    except EmptyPage:
-        page = paginator.num_pages
-        projects_list = paginator.page(page)
+    projects_list, paginator = paginateProjects(request, projects_list, 4)
     
     featured_project = (
         Project.objects.prefetch_related('tags')
