@@ -41,6 +41,7 @@ def project(request, pk):
         review.owner = request.user.profile
         review.save()
         messages.success(request, "Review submitted successfully for this project")
+        return redirect('project', pk=projectObj.id)
 
     
     return render(request, 'projects/single-project.html', {'project': projectObj, 'form': form})
