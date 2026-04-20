@@ -121,22 +121,26 @@
               <div class="project-detail-review-list">
                 {% for review in project.review_set.all %}
                   {% if review.body %}
-                  <article class="project-detail-review {% if review.value == 'like' %}project-detail-review-positive{% else %}project-detail-review-negative{% endif %}">
-                    <div class="project-detail-review-mark" aria-hidden="true">
-                      {% if review.value == 'like' %}
-                        <span class="project-detail-review-icon">👍</span>
-                      {% else %}
-                        <span class="project-detail-review-icon">👎</span>
-                      {% endif %}
-                    </div>
-                    <div>
-                      <h3>
-                        {% if review.value == 'like' %}
-                          <span class="project-detail-review-sentiment">Loved it</span>
+                  <article class="project-detail-review">
+                    {% if review.owner %}
+                      <a class="project-detail-review-avatar-link" href="{% url 'user-profile' review.owner.id %}" aria-label="Open {{ review.owner.name }} profile">
+                        <span class="avatar avatar-md avatar-cyan">
+                          <img class="avatar-image" src="{{ review.owner.profile_image.url }}" alt="{{ review.owner.name }}">
+                        </span>
+                      </a>
+                    {% else %}
+                      <span class="avatar avatar-md avatar-cyan">DH</span>
+                    {% endif %}
+                    <div class="project-detail-review-content">
+                      <div class="project-detail-review-header">
+                        {% if review.owner %}
+                          <a class="project-detail-review-author" href="{% url 'user-profile' review.owner.id %}">
+                            {{ review.owner.name|default:"DevHub developer" }}
+                          </a>
                         {% else %}
-                          <span class="project-detail-review-sentiment">Needs work</span>
+                          <span class="project-detail-review-author">DevHub developer</span>
                         {% endif %}
-                      </h3>
+                      </div>
                       <p>{{ review.body }}</p>
                     </div>
                   </article>

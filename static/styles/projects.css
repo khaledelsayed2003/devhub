@@ -2024,7 +2024,7 @@ body.project-image-modal-open {
 }
 
 .project-detail-review-mark {
-  display: grid;
+  display: none;
   place-items: center;
   width: 56px;
   height: 56px;
@@ -2045,6 +2045,43 @@ body.project-image-modal-open {
   justify-content: center;
   transform: translateY(1px);
   filter: saturate(1.05);
+}
+
+.project-detail-review-avatar-link {
+  display: inline-flex;
+  border-radius: 999px;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.project-detail-review-avatar-link:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.project-detail-review-content {
+  min-width: 0;
+}
+
+.project-detail-review-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.project-detail-review-author {
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.project-detail-review-author:hover {
+  color: var(--cyan);
 }
 
 .project-detail-review-positive .project-detail-review-mark {
