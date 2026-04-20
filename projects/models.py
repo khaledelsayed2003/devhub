@@ -18,6 +18,17 @@ class Project(models.Model):
     def __str__(self):
         return self.title
     
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        likeVotes = reviews.filter(value='like').count()
+        totalVotes = reviews.count()
+        
+        ratio = (likeVotes / totalVotes) * 100
+        self.vote_total = totalVotes 
+        self.vote_ratio = ratio
+        
+        self.save()
 
 class Review(models.Model):
     VOTE_TYPE = (
