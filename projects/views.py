@@ -14,9 +14,11 @@ def projects(request):
     projects_list, paginator = paginateProjects(request, projects_list, 4)
     
     featured_project = (
-        Project.objects.prefetch_related('tags')
-        .order_by('-vote_total', '-vote_ratio', '-created')
+        Project.objects.prefetch_related('tags').filter(
+            vote_total__gte=10
+        ).order_by('-vote_ratio', '-vote_total', '-created')
         .first()
+        or Project.objects.prefetch_related('tags').order_by('-vote_ratio', '-vote_total', '-created').first()
     )
     
     return render(
