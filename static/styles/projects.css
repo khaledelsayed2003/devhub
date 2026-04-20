@@ -2161,6 +2161,13 @@ body.project-image-modal-open {
   color: var(--cyan);
 }
 
+.project-detail-review-date {
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
 .project-detail-review-positive .project-detail-review-mark {
   background:
     linear-gradient(135deg, rgba(93, 231, 180, 0.22), rgba(75, 232, 255, 0.16)),

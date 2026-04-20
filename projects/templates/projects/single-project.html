@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load project_extras %}
 
 
 {% block title %}DevHub | {{ project.title }}{% endblock title %}
@@ -173,6 +174,7 @@
                         {% else %}
                           <span class="project-detail-review-author">DevHub developer</span>
                         {% endif %}
+                        <span class="project-detail-review-date">&middot; {{ review.created|largest_timesince }}</span>
                       </div>
                       <p>{{ review.body }}</p>
                     </div>
