@@ -111,8 +111,41 @@
               <span class="project-detail-section-label">Feedback</span>
               <h2>What other developers think</h2>
               <p class="detail-feedback-summary">{{ project.vote_ratio }}% positive feedback ({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</p>
-              <textarea rows="6" placeholder="Write your comments here..." aria-label="Project feedback"></textarea>
-              <button type="button" class="primary-button detail-feedback-button">Leave Feedback</button>
+
+              <form class="project-review-form" method="POST">
+                {% csrf_token %}
+
+                <div class="project-review-field">
+                  <label class="project-review-label">{{ form.value.label }}</label>
+                  <div class="project-review-choice-list">
+                    {% for choice in form.value %}
+                      <label class="project-review-choice">
+                        {{ choice.tag }}
+                        <span>{{ choice.choice_label }}</span>
+                      </label>
+                    {% endfor %}
+                  </div>
+                  {% if form.value.help_text %}
+                    <p class="project-review-help">{{ form.value.help_text }}</p>
+                  {% endif %}
+                  {% for error in form.value.errors %}
+                    <p class="project-review-error">{{ error }}</p>
+                  {% endfor %}
+                </div>
+
+                <div class="project-review-field">
+                  <label class="project-review-label" for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
+                  {{ form.body }}
+                  {% if form.body.help_text %}
+                    <p class="project-review-help">{{ form.body.help_text }}</p>
+                  {% endif %}
+                  {% for error in form.body.errors %}
+                    <p class="project-review-error">{{ error }}</p>
+                  {% endfor %}
+                </div>
+
+                <button type="submit" class="primary-button detail-feedback-button">Leave Feedback</button>
+              </form>
             </article>
 
             <article class="project-detail-section project-detail-reviews">

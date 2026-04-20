@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Project
+from .models import Project, Review
 
 
 class ProjectForm(ModelForm):
@@ -70,3 +70,36 @@ class ProjectForm(ModelForm):
             self.save_m2m()
 
         return project
+
+
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['value', 'body']
+        labels = {
+            'value': 'Your vote',
+            'body': 'Your comment',
+        }
+        widgets = {
+            'value': forms.RadioSelect(attrs={
+                'class': 'review-form-choice-input',
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'review-form-textarea',
+                'placeholder': 'Share what worked well, what could be improved, or what stood out to you.',
+                'rows': 5,
+            }),
+        }
+        help_texts = {
+            'value': 'Choose the option that best matches your feedback.',
+            'body': 'Optional, but helpful. Written feedback makes the project stronger.',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['value'].choices = [
+            ('like', 'Positive feedback'),
+            ('dislike', 'Needs improvement'),
+        ]

@@ -1945,6 +1945,83 @@ body.project-image-modal-open {
   letter-spacing: -0.02em;
 }
 
+.project-review-form {
+  display: grid;
+  gap: 18px;
+}
+
+.project-review-field {
+  display: grid;
+  gap: 10px;
+}
+
+.project-review-label {
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.94rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-review-choice-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.project-review-choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 0 18px;
+  border-radius: 20px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.1), rgba(164, 95, 255, 0.08)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--text);
+  cursor: pointer;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.project-review-choice:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 0 1px rgba(75, 232, 255, 0.32), 0 16px 30px rgba(0, 0, 0, 0.13);
+}
+
+.project-review-choice input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--cyan);
+}
+
+.project-review-choice:has(input:checked) {
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.2), rgba(164, 95, 255, 0.18)),
+    rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(75, 232, 255, 0.44), 0 18px 34px rgba(75, 232, 255, 0.12);
+}
+
+.project-review-help,
+.project-review-error {
+  margin: 0 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.55 !important;
+}
+
+.project-review-help {
+  color: var(--muted) !important;
+}
+
+.project-review-error {
+  color: #ff9cb3 !important;
+}
+
 .project-detail-feedback textarea {
   width: 100%;
   border-radius: 22px;
@@ -2254,6 +2331,28 @@ body.light-theme .project-detail-feedback textarea:focus {
   box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.24), 0 18px 36px rgba(61, 91, 151, 0.12);
 }
 
+body.light-theme .project-review-choice {
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.08), rgba(133, 69, 255, 0.06)),
+    rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.12);
+}
+
+body.light-theme .project-review-choice:hover {
+  box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.22), 0 14px 28px rgba(61, 91, 151, 0.1);
+}
+
+body.light-theme .project-review-choice:has(input:checked) {
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.16), rgba(133, 69, 255, 0.12)),
+    rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.3), 0 16px 30px rgba(61, 91, 151, 0.1);
+}
+
+body.light-theme .project-review-error {
+  color: #c8284a !important;
+}
+
 body.light-theme .project-detail-review {
   box-shadow: inset 0 1px 0 rgba(45, 100, 236, 0.1);
 }
@@ -2368,6 +2467,10 @@ body.light-theme .project-detail-review-negative .project-detail-review-sentimen
   .project-detail-meta-strip,
   .project-detail-creator,
   .project-detail-review {
+    grid-template-columns: 1fr;
+  }
+
+  .project-review-choice-list {
     grid-template-columns: 1fr;
   }
 
