@@ -113,40 +113,59 @@
               <h2>What other developers think</h2>
               <p class="detail-feedback-summary">{{ project.vote_ratio }}% positive feedback ({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</p>
 
-              <form class="project-review-form" method="POST">
-                {% csrf_token %}
+              {% if request.user.is_authenticated %}
+                {% if request.user.profile.id in project.reviewers %}
+                  <p class="project-review-info">
+                    You’ve already reviewed this project. Thanks for sharing your feedback 🙌
+                  </p>
 
-                <div class="project-review-field">
-                  <label class="project-review-label">{{ form.value.label }}</label>
-                  <div class="project-review-choice-list">
-                    {% for choice in form.value %}
-                      <label class="project-review-choice">
-                        {{ choice.tag }}
-                        <span>{{ choice.choice_label }}</span>
-                      </label>
-                    {% endfor %}
-                  </div>
-                  {% if form.value.help_text %}
-                    <p class="project-review-help">{{ form.value.help_text }}</p>
-                  {% endif %}
-                  {% for error in form.value.errors %}
-                    <p class="project-review-error">{{ error }}</p>
-                  {% endfor %}
-                </div>
+                {% elif request.user.profile == project.owner %}
+                  <p class="project-review-info">
+                    You can’t review your own project 😄
+                  </p>
 
-                <div class="project-review-field">
-                  <label class="project-review-label" for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
-                  {{ form.body }}
-                  {% if form.body.help_text %}
-                    <p class="project-review-help">{{ form.body.help_text }}</p>
-                  {% endif %}
-                  {% for error in form.body.errors %}
-                    <p class="project-review-error">{{ error }}</p>
-                  {% endfor %}
-                </div>
+                {% else %}
+                  <form class="project-review-form" method="POST">
+                    {% csrf_token %}
 
-                <button type="submit" class="primary-button detail-feedback-button">Leave Feedback</button>
-              </form>
+                    <div class="project-review-field">
+                      <label class="project-review-label">{{ form.value.label }}</label>
+                      <div class="project-review-choice-list">
+                        {% for choice in form.value %}
+                          <label class="project-review-choice">
+                            {{ choice.tag }}
+                            <span>{{ choice.choice_label }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                      {% if form.value.help_text %}
+                        <p class="project-review-help">{{ form.value.help_text }}</p>
+                      {% endif %}
+                      {% for error in form.value.errors %}
+                        <p class="project-review-error">{{ error }}</p>
+                      {% endfor %}
+                    </div>
+
+                    <div class="project-review-field">
+                      <label class="project-review-label" for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
+                      {{ form.body }}
+                      {% if form.body.help_text %}
+                        <p class="project-review-help">{{ form.body.help_text }}</p>
+                      {% endif %}
+                      {% for error in form.body.errors %}
+                        <p class="project-review-error">{{ error }}</p>
+                      {% endfor %}
+                    </div>
+
+                    <button type="submit" class="primary-button detail-feedback-button">Leave Feedback</button>
+                  </form>
+                {% endif %}
+
+              {% else %}
+                <p class="project-review-info">
+                  Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to leave a review.
+                </p>
+              {% endif %}  
             </article>
 
             <article class="project-detail-section project-detail-reviews">

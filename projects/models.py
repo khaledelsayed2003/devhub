@@ -19,6 +19,11 @@ class Project(models.Model):
         return self.title
     
     @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner__id', flat=True)
+        return queryset  
+    
+    @property
     def getVoteCount(self):
         reviews = self.review_set.all()
         likeVotes = reviews.filter(value='like').count()
