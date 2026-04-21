@@ -3591,11 +3591,66 @@ body.light-theme .account-action-button:focus-visible {
 }
 
 .developer-pagination {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin: 32px auto 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(75, 232, 255, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
+    rgba(10, 16, 30, 0.76);
+  box-shadow: 0 22px 52px rgba(0, 0, 0, 0.18);
+}
+
+.developer-pagination-status {
+  display: grid;
+  gap: 4px;
+  justify-self: start;
+  min-width: 180px;
+}
+
+.developer-pagination-status span {
+  color: var(--cyan);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.developer-pagination-status strong {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.developer-pagination-controls {
   display: flex;
+  align-items: center;
   justify-content: center;
+  grid-column: 2;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 32px;
+}
+
+body.light-theme .developer-pagination {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(0, 164, 215, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(243, 247, 255, 0.58)),
+    rgba(247, 250, 255, 0.78);
+  box-shadow: 0 18px 44px rgba(61, 91, 151, 0.1);
+}
+
+body.light-theme .developer-pagination-status span {
+  color: var(--blue);
+}
+
+body.light-theme .developer-pagination-status strong {
+  color: var(--muted);
 }
 
 .site-footer {
@@ -3957,6 +4012,20 @@ body.light-theme .site-footer__bottom {
   .avatar-sm { width: 42px; height: 42px; }
 
   .developer-pagination {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 12px;
+    border-radius: 22px;
+  }
+
+  .developer-pagination-status {
+    min-width: 0;
+    justify-self: center;
+    text-align: center;
+  }
+
+  .developer-pagination-controls {
+    justify-content: center;
     gap: 10px;
   }
 

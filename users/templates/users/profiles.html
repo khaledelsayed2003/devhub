@@ -197,6 +197,12 @@
 
     {% if developers.has_other_pages %}
     <nav class="developer-pagination reveal" aria-label="Developers pagination">
+      <div class="developer-pagination-status">
+        <span>Page {{ developers.number }} of {{ paginator.num_pages }}</span>
+        <strong>{{ paginator.count }} developer{{ paginator.count|pluralize }}</strong>
+      </div>
+
+      <div class="developer-pagination-controls">
       {% if developers.has_previous %}
       <a class="pager-button pager-button-arrow" href="?page={{ developers.previous_page_number }}{% if search_query %}&search_query_developer={{ search_query }}{% endif %}#developers" aria-label="Previous developers page">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -236,6 +242,7 @@
         </svg>
       </span>
       {% endif %}
+      </div>
     </nav>
     {% endif %}
   </section>
