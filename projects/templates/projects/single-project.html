@@ -172,7 +172,7 @@
               <span class="project-detail-section-label">Community Notes</span>
               <h2>Recent comments</h2>
               <div class="project-detail-review-list">
-                {% for review in project.review_set.all %}
+                {% for review in reviews %}
                   {% if review.body %}
                   <article class="project-detail-review">
                     {% if review.owner %}

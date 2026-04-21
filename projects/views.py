@@ -34,6 +34,7 @@ def projects(request):
 
 def project(request, pk):
     projectObj = Project.objects.get(id=pk)
+    reviews = projectObj.review_set.all().order_by('-created')
     form = ReviewForm()
     
     if request.method == 'POST':
@@ -47,7 +48,7 @@ def project(request, pk):
         return redirect('project', pk=projectObj.id)
 
     
-    return render(request, 'projects/single-project.html', {'project': projectObj, 'form': form})
+    return render(request, 'projects/single-project.html', {'project': projectObj, 'reviews': reviews, 'form': form})
 
 @login_required(login_url='login')
 def createProject(request):
