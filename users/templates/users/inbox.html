@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}DevHub | Inbox{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  {% with inbox_messages=request.user.profile.messages.all %}
+  <section class="inbox-page section">
+    <div class="inbox-shell">
+      <header class="inbox-head">
+        <div class="inbox-title-block">
+          <span class="section-label">Inbox</span>
+          <div class="inbox-title-row">
+            <h1>New messages</h1>
+            <span class="inbox-count-pill">{{ inbox_messages.count }}</span>
+          </div>
+          <p>Messages from developers, collaborators, and people interested in your work.</p>
+        </div>
+
+        <a class="ghost-button" href="{% url 'account' %}">← Go to account</a>
+      </header>
+
+      <article class="inbox-card">
+        {% if inbox_messages %}
+          <div class="inbox-list">
+            {% for message in inbox_messages|dictsortreversed:"created" %}
+              {% if not message.is_read %}
+                <article class="inbox-message inbox-message-unread">
+                  <div class="inbox-sender">
+                    {% if message.sender %}
+                      <a class="avatar avatar-md avatar-cyan" href="{% url 'user-profile' message.sender.id %}" aria-label="Open {{ message.sender.name }} profile">
+                        <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.name }}">
+                      </a>
+                    {% else %}
+                      <span class="avatar avatar-md avatar-cyan">DH</span>
+                    {% endif %}
+
+                    <div class="inbox-sender-copy">
+                      <span class="inbox-sender-name">
+                        {% if message.sender %}
+                          {{ message.sender.name|default:message.sender.username }}
+                        {% else %}
+                          {{ message.name|default:"DevHub developer" }}
+                        {% endif %}
+                      </span>
+                      {% if message.email %}
+                        <span class="inbox-email">{{ message.email }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="inbox-message-main">
+                    <div class="inbox-subject-line">
+                      <strong class="inbox-subject">{{ message.subject|default:"No subject" }}</strong>
+                      <span class="inbox-status-pill">Unread</span>
+                    </div>
+                    <span class="inbox-preview">{{ message.body|truncatechars:120 }}</span>
+                  </div>
+
+                  <time class="inbox-date" datetime="{{ message.created|date:'c' }}">{{ message.created|date:"M d, Y, h:i A" }}</time>
+                </article>
+              {% endif %}
+            {% endfor %}
+
+            {% for message in inbox_messages|dictsortreversed:"created" %}
+              {% if message.is_read %}
+                <article class="inbox-message">
+                  <div class="inbox-sender">
+                    {% if message.sender %}
+                      <a class="avatar avatar-md avatar-cyan" href="{% url 'user-profile' message.sender.id %}" aria-label="Open {{ message.sender.name }} profile">
+                        <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.name }}">
+                      </a>
+                    {% else %}
+                      <span class="avatar avatar-md avatar-cyan">DH</span>
+                    {% endif %}
+
+                    <div class="inbox-sender-copy">
+                      <span class="inbox-sender-name">
+                        {% if message.sender %}
+                          {{ message.sender.name|default:message.sender.username }}
+                        {% else %}
+                          {{ message.name|default:"DevHub developer" }}
+                        {% endif %}
+                      </span>
+                      {% if message.email %}
+                        <span class="inbox-email">{{ message.email }}</span>
+                      {% endif %}
+                    </div>
+                  </div>
+
+                  <div class="inbox-message-main">
+                    <div class="inbox-subject-line">
+                      <strong class="inbox-subject">{{ message.subject|default:"No subject" }}</strong>
+                      <span class="inbox-status-pill">Read</span>
+                    </div>
+                    <span class="inbox-preview">{{ message.body|truncatechars:120 }}</span>
+                  </div>
+
+                  <time class="inbox-date" datetime="{{ message.created|date:'c' }}">{{ message.created|date:"M d, Y, h:i A" }}</time>
+                </article>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="inbox-empty">
+            <span class="section-label">No Messages</span>
+            <h2>Your inbox is clear.</h2>
+            <p>When someone reaches out from your profile, their message will appear here with the sender, subject, and delivery time.</p>
+          </div>
+        {% endif %}
+      </article>
+    </div>
+  </section>
+  {% endwith %}
+{% endblock content %}

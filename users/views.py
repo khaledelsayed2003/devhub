@@ -160,3 +160,8 @@ def deleteSkill(request, pk):
         return redirect('account')
     
     return render(request, 'users/delete_skill.html', {'skill': skill})
+
+@login_required(login_url='login')
+def inbox(request):
+    return render(request, 'users/inbox.html')
+    

@@ -72,7 +72,7 @@
                   <strong>{{ request.user.profile.name|default:request.user.username }}</strong>
                 </div>
               </div>
-              <a class="user-menu-item user-menu-item-inbox" href="{% url 'profiles' %}#developers">
+              <a class="user-menu-item user-menu-item-inbox" href="{% url 'inbox' %}">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v11a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5v-11Z" fill="none" stroke="currentColor" stroke-width="2"></path>
                   <path d="M7 8h10M7 12h10M7 16h6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
