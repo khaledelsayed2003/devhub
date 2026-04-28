@@ -4,7 +4,6 @@
 {% block body_class %}users-page-body{% endblock body_class %}
 
 {% block content %}
-  {% with inbox_messages=request.user.profile.messages.all %}
   <section class="inbox-page section">
     <div class="inbox-shell">
       <header class="inbox-head">
@@ -12,7 +11,7 @@
           <span class="section-label">Inbox</span>
           <div class="inbox-title-row">
             <h1>New messages</h1>
-            <span class="inbox-count-pill">{{ inbox_messages.count }}</span>
+            <span class="inbox-count-pill">{{ unreadCount }}</span>
           </div>
           <p>Messages from developers, collaborators, and people interested in your work.</p>
         </div>
@@ -111,5 +110,4 @@
       </article>
     </div>
   </section>
-  {% endwith %}
 {% endblock content %}
