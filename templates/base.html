@@ -53,11 +53,15 @@
             <span>Add Project</span>
           </a>
 
+          {% with unread_count=request.user.profile.unread_message_count %}
           <details class="user-menu">
             <summary class="ghost-button user-menu-trigger">
               <span class="user-menu-avatar avatar avatar-sm avatar-cyan">
                 <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username }}">
               </span>
+              {% if unread_count %}
+                <span class="user-menu-unread-badge user-menu-trigger-badge" aria-label="{{ unread_count }} unread message{{ unread_count|pluralize }}">{{ unread_count }}</span>
+              {% endif %}
               <svg class="user-menu-caret" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
               </svg>
@@ -78,6 +82,9 @@
                   <path d="M7 8h10M7 12h10M7 16h6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
                 </svg>
                 <span>Inbox</span>
+                {% if unread_count %}
+                  <span class="user-menu-unread-badge user-menu-item-badge" aria-label="{{ unread_count }} unread message{{ unread_count|pluralize }}">{{ unread_count }}</span>
+                {% endif %}
               </a>
               <a class="user-menu-item user-menu-item-account" href="{% url 'account' %}">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -95,6 +102,7 @@
               </a>
             </div>
           </details>
+          {% endwith %}
         {% else %}
           <a class="ghost-button" href="{% url 'login' %}">Login</a>
           <a class="primary-button" href="{% url 'register' %}">Sign Up</a>

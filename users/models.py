@@ -22,6 +22,10 @@ class Profile(models.Model):
     
     def __str__(self):
         return str(self.user.username)
+
+    @property
+    def unread_message_count(self):
+        return self.messages.filter(is_read=False).count()
     
     
 
