@@ -5439,6 +5439,202 @@ body.light-theme .auth-next-step span {
   line-height: 1.7;
 }
 
+.message-page {
+  padding-top: 42px;
+  padding-bottom: 72px;
+}
+
+.message-detail-card {
+  position: relative;
+  display: grid;
+  gap: 26px;
+  max-width: 980px;
+  min-height: 520px;
+  margin: 0 auto;
+  padding: 46px clamp(24px, 6vw, 72px) 50px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(75, 232, 255, 0.1), transparent 30%),
+    radial-gradient(circle at 90% 18%, rgba(164, 95, 255, 0.09), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
+    rgba(10, 16, 30, 0.86);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+}
+
+.message-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.message-back-button {
+  display: inline-grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(75, 232, 255, 0.2);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.18), rgba(164, 95, 255, 0.12)),
+    rgba(255, 255, 255, 0.05);
+  color: var(--cyan);
+  box-shadow: inset 0 0 0 1px rgba(75, 232, 255, 0.1);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.message-back-button svg {
+  width: 28px;
+  height: 28px;
+}
+
+.message-back-button:hover,
+.message-back-button:focus-visible {
+  transform: translateX(-3px);
+  border-color: rgba(75, 232, 255, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(75, 232, 255, 0.18),
+    0 16px 30px rgba(75, 232, 255, 0.12);
+}
+
+.message-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid rgba(75, 232, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(75, 232, 255, 0.08);
+  color: var(--cyan);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.message-detail-head {
+  display: grid;
+  gap: 10px;
+}
+
+.message-detail-head h1 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.message-field-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.message-meta-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(150px, 0.62fr) minmax(140px, 0.5fr);
+  gap: 18px;
+  align-items: stretch;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.message-sender-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.message-sender-copy,
+.message-meta-item,
+.message-body-section {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.message-meta-item {
+  align-content: center;
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+}
+
+.message-sender-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--cyan);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+  font-weight: 800;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+
+.message-sender-name:hover,
+.message-sender-name:focus-visible {
+  color: var(--text);
+}
+
+.message-email {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-date {
+  color: var(--muted);
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.message-meta-item strong {
+  overflow: hidden;
+  color: var(--text);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-meta-item strong span {
+  color: var(--cyan);
+  font-size: 0.86em;
+  font-weight: 800;
+}
+
+.message-body-section {
+  gap: 14px;
+}
+
+.message-body {
+  max-width: 100%;
+  padding: 24px 26px;
+  border: 1px solid rgba(151, 185, 255, 0.12);
+  border-left: 4px solid rgba(75, 232, 255, 0.64);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  font-size: clamp(1rem, 1.5vw, 1.16rem);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 body.light-theme .inbox-card {
   background:
     radial-gradient(circle at 12% 12%, rgba(0, 164, 215, 0.08), transparent 30%),
@@ -5503,6 +5699,48 @@ body.light-theme .inbox-message-unread .inbox-status-pill {
   box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.16);
 }
 
+body.light-theme .message-detail-card {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(0, 164, 215, 0.08), transparent 30%),
+    radial-gradient(circle at 90% 18%, rgba(133, 69, 255, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(243, 247, 255, 0.72)),
+    rgba(247, 250, 255, 0.9);
+  box-shadow: 0 22px 56px rgba(61, 91, 151, 0.12);
+}
+
+body.light-theme .message-back-button {
+  border-color: rgba(0, 164, 215, 0.18);
+  background:
+    linear-gradient(135deg, rgba(0, 164, 215, 0.12), rgba(133, 69, 255, 0.08)),
+    rgba(255, 255, 255, 0.86);
+  color: var(--blue);
+}
+
+body.light-theme .message-status {
+  border-color: rgba(45, 100, 236, 0.14);
+  background: rgba(45, 100, 236, 0.08);
+  color: var(--blue);
+}
+
+body.light-theme .message-sender-name {
+  color: var(--blue);
+}
+
+body.light-theme .message-sender-name:hover,
+body.light-theme .message-sender-name:focus-visible {
+  color: #00a4d7;
+}
+
+body.light-theme .message-meta-item strong span {
+  color: var(--blue);
+}
+
+body.light-theme .message-body {
+  border-color: rgba(74, 102, 173, 0.14);
+  border-left-color: rgba(45, 100, 236, 0.62);
+  background: rgba(255, 255, 255, 0.58);
+}
+
 @media (max-width: 900px) {
   .inbox-head {
     grid-template-columns: 1fr;
@@ -5516,10 +5754,26 @@ body.light-theme .inbox-message-unread .inbox-status-pill {
   .inbox-date {
     justify-self: start;
   }
+
+  .message-detail-card {
+    min-height: auto;
+  }
+
+  .message-meta-list {
+    grid-template-columns: 1fr;
+  }
+
+  .message-meta-item {
+    padding-top: 16px;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
 }
 
 @media (max-width: 640px) {
-  .inbox-page {
+  .inbox-page,
+  .message-page {
     padding-top: 28px;
   }
 
@@ -5533,5 +5787,26 @@ body.light-theme .inbox-message-unread .inbox-status-pill {
 
   .inbox-title-block h1 {
     font-size: clamp(2rem, 12vw, 2.8rem);
+  }
+
+  .message-detail-card {
+    gap: 24px;
+    padding: 24px 18px 30px;
+    border-radius: 24px;
+  }
+
+  .message-back-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .message-status {
+    min-height: 32px;
+    padding: 0 12px;
+    font-size: 0.78rem;
+  }
+
+  .message-body {
+    padding: 20px 18px;
   }
 }

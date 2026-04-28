@@ -16,19 +16,19 @@
           <p>Messages from developers, collaborators, and people interested in your work.</p>
         </div>
 
-        <a class="ghost-button" href="{% url 'account' %}">← Go to account</a>
+        <a class="ghost-button" href="{% url 'account' %}">Back to account</a>
       </header>
 
       <article class="inbox-card">
         {% if inbox_messages %}
           <div class="inbox-list">
             {% for message in inbox_messages %}
-              <article class="inbox-message{% if not message.is_read %} inbox-message-unread{% endif %}">
+              <a class="inbox-message{% if not message.is_read %} inbox-message-unread{% endif %}" href="{% url 'message' message.id %}" aria-label="Open message: {{ message.subject|default:'No subject' }}">
                 <div class="inbox-sender">
                   {% if message.sender %}
-                    <a class="avatar avatar-md avatar-cyan" href="{% url 'user-profile' message.sender.id %}" aria-label="Open {{ message.sender.name }} profile">
+                    <span class="avatar avatar-md avatar-cyan" aria-hidden="true">
                       <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.name }}">
-                    </a>
+                    </span>
                   {% else %}
                     <span class="avatar avatar-md avatar-cyan">DH</span>
                   {% endif %}
@@ -41,9 +41,6 @@
                         {{ message.name|default:"DevHub developer" }}
                       {% endif %}
                     </span>
-                    {% if message.email %}
-                      <span class="inbox-email">{{ message.email }}</span>
-                    {% endif %}
                   </div>
                 </div>
 
@@ -54,11 +51,11 @@
                       {% if message.is_read %}Read{% else %}Unread{% endif %}
                     </span>
                   </div>
-                  <span class="inbox-preview">{{ message.body|truncatechars:120 }}</span>
+                  <span class="inbox-preview">{{ message.body|truncatechars:50 }}</span>
                 </div>
 
                 <time class="inbox-date" datetime="{{ message.created|date:'c' }}">{{ message.created|date:"M d, Y, h:i A" }}</time>
-              </article>
+              </a>
             {% endfor %}
           </div>
         {% else %}

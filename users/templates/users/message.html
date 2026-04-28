@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}DevHub | {{ message.subject|default:"Message" }}{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="message-page section">
+    <article class="message-detail-card">
+      <div class="message-topbar">
+        <a class="message-back-button" href="{% url 'inbox' %}" aria-label="Back to inbox">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 18 9 12l6-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+          </svg>
+        </a>
+        <span class="message-status">Full message</span>
+      </div>
+
+      <header class="message-detail-head">
+        <span class="message-field-label">Subject</span>
+        <h1>{{ message.subject|default:"No subject" }}</h1>
+      </header>
+
+      <section class="message-meta-list" aria-label="Message details">
+        <div class="message-sender-summary">
+          {% if message.sender %}
+            <a class="avatar avatar-md avatar-cyan" href="{% url 'user-profile' message.sender.id %}" aria-label="Open {{ message.sender.name|default:message.sender.username }} profile">
+              <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.sender.username }}">
+            </a>
+          {% else %}
+            <span class="avatar avatar-md avatar-cyan">DH</span>
+          {% endif %}
+
+          <div class="message-sender-copy">
+            <span class="message-field-label">From</span>
+            {% if message.sender %}
+              <a class="message-sender-name" href="{% url 'user-profile' message.sender.id %}">
+                {{ message.sender.name|default:message.sender.username }}
+              </a>
+            {% else %}
+              <span class="message-sender-name">{{ message.name|default:"DevHub developer" }}</span>
+            {% endif %}
+            {% if message.email %}
+              <a class="message-email" href="mailto:{{ message.email }}">{{ message.email }}</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="message-meta-item">
+          <span class="message-field-label">Received</span>
+          <time class="message-date" datetime="{{ message.created|date:'c' }}">
+            {{ message.created|date:"F d, Y, g:i A" }}
+          </time>
+        </div>
+
+        <div class="message-meta-item">
+          <span class="message-field-label">To</span>
+          <strong>{{ profile.name|default:profile.username }} <span>(you)</span></strong>
+        </div>
+      </section>
+
+      <section class="message-body-section" aria-labelledby="messageBodyTitle">
+        <span class="message-field-label" id="messageBodyTitle">Message</span>
+        <div class="message-body">{{ message.body|linebreaksbr }}</div>
+      </section>
+    </article>
+  </section>
+{% endblock content %}

@@ -168,4 +168,14 @@ def inbox(request):
     unreadCount = inbox_messages.filter(is_read=False).count()
     
     return render(request, 'users/inbox.html', {'inbox_messages': inbox_messages, 'unreadCount': unreadCount})
+
+@login_required(login_url='login')
+def viewMessage(request, pk):
+    profile = request.user.profile
+    message = profile.messages.get(id=pk)
+
+    if not message.is_read:
+        message.is_read = True
+        message.save(update_fields=['is_read'])
     
+    return render(request, 'users/message.html', {'profile': profile, 'message': message})
