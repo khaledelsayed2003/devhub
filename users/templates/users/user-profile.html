@@ -80,7 +80,7 @@
             {% endif %}
           </div>
 
-            <a class="primary-button large-button user-profile-contact" href="mailto:{{ profile.email }}">Send Message</a>
+            <a class="primary-button large-button user-profile-contact" href="{% url 'create-message' profile.id %}">Send Message</a>
 
         </article>
       </aside>

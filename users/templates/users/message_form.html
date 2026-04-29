@@ -1,2 +1,109 @@
 {% extends 'base.html' %}
 
+{% block title %}DevHub | Message {{ recipient.name|default:recipient.username }}{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="message-compose-page section">
+    <article class="message-compose-card">
+      <a class="message-compose-back" href="{% url 'user-profile' recipient.id %}" aria-label="Back to {{ recipient.name|default:recipient.username }} profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 18 9 12l6-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"></path>
+        </svg>
+      </a>
+
+      <header class="message-compose-head">
+        <span class="message-recipient-chip">
+          <span class="avatar avatar-cyan">
+            <img class="avatar-image" src="{{ recipient.profile_image.url }}" alt="{{ recipient.name|default:recipient.username }}">
+          </span>
+          <span class="message-recipient-chip-copy">
+            <span>Recipient</span>
+            <strong>{{ recipient.name|default:recipient.username }}</strong>
+          </span>
+        </span>
+        <h1>Send a message</h1>
+        <p>Share a clear subject and enough context so {{ recipient.name|default:recipient.username }} can understand what you want to discuss.</p>
+      </header>
+
+      <form class="message-compose-form" method="POST">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+          <ul class="message-form-errors">
+            {% for error in form.non_field_errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+          <div class="message-auth-note">
+            <span class="avatar avatar-sm avatar-cyan">
+              <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username }}">
+            </span>
+            <span>Sending as <strong>{{ request.user.profile.name|default:request.user.username }}</strong></span>
+          </div>
+        {% endif %}
+
+        <div class="message-form-grid">
+          {% if not request.user.is_authenticated %}
+            <div class="message-form-field">
+              <label class="message-form-label" for="{{ form.name.id_for_label }}">Name</label>
+              {{ form.name }}
+              {% if form.name.errors %}
+                <ul class="message-form-errors">
+                  {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+
+            <div class="message-form-field">
+              <label class="message-form-label" for="{{ form.email.id_for_label }}">Email</label>
+              {{ form.email }}
+              {% if form.email.errors %}
+                <ul class="message-form-errors">
+                  {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div class="message-form-field message-form-field-full">
+            <label class="message-form-label" for="{{ form.subject.id_for_label }}">Subject</label>
+            {{ form.subject }}
+            {% if form.subject.errors %}
+              <ul class="message-form-errors">
+                {% for error in form.subject.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+
+          <div class="message-form-field message-form-field-full">
+            <label class="message-form-label" for="{{ form.body.id_for_label }}">Message</label>
+            {{ form.body }}
+            {% if form.body.errors %}
+              <ul class="message-form-errors">
+                {% for error in form.body.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="message-form-actions">
+          <a class="ghost-button" href="{% url 'user-profile' recipient.id %}">Cancel</a>
+          <button class="primary-button message-submit-button" type="submit">Send Message</button>
+        </div>
+      </form>
+    </article>
+  </section>
+{% endblock content %}

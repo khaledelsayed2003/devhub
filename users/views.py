@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
-from .forms import CustomUserCreationForm, ProfileForm, SkillForm
+from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from .models import Profile
 from projects.models import Project
 from django.contrib.auth.models import User
@@ -181,7 +181,8 @@ def viewMessage(request, pk):
     return render(request, 'users/message.html', {'profile': profile, 'message': message})
 
 def createMessage(request, pk):
+    form = MessageForm()
     recipient = Profile.objects.get(id=pk)
     
-    return render(request, 'users/message_form.html', {'recipient': recipient})
+    return render(request, 'users/message_form.html', {'form': form, 'recipient': recipient})
     
