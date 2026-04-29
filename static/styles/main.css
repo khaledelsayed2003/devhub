@@ -5654,6 +5654,7 @@ body.light-theme .auth-next-step span {
 }
 
 .message-meta-item strong {
+  min-width: 0;
   overflow: hidden;
   color: var(--text);
   font-family: "Space Grotesk", sans-serif;
@@ -5663,7 +5664,21 @@ body.light-theme .auth-next-step span {
   white-space: nowrap;
 }
 
-.message-meta-item strong span {
+.message-recipient-name {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.message-recipient-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message-recipient-you {
+  flex: 0 0 auto;
   color: var(--cyan);
   font-size: 0.86em;
   font-weight: 800;
@@ -5996,7 +6011,7 @@ body.light-theme .message-sender-name:focus-visible {
   color: #00a4d7;
 }
 
-body.light-theme .message-meta-item strong span {
+body.light-theme .message-recipient-you {
   color: var(--blue);
 }
 
