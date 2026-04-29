@@ -7,6 +7,7 @@ __pycache__/
 
 # Environment variables
 config/.env
+.env
 
 # SQLite
 instance/
