@@ -28,7 +28,7 @@
               <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.sender.username }}">
             </a>
           {% else %}
-            <span class="avatar avatar-md avatar-cyan">DH</span>
+            <span class="avatar avatar-md avatar-cyan">Guest</span>
           {% endif %}
 
           <div class="message-sender-copy">
@@ -38,7 +38,7 @@
                 {{ message.sender.name|default:message.sender.username }}
               </a>
             {% else %}
-              <span class="message-sender-name">{{ message.name|default:"DevHub developer" }}</span>
+              <span class="message-sender-name">{{ message.name|default:"Anonymous guest" }}</span>
             {% endif %}
             {% if message.email %}
               <a class="message-email" href="mailto:{{ message.email }}">{{ message.email }}</a>

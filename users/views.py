@@ -184,5 +184,30 @@ def createMessage(request, pk):
     form = MessageForm()
     recipient = Profile.objects.get(id=pk)
     
+    try:
+        sender = request.user.profile
+    except:
+        sender = None
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = sender
+            message.recipient = recipient
+
+            if sender:
+                message.name = sender.name
+                message.email = sender.email
+
+            message.save()
+
+            messages.success(
+                request,
+                "Message sent 🚀 The developer will see it in their inbox soon."
+            )
+
+            return redirect('user-profile', pk=recipient.id)
+
     return render(request, 'users/message_form.html', {'form': form, 'recipient': recipient})
     
