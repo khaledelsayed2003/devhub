@@ -179,3 +179,9 @@ def viewMessage(request, pk):
         message.save(update_fields=['is_read'])
     
     return render(request, 'users/message.html', {'profile': profile, 'message': message})
+
+def createMessage(request, pk):
+    recipient = Profile.objects.get(id=pk)
+    
+    return render(request, 'users/message_form.html', {'recipient': recipient})
+    
