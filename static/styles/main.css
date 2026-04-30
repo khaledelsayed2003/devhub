@@ -5196,6 +5196,14 @@ body.light-theme .auth-next-step span {
   gap: 22px;
 }
 
+.auth-reset-confirm-panel {
+  gap: 20px;
+}
+
+.auth-reset-confirm-form {
+  gap: 14px;
+}
+
 .auth-reset-sent-icon {
   display: inline-grid;
   place-items: center;
@@ -5216,6 +5224,36 @@ body.light-theme .auth-next-step span {
   width: 34px;
   height: 34px;
   fill: currentColor;
+}
+
+.auth-reset-confirm-icon {
+  color: var(--green);
+}
+
+.auth-reset-invalid-icon {
+  color: #ff8da1;
+}
+
+.auth-password-help {
+  padding: 14px 16px;
+  border: 1px solid rgba(151, 185, 255, 0.13);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.auth-password-help ul,
+.auth-password-help ol {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.auth-password-help li::marker {
+  color: var(--cyan);
 }
 
 .auth-reset-sent-list {
@@ -5282,6 +5320,23 @@ body.light-theme .auth-reset-sent-icon {
   box-shadow:
     inset 0 0 0 1px rgba(45, 100, 236, 0.1),
     0 16px 30px rgba(61, 91, 151, 0.12);
+}
+
+body.light-theme .auth-reset-confirm-icon {
+  color: var(--green);
+}
+
+body.light-theme .auth-reset-invalid-icon {
+  color: #d14d74;
+}
+
+body.light-theme .auth-password-help {
+  border-color: rgba(74, 102, 173, 0.16);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+body.light-theme .auth-password-help li::marker {
+  color: var(--blue);
 }
 
 body.light-theme .auth-reset-sent-item {
