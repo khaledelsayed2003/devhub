@@ -169,6 +169,21 @@
             {% endfor %}
           </div>
 
+          <div class="project-form-field project-form-field-full project-new-tags-box">
+            <div class="project-form-label-row">
+              <label for="id_newtags" class="project-form-label">Can't find a tag?</label>
+              <span class="project-form-label-note">Add your own</span>
+            </div>
+            <textarea
+              id="id_newtags"
+              name="newtags"
+              class="project-form-textarea project-new-tags-input"
+              rows="3"
+              placeholder="React, Django, TailwindCSS, REST_API"
+            >{{ request.POST.newtags|default:'' }}</textarea>
+            <p class="project-form-help">Add missing tags separated by commas or spaces. Use a hyphen or underscore for multi-word tags, like machine-learning or REST_API.</p>
+          </div>
+
           <div class="project-form-actions project-form-field-full">
             <button type="submit" class="primary-button large-button">Publish Project</button>
             <a href="{% url 'projects' %}" class="ghost-button large-button">Back to Projects</a>

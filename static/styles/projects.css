@@ -3041,6 +3041,25 @@ body.light-theme .project-detail-review-negative .project-detail-review-sentimen
     0 18px 34px rgba(0, 0, 0, 0.18);
 }
 
+.project-new-tags-box {
+  padding: 18px;
+  border: 1px solid rgba(75, 232, 255, 0.18);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(75, 232, 255, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(75, 232, 255, 0.08), rgba(164, 95, 255, 0.06)),
+    rgba(255, 255, 255, 0.03);
+}
+
+.project-new-tags-input {
+  min-height: 118px;
+  line-height: 1.7;
+}
+
+.project-new-tags-input:focus {
+  transform: translateY(-1px);
+}
+
 .project-form-error,
 .project-form-errors p {
   margin: 0;
@@ -3106,8 +3125,16 @@ body.light-theme .project-form-upload,
 body.light-theme .project-form-input,
 body.light-theme .project-form-textarea,
 body.light-theme .project-tag-picker label,
+body.light-theme .project-new-tags-box,
 body.light-theme .project-form-preview-art {
   border-color: var(--line-strong);
+}
+
+body.light-theme .project-new-tags-box {
+  background:
+    radial-gradient(circle at top left, rgba(45, 100, 236, 0.1), transparent 34%),
+    linear-gradient(135deg, rgba(45, 100, 236, 0.08), rgba(133, 69, 255, 0.06)),
+    rgba(255, 255, 255, 0.82);
 }
 
 body.light-theme .project-upload-trigger:hover,
