@@ -5192,12 +5192,108 @@ body.light-theme .auth-next-step span {
   gap: 16px;
 }
 
+.auth-reset-sent-panel {
+  gap: 22px;
+}
+
+.auth-reset-sent-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid rgba(75, 232, 255, 0.2);
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.22), rgba(164, 95, 255, 0.16)),
+    rgba(255, 255, 255, 0.05);
+  color: var(--cyan);
+  box-shadow:
+    inset 0 0 0 1px rgba(75, 232, 255, 0.1),
+    0 18px 34px rgba(75, 232, 255, 0.12);
+}
+
+.auth-reset-sent-icon svg {
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+}
+
+.auth-reset-sent-list {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-reset-sent-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px;
+  border: 1px solid rgba(151, 185, 255, 0.13);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.auth-reset-sent-item span {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(75, 232, 255, 0.2), rgba(164, 95, 255, 0.16)),
+    rgba(255, 255, 255, 0.05);
+  color: var(--cyan);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.auth-reset-sent-item p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.auth-reset-sent-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.auth-reset-secondary {
+  width: 100%;
+  min-height: 52px;
+}
+
 body.light-theme .auth-reset-back {
   border-color: rgba(0, 164, 215, 0.18);
   background:
     linear-gradient(135deg, rgba(0, 164, 215, 0.12), rgba(133, 69, 255, 0.08)),
     rgba(255, 255, 255, 0.86);
   color: var(--blue);
+}
+
+body.light-theme .auth-reset-sent-icon {
+  border-color: rgba(0, 164, 215, 0.18);
+  background:
+    linear-gradient(135deg, rgba(0, 164, 215, 0.12), rgba(133, 69, 255, 0.08)),
+    rgba(255, 255, 255, 0.86);
+  color: var(--blue);
+  box-shadow:
+    inset 0 0 0 1px rgba(45, 100, 236, 0.1),
+    0 16px 30px rgba(61, 91, 151, 0.12);
+}
+
+body.light-theme .auth-reset-sent-item {
+  border-color: rgba(74, 102, 173, 0.16);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+body.light-theme .auth-reset-sent-item span {
+  color: var(--blue);
+  background:
+    linear-gradient(135deg, rgba(45, 100, 236, 0.12), rgba(133, 69, 255, 0.08)),
+    rgba(255, 255, 255, 0.76);
 }
 
 @media (max-width: 1100px) {
