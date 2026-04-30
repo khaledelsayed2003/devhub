@@ -5230,6 +5230,10 @@ body.light-theme .auth-next-step span {
   color: var(--green);
 }
 
+.auth-reset-complete-icon {
+  color: var(--green);
+}
+
 .auth-reset-invalid-icon {
   color: #ff8da1;
 }
@@ -5323,6 +5327,10 @@ body.light-theme .auth-reset-sent-icon {
 }
 
 body.light-theme .auth-reset-confirm-icon {
+  color: var(--green);
+}
+
+body.light-theme .auth-reset-complete-icon {
   color: var(--green);
 }
 
