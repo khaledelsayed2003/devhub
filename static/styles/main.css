@@ -6162,3 +6162,13 @@ body.light-theme .message-auth-note {
     padding: 20px 18px;
   }
 }
+
+.fade-out {
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}

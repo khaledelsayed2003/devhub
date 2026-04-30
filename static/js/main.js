@@ -213,3 +213,10 @@ if (mobileMenu) {
     link.addEventListener("click", closeMenu);
   });
 }
+
+setTimeout(() => {
+  document.querySelectorAll(".fade-out").forEach(el => {
+    el.style.opacity = "0";
+    setTimeout(() => el.remove(), 500);
+  });
+}, 5000);

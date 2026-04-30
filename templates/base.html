@@ -113,7 +113,7 @@
   {% if messages %}
     <div class="messages-container">
       {% for message in messages %}
-        <div class="alert {{ message.tags }}">
+        <div class="alert {{ message.tags }} fade-out">
           <span>{{ message }}</span>
           <button class="alert-close" onclick="this.parentElement.remove()">×</button>
         </div>
