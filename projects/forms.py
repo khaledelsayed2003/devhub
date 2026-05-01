@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Project, Review
+from django.db.models import Q
+from .models import Project, Review, Tag
 
 
 class ProjectForm(ModelForm):
@@ -51,7 +52,14 @@ class ProjectForm(ModelForm):
         self.fields['description'].help_text = 'Share the problem, the build, and the tradeoffs behind the project.'
         self.fields['demo_link'].help_text = 'Optional. Add it only if the project has a live demo.'
         self.fields['source_link'].help_text = 'Optional. Add it only if the code is publicly available.'
-        self.fields['tags'].help_text = 'Select the technologies that best represent this build.'
+        self.fields['tags'].help_text = 'Select approved public technologies that best represent this build. Custom project tags can be added below.'
+
+        tag_queryset = Tag.objects.filter(is_approved=True)
+        if self.instance and self.instance.pk:
+            project_tag_ids = self.instance.tags.values_list('id', flat=True)
+            tag_queryset = Tag.objects.filter(Q(is_approved=True) | Q(id__in=project_tag_ids)).distinct()
+
+        self.fields['tags'].queryset = tag_queryset.order_by('name')
 
     def save(self, commit=True):
         project = super().save(commit=False)

@@ -9,6 +9,17 @@ from django.db.models import Q
 from .utils import searchProjects, paginateProjects
 
 
+def addCustomTags(project, raw_tags):
+    newtags = raw_tags.replace(',', " ").split()
+
+    for tag_name in newtags:
+        tag, created = Tag.objects.get_or_create(
+            name=tag_name,
+            defaults={'is_approved': False}
+        )
+        project.tags.add(tag)
+
+
 def projects(request):
     projects_list, search_query = searchProjects(request)
     projects_list, paginator = paginateProjects(request, projects_list, 4)
@@ -55,11 +66,14 @@ def createProject(request):
     profile = request.user.profile
     
     if request.method == 'POST':
+        newtags = request.POST.get('newtags', '')
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit=False)
             project.owner = profile
             project.save()
+            form.save_m2m()
+            addCustomTags(project, newtags)
             messages.success(request, "Project created successfully. Your work is now live on DevHub.")
             return redirect(f"{reverse('projects')}#project-{project.id}")
     else:
@@ -72,14 +86,11 @@ def updateProject(request, pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
     if request.method == 'POST':
-        newtags = request.POST.get('newtags', '').replace(',', " ").split()
+        newtags = request.POST.get('newtags', '')
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             project = form.save()
-            for tag in newtags:
-                tag, created = Tag.objects.get_or_create(name=tag)
-                project.tags.add(tag)
-                
+            addCustomTags(project, newtags)
             messages.success(request, "Project updated successfully. Your latest changes are now live.")
             return redirect('account')
     else:
