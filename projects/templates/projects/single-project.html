@@ -55,7 +55,10 @@
         <header class="project-detail-header">
           <div class="project-detail-copy">
             {% if project.owner.name %}
-            <p class="project-detail-owner">Made by {{ project.owner.name }}</p>
+            <p class="project-detail-owner">
+              <span>Made by</span>
+              <a class="project-detail-owner-link" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name }}</a>
+            </p>
             {% else %}
             <p class="project-detail-owner">Shared by the DevHub community</p>
             {% endif %}
@@ -211,14 +214,22 @@
               <span class="project-detail-section-label">Creator</span>
               <div class="project-detail-creator">
                 {% if project.owner %}
-                  <div class="avatar avatar-md avatar-cyan">
-                    <img class="avatar-image" src="{{ project.owner.profile_image.url }}" alt="{{ project.owner.name|default:project.title }}">
-                  </div>
+                  <a class="project-detail-creator-avatar-link" href="{% url 'user-profile' project.owner.id %}" aria-label="Open {{ project.owner.name|default:project.owner.username|default:'creator' }} profile">
+                    <div class="avatar avatar-md avatar-cyan">
+                      <img class="avatar-image" src="{{ project.owner.profile_image.url }}" alt="{{ project.owner.name|default:project.owner.username|default:project.title }}">
+                    </div>
+                  </a>
                 {% else %}
                   <div class="avatar avatar-md avatar-cyan">DH</div>
                 {% endif %}
                 <div>
-                  <h3>{% if project.owner.name %}{{ project.owner.name }}{% else %}DevHub community creator{% endif %}</h3>
+                  <h3>
+                    {% if project.owner %}
+                      <a class="project-detail-creator-name" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name|default:project.owner.username|default:"DevHub community creator" }}</a>
+                    {% else %}
+                      DevHub community creator
+                    {% endif %}
+                  </h3>
                   <p>{% if project.owner.short_intro %}{{ project.owner.short_intro }}{% else %}This project was published on DevHub and is here to show the build, the stack, and the thinking behind it.{% endif %}</p>
                 </div>
               </div>
