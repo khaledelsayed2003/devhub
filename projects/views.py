@@ -72,7 +72,7 @@ def updateProject(request, pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
     if request.method == 'POST':
-        newtags = request.POST.get('newtags').replace(',', " ").split()
+        newtags = request.POST.get('newtags', '').replace(',', " ").split()
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
             project = form.save()
