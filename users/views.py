@@ -8,7 +8,11 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .utils import paginateProfiles, searchProfiles
+from django.utils import timezone
+from datetime import timedelta
 
+
+week_ago = timezone.now() - timedelta(days=7)
 # Create your views here.
 
 def loginUser(request):
@@ -55,6 +59,9 @@ def logoutUser(request):
     return redirect('login')
 
 def profiles(request):
+    developer_count = Profile.objects.count()
+    project_count = Project.objects.count()
+    weekly_project_count = Project.objects.filter(created__gte=week_ago).count()
     users, search_query = searchProfiles(request)
     users, paginator = paginateProfiles(request, users, 3)
     own_profile_id = None
@@ -70,6 +77,9 @@ def profiles(request):
             'own_profile_id': own_profile_id,
             'search_query' : search_query,
             'paginator': paginator,
+            'developer_count': developer_count,
+            'project_count': project_count,
+            'weekly_project_count': weekly_project_count,
         },
     )
 
