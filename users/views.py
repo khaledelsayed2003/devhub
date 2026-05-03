@@ -3,7 +3,7 @@ from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from .models import Profile
-from projects.models import Project
+from projects.models import Project, Review
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -62,6 +62,7 @@ def profiles(request):
     developer_count = Profile.objects.count()
     project_count = Project.objects.count()
     weekly_project_count = Project.objects.filter(created__gte=week_ago).count()
+    reviews_count = Review.objects.count()
     users, search_query = searchProfiles(request)
     users, paginator = paginateProfiles(request, users, 3)
     own_profile_id = None
@@ -80,6 +81,7 @@ def profiles(request):
             'developer_count': developer_count,
             'project_count': project_count,
             'weekly_project_count': weekly_project_count,
+            'reviews_count': reviews_count,
         },
     )
 

@@ -65,7 +65,7 @@
           <p>Developers can publish the product idea, the stack they chose, the tradeoffs they made, and the next milestone they are chasing.</p>
           <div class="chip-row">
             <span>React</span>
-            <span>Node</span>
+            <span>Django</span>
             <span>PostgreSQL</span>
           </div>
         </article>
@@ -75,7 +75,7 @@
           <h2>Your profile is your proof</h2>
           <p>Show the projects you shipped, the systems you designed, and the technologies you use best so the right people can find you fast.</p>
           <div class="chip-row">
-            <span>Frontend</span>
+            <span>UI/UX</span>
             <span>DevOps</span>
             <span>AI</span>
           </div>
@@ -109,16 +109,16 @@
 
               <div class="screen-metrics">
                 <div class="metric-card interactive-card">
-                  <span>Profiles updated today</span>
-                  <strong>214</strong>
+                  <span>Active profiles today</span>
+                  <strong>{{ developer_count }}</strong>
                 </div>
                 <div class="metric-card interactive-card">
-                  <span>Stacks published</span>
-                  <strong>1,906</strong>
+                  <span>Projects shared</span>
+                  <strong>{{ project_count }}</strong>
                 </div>
                 <div class="metric-card interactive-card">
                   <span>Project feedback sent</span>
-                  <strong>8,421</strong>
+                  <strong>{{ reviews_count }}</strong>
                 </div>
               </div>
 
