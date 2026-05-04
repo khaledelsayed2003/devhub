@@ -13,6 +13,14 @@ class CustomUserCreationForm(UserCreationForm):
             "first_name": "Name",
         }
 
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+
+        if email and User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("An account with this email already exists. Try logging in or reset your password.")
+
+        return email
+
 
 class ProfileForm(ModelForm):
     remove_profile_image = forms.BooleanField(required=False, widget=forms.HiddenInput())
