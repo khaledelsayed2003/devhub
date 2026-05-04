@@ -24,7 +24,7 @@
           </span>
         </span>
         <h1>Send a message</h1>
-        <p>Share a clear subject and enough context so {{ recipient.name|default:recipient.username }} can understand what you want to discuss.</p>
+        <p>Share a clear subject and enough context so <b>{{ recipient.name|default:recipient.username }}</b> can understand what you want to discuss.</p>
       </header>
 
       <form class="message-compose-form" method="POST">
@@ -47,11 +47,24 @@
           </div>
         {% endif %}
 
+        <div class="message-form-note">
+          <strong>Only the message is required.</strong>
+          {% if request.user.is_authenticated %}
+            <span>Subject can be left blank.</span>
+          {% else %}
+            <span>Name, email, and subject can be left blank.</span>
+          {% endif %}
+        </div>
+
         <div class="message-form-grid">
           {% if not request.user.is_authenticated %}
             <div class="message-form-field">
-              <label class="message-form-label" for="{{ form.name.id_for_label }}">Name</label>
+              <label class="message-form-label" for="{{ form.name.id_for_label }}">
+                <span>Name</span>
+                <span class="message-form-optional">Optional</span>
+              </label>
               {{ form.name }}
+              <p class="message-form-help">Leave this empty if you prefer to send as a guest.</p>
               {% if form.name.errors %}
                 <ul class="message-form-errors">
                   {% for error in form.name.errors %}
@@ -62,8 +75,12 @@
             </div>
 
             <div class="message-form-field">
-              <label class="message-form-label" for="{{ form.email.id_for_label }}">Email</label>
+              <label class="message-form-label" for="{{ form.email.id_for_label }}">
+                <span>Email</span>
+                <span class="message-form-optional">Optional</span>
+              </label>
               {{ form.email }}
+              <p class="message-form-help">Add it only if you want the recipient to reply outside DevHub.</p>
               {% if form.email.errors %}
                 <ul class="message-form-errors">
                   {% for error in form.email.errors %}
@@ -75,8 +92,12 @@
           {% endif %}
 
           <div class="message-form-field message-form-field-full">
-            <label class="message-form-label" for="{{ form.subject.id_for_label }}">Subject</label>
+            <label class="message-form-label" for="{{ form.subject.id_for_label }}">
+              <span>Subject</span>
+              <span class="message-form-optional">Optional</span>
+            </label>
             {{ form.subject }}
+            <p class="message-form-help">A short subject helps, but the message can be sent without one.</p>
             {% if form.subject.errors %}
               <ul class="message-form-errors">
                 {% for error in form.subject.errors %}
