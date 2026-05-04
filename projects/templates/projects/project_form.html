@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}DevHub | Post Your Project{% endblock title %}
+{% block title %}
+{% if is_update %}  
+  DevHub | Edit Project
+{% else %}
+  DevHub | Post Your Project
+{% endif %}
+{% endblock title %}
 
 {% block body_class %}projects-page-body{% endblock body_class %}
 
@@ -13,32 +19,58 @@
   <section class="project-form-page section">
     <div class="project-form-shell">
       <div class="project-form-intro">
-        <span class="projects-kicker">Publish On DevHub</span>
-        <h1>Turn your project into a story developers want to explore.</h1>
-        <p>
+        {% if is_update %}
+          <span class="projects-kicker">Update On DevHub</span>
+          <h1>Keep your project story accurate and up to date.</h1>
+          <p>Refine the build details, update the stack, and keep your project useful for people exploring your work.
+          </p>
+        {% else %}
+          <span class="projects-kicker">Publish On DevHub</span>
+          <h1>Turn your project into a story developers want to explore.</h1>
+          <p>
           Share the build clearly: what it does, how you built it, what tools you used, and where other developers can try or inspect it.
-        </p>
+          </p>
+        {% endif %}
 
         <div class="project-form-highlights">
-          <article class="project-form-highlight">
-            <strong>Project Signal</strong>
-            <span>Upload a strong visual, explain the build, and make the purpose obvious at a glance.</span>
-          </article>
-          <article class="project-form-highlight">
-            <strong>Stack Clarity</strong>
-            <span>Pick the technologies one by one so the right people understand what powers your project.</span>
-          </article>
-          <article class="project-form-highlight">
-            <strong>Optional Links</strong>
-            <span>Add a live demo or source code only when it truly exists. The page adapts automatically.</span>
-          </article>
+          {% if is_update %}
+            <article class="project-form-highlight">
+              <strong>Project Signal</strong>
+              <span>Refresh the visual, story, and stack so visitors understand what changed.</span>
+            </article>
+            <article class="project-form-highlight">
+              <strong>Stack Clarity</strong>
+              <span>Keep technologies accurate as the project grows or changes.</span>
+            </article>
+            <article class="project-form-highlight">
+              <strong>Optional Links</strong>
+              <span>Update demo and source links when they change or become public.</span>
+            </article>
+          {% else %}
+            <article class="project-form-highlight">
+              <strong>Project Signal</strong>
+              <span>Upload a strong visual, explain the build, and make the purpose obvious at a glance.</span>
+            </article>
+            <article class="project-form-highlight">
+              <strong>Stack Clarity</strong>
+              <span>Pick the technologies one by one so the right people understand what powers your project.</span>
+            </article>
+            <article class="project-form-highlight">
+              <strong>Optional Links</strong>
+              <span>Add a live demo or source code only when it truly exists. The page adapts automatically.</span>
+            </article>
+          {% endif %}
         </div>
       </div>
 
       <div class="project-form-card">
         <div class="project-form-card-top">
           <div>
-            <span class="projects-kicker">Add Project</span>
+            {% if is_update %}
+              <span class="projects-kicker">Update Project</span>
+            {% else %}
+              <span class="projects-kicker">Add Project</span>
+            {% endif %}
             <h2>Publish your next build</h2>
           </div>
           <div class="project-form-window">
@@ -74,7 +106,11 @@
             <div class="project-form-upload">
               <div class="project-form-upload-copy">
                 <strong>Choose a cover image</strong>
-                <span>Use a sharp screenshot or polished mockup that represents the project well on cards and detail pages.</span>
+                {% if is_update %}
+                  <span>Update the cover image if the project has a better screenshot or mockup.</span>
+                {% else %}
+                  <span>Use a sharp screenshot or polished mockup that represents the project well on cards and detail pages.</span>
+                {% endif %}
               </div>
               {{ form.remove_featured_image }}
               <div class="project-form-upload-controls">
@@ -126,7 +162,11 @@
           <div class="project-form-field project-form-field-full">
             <label for="{{ form.description.id_for_label }}" class="project-form-label">{{ form.description.label }}</label>
             {{ form.description }}
-            <p class="project-form-help">{{ form.description.help_text }}</p>
+            {% if is_update %}
+              <p class="project-form-help">Update what changed, what improved, and what visitors should know about this project now.</p>
+            {% else %}
+              <p class="project-form-help">{{ form.description.help_text }}</p>
+            {% endif %}
             {% for error in form.description.errors %}
               <p class="project-form-error">{{ error }}</p>
             {% endfor %}
@@ -135,7 +175,11 @@
           <div class="project-form-field">
             <label for="{{ form.demo_link.id_for_label }}" class="project-form-label">{{ form.demo_link.label }}</label>
             {{ form.demo_link }}
-            <p class="project-form-help">{{ form.demo_link.help_text }}</p>
+            {% if is_update %}
+              <p class="project-form-help">Update it only if the project has a live demo now.</p>
+            {% else %}
+              <p class="project-form-help">{{ form.demo_link.help_text }}</p>
+            {% endif %}
             {% for error in form.demo_link.errors %}
               <p class="project-form-error">{{ error }}</p>
             {% endfor %}
@@ -144,7 +188,11 @@
           <div class="project-form-field">
             <label for="{{ form.source_link.id_for_label }}" class="project-form-label">{{ form.source_link.label }}</label>
             {{ form.source_link }}
-            <p class="project-form-help">{{ form.source_link.help_text }}</p>
+            {% if is_update %}
+              <p class="project-form-help">Update it only if the code is publicly available now.</p>
+            {% else %}
+              <p class="project-form-help">{{ form.source_link.help_text }}</p>
+            {% endif %}
             {% for error in form.source_link.errors %}
               <p class="project-form-error">{{ error }}</p>
             {% endfor %}
@@ -163,7 +211,11 @@
                 </label>
               {% endfor %}
             </div>
-            <p class="project-form-help">{{ form.tags.help_text }}</p>
+            {% if is_update %}
+              <p class="project-form-help">Update the technologies that currently represent this build.</p>
+            {% else %}
+              <p class="project-form-help">{{ form.tags.help_text }}</p>
+            {% endif %}
             {% for error in form.tags.errors %}
               <p class="project-form-error">{{ error }}</p>
             {% endfor %}
@@ -181,12 +233,21 @@
               rows="3"
               placeholder="React, Django, TailwindCSS, REST_API"
             >{{ request.POST.newtags|default:'' }}</textarea>
-            <p class="project-form-help">Add missing tags for this project. They stay custom unless reviewed as public options. Separate tags with commas or spaces, and use a hyphen or underscore for multi-word tags like machine-learning or REST_API.</p>
+            {% if is_update %}
+              <p class="project-form-help">Add any missing tags that better describe the latest version of this project. Separate tags with commas or spaces.</p>
+            {% else %}
+              <p class="project-form-help">Add missing tags for this project. They stay custom unless reviewed as public options. Separate tags with commas or spaces, and use a hyphen or underscore for multi-word tags like machine-learning or REST_API.</p>
+            {% endif %}
           </div>
 
           <div class="project-form-actions project-form-field-full">
-            <button type="submit" class="primary-button large-button">Publish Project</button>
-            <a href="{% url 'projects' %}" class="ghost-button large-button">Back to Projects</a>
+            {% if is_update %}
+              <button type="submit" class="primary-button large-button">Update Project</button>
+              <a href="{% url 'account' %}#myProjects" class="ghost-button large-button">Back to Account</a>
+            {% else %}
+              <button type="submit" class="primary-button large-button">Publish Project</button>
+              <a href="{% url 'projects' %}#projects-list" class="ghost-button large-button">Go to Projects</a>
+            {% endif %}
           </div>
         </form>
       </div>
