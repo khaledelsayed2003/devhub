@@ -19,7 +19,7 @@
 
             <div class="user-profile-card-copy">
               <h1>{{ profile.name|default:profile.username }}</h1>
-              <p>{{ profile.short_intro|default:"A DevHub creator sharing real projects, practical skills, and the thinking behind the work." }}</p>
+              <p>{{ profile.short_intro|default:"Developer" }}</p>
             </div>
           </div>
 
@@ -80,7 +80,13 @@
             {% endif %}
           </div>
 
-            <a class="primary-button large-button user-profile-contact" href="{% url 'create-message' profile.id %}">Send Message</a>
+            <a class="primary-button large-button user-profile-contact" href="{% url 'create-message' profile.id %}">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v12H4V6Z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2"/>
+                <path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+              </svg>
+              <span>Send Message</span>
+            </a>
 
         </article>
       </aside>
@@ -88,9 +94,9 @@
       <div class="user-profile-main">
         <header class="user-profile-hero">
           <span class="section-label">About Me</span>
-          <h2>What {{ profile.name|default:profile.username }} builds and why it matters</h2>
+          <h2>What <span class="user-profile-name-accent">{{ profile.name|default:profile.username }}</span> builds and why it matters</h2>
           <p>
-            {{ profile.bio|default:"This developer uses DevHub to share practical projects, the technologies behind them, and the lessons that shaped the final build. The profile is designed to give visitors a quick understanding of strengths, interests, and shipped work." }}
+            {{ profile.bio|default:"This developer hasn’t added a bio yet. Explore their projects and skills to understand their work and interests." }}
           </p>
         </header>
 
@@ -105,7 +111,7 @@
                 <p>{{ skill.description }}</p>
               </article>
             {% empty %}
-              <p class="user-profile-empty">Detailed skills will appear here once this developer adds descriptions for the tools they use best.</p>
+              <p class="user-profile-empty">This developer hasn’t added detailed skills yet.</p>
             {% endfor %}
           </div>
         </section>
@@ -139,17 +145,23 @@
 
                   <div class="user-profile-project-tags">
                     {% for tag in project.tags.all|slice:":4" %}
-                      <span>{{ tag.name }}</span>
+                      <span class="{% if tag.name|length > 14 %}user-profile-project-tag-xs{% elif tag.name|length > 10 %}user-profile-project-tag-sm{% endif %}">{{ tag.name }}</span>
                     {% empty %}
-                      <span>General</span>
+                      <span>Stack not specified</span>
                     {% endfor %}
                   </div>
 
-                  <a class="ghost-button user-profile-project-link" href="{% url 'project' project.id %}">Open Project</a>
+                  <a class="ghost-button user-profile-project-link" href="{% url 'project' project.id %}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                      <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>View Project</span>
+                  </a>
                 </div>
               </article>
             {% empty %}
-              <p class="user-profile-empty">No projects have been published by this developer yet.</p>
+              <p class="user-profile-empty">No projects yet — check back later or explore other developers.</p>
             {% endfor %}
           </div>
         </section>
