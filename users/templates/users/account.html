@@ -29,7 +29,7 @@
 
             <div class="user-profile-card-copy">
               <h1>{{ profile.name|default:profile.username }}</h1>
-              <p>{{ profile.short_intro|default:"This is your developer home on DevHub. Shape the story, refine the details, and keep your best work ready to explore." }}</p>
+              <p>{{ profile.short_intro|default:"Developer" }}</p>
             </div>
           </div>
 
@@ -99,11 +99,12 @@
             <div>
               <span class="section-label">About Me</span>
               <h2>Share the work, strengths, and story behind your profile</h2>
+              <br>
             </div>
           </div>
 
           <p>
-            {{ profile.bio|default:"This is the space where you shape your first impression on DevHub. Update your intro, your bio, your socials, and the details that help visitors understand what you build best." }}
+            {{ profile.bio|default:"This is the space where you show your story — what you build, your strengths, and what you’re working on." }}
           </p>
         </header>
 
@@ -155,7 +156,7 @@
             {% empty %}
               <div class="account-empty-state">
                 <p class="user-profile-empty">No skills yet. Start by adding the tools, languages, and platforms that define your stack.</p>
-                <a class="primary-button account-action-button account-action-icon-button account-action-add" href="#">
+                <a class="primary-button account-action-button account-action-icon-button account-action-add" href="{% url 'create-skill' %}">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
                     <path d="M12 8v8M8 12h8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
@@ -167,7 +168,7 @@
           </div>
         </section>
 
-        <section class="user-profile-section account-section">
+        <section class="user-profile-section account-section" id="myProjects">
           <div class="account-section-heading">
             <div>
               <span class="section-label">Projects</span>

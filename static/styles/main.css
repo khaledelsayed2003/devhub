@@ -3804,6 +3804,10 @@ body.light-theme .user-profile-project-link:focus-visible {
   padding: 4px 0;
 }
 
+.account-page .user-profile-projects > .account-empty-state {
+  grid-column: 1 / -1;
+}
+
 body.light-theme .account-action-danger {
   color: #58aebe;
   border-color: rgba(194, 51, 88, 0.18);

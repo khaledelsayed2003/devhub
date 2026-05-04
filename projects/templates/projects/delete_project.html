@@ -70,7 +70,7 @@
         <form action="" method="POST" class="project-delete-actions">
           {% csrf_token %}
           <button type="submit" class="project-delete-confirm">Delete project</button>
-          <a href="{% url 'project' project.id %}" class="ghost-button project-delete-cancel">Keep project</a>
+          <a href="{% url 'account' %}#myProjects" class="ghost-button project-delete-cancel">Keep project</a>
         </form>
       </article>
     </div>

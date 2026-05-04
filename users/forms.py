@@ -92,6 +92,7 @@ class SkillForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['name'].label = 'Skill Name'
+        self.fields['name'].required = True
         self.fields['description'].label = 'How You Use It'
 
 
