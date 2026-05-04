@@ -61,8 +61,11 @@ def project(request, pk):
     
     return render(request, 'projects/single-project.html', {'project': projectObj, 'reviews': reviews, 'form': form})
 
-@login_required(login_url='login')
 def createProject(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Please log in to post a project.")
+        return redirect(f"{reverse('login')}?next={request.path}")
+    
     profile = request.user.profile
     
     if request.method == 'POST':

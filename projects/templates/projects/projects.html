@@ -123,9 +123,10 @@
                 <path d="M8.5 10.5h4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"/>
               </svg>
             </div>
-            <span class="projects-empty-kicker">Search missed</span>
+            <span class="projects-empty-kicker">No matches</span>
             <h2>No results found</h2>
-            <p>No projects match <strong>"{{ search_query }}"</strong>. Try different keywords or explore every project again.</p>
+            <p>No projects match <strong>"{{ search_query }}"</strong>. 
+              Try different keywords or browse all projects.</p>
             <a class="ghost-button projects-empty-action" href="{% url 'projects' %}#projects-list">Clear Search</a>
           {% else %}
             <h2>No projects yet</h2>
