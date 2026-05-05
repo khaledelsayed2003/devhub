@@ -94,6 +94,26 @@ class SkillForm(ModelForm):
         self.fields['name'].label = 'Skill Name'
         self.fields['name'].required = True
         self.fields['description'].label = 'How You Use It'
+        
+    def clean_name(self):
+        name = self.cleaned_data.get('name').strip()
+        owner = self.instance.owner if self.instance.pk else self.initial.get('owner')
+
+        # If creating → owner not yet on instance
+        if not owner and hasattr(self, 'request'):
+            owner = self.request.user.profile
+
+        # Check duplicates (case insensitive)
+        qs = Skill.objects.filter(owner=owner, name__iexact=name)
+
+        # If updating → exclude current skill
+        if self.instance.pk:
+            qs = qs.exclude(id=self.instance.pk)
+
+        if qs.exists():
+            raise forms.ValidationError("You already added this skill. Try another one.")
+
+        return name
 
 
 class MessageForm(ModelForm):

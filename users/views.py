@@ -138,6 +138,7 @@ def createSkill(request):
     
     if request.method == 'POST':
         form = SkillForm(request.POST)
+        form.request = request
         if form.is_valid():
             skill = form.save(commit=False)
             skill.owner = profile
@@ -155,6 +156,7 @@ def updateSkill(request, pk):
     
     if request.method == 'POST':
         form = SkillForm(request.POST, instance=skill)
+        form.request = request
         if form.is_valid():
             form.save()
             messages.success(request, "Skill updated successfully. Your profile now reflects the latest version.")
