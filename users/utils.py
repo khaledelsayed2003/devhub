@@ -25,6 +25,11 @@ def searchProfiles(request):
         
     skills = Skill.objects.filter(name__icontains=search_query)
     users = Profile.objects.distinct().filter(
-        Q(name__icontains=search_query) | Q(short_intro__icontains=search_query) | Q(skill__in=skills)).order_by('-created')
+        Q(name__icontains=search_query) |
+        Q(short_intro__icontains=search_query) |
+        Q(skill__in=skills),
+        user__is_staff=False,
+        user__is_superuser=False,
+    ).order_by('-created')
     
     return users, search_query

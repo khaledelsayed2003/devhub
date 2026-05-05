@@ -59,7 +59,7 @@ def logoutUser(request):
     return redirect('login')
 
 def profiles(request):
-    developer_count = Profile.objects.count()
+    developer_count = Profile.objects.filter(user__is_staff=False, user__is_superuser=False).count()
     project_count = Project.objects.count()
     weekly_project_count = Project.objects.filter(created__gte=week_ago).count()
     reviews_count = Review.objects.count()
