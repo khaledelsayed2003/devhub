@@ -238,6 +238,9 @@
             {% else %}
               <p class="project-form-help">Add missing tags for this project. They stay custom unless reviewed as public options. Separate tags with commas or spaces, and use a hyphen or underscore for multi-word tags like machine-learning or REST_API.</p>
             {% endif %}
+            {% for error in newtags_errors %}
+              <p class="project-form-error">{{ error }}</p>
+            {% endfor %}
           </div>
 
           <div class="project-form-actions project-form-field-full">
