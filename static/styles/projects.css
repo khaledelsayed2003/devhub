@@ -565,7 +565,7 @@ body.light-theme .project-delete-summary {
 }
 
 .projects-pendulum-rating {
-  color: #66f4ff;
+  color: var(--green);
   font-weight: 800;
   text-shadow: 0 0 18px rgba(0, 229, 204, 0.2);
 }
@@ -576,17 +576,17 @@ body.light-theme .project-delete-summary {
 }
 
 .projects-pendulum-rating span {
-  color: rgba(240, 237, 230, 0.78);
+  color: var(--muted);
   font-weight: 700;
 }
 
 .projects-pendulum-meta {
-  color: #ffd98e;
+  color: var(--muted);
   font-weight: 800;
 }
 
 .projects-pendulum-meta span {
-  color: rgba(240, 237, 230, 0.68);
+  color: var(--muted);
   font-weight: 700;
 }
 
@@ -877,7 +877,7 @@ body.light-theme .project-delete-summary {
 
 .project-tile-feedback {
   margin: 0;
-  color: var(--text);
+  color: var(--green);
   font-size: 0.94rem;
   font-weight: 800;
   line-height: 1.45;
@@ -1278,7 +1278,7 @@ body.light-theme .projects-spotlight-kicker {
 }
 
 body.light-theme .projects-pendulum-rating {
-  color: #126f85;
+  color: var(--green);
   text-shadow: 0 0 14px rgba(0, 164, 215, 0.12);
 }
 
@@ -1289,7 +1289,7 @@ body.light-theme .projects-pendulum-category {
 }
 
 body.light-theme .projects-pendulum-meta {
-  color: #9c650d;
+  color: var(--muted);
 }
 
 body.light-theme .projects-pendulum-category b {
@@ -1707,6 +1707,7 @@ button.detail-inline-link {
 }
 
 .detail-feedback-card strong {
+  color: var(--green);
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(2.1rem, 3.4vw, 2.9rem);
   line-height: 1;
@@ -1837,6 +1838,10 @@ button.detail-inline-link {
   font-size: 0.96rem;
   font-weight: 700;
   line-height: 1.5;
+}
+
+.project-meta-response strong {
+  color: var(--green);
 }
 
 .project-detail-hero {
@@ -2111,11 +2116,18 @@ body.project-image-modal-open {
 
 .detail-feedback-summary {
   margin-bottom: 16px !important;
-  color: var(--text) !important;
   font-family: "Space Grotesk", sans-serif !important;
   font-size: 1.02rem !important;
   line-height: 1.55 !important;
   letter-spacing: -0.02em;
+}
+
+.detail-feedback-ratio {
+  color: var(--green);
+}
+
+.detail-feedback-votes {
+  color: var(--muted);
 }
 
 .project-review-form {
@@ -2573,7 +2585,7 @@ body.light-theme .project-detail-action-note {
 body.light-theme .detail-feedback-card span:last-child {
   background: rgba(255, 255, 255, 0.82);
   box-shadow: inset 0 0 0 1px rgba(45, 100, 236, 0.12);
-  color: #6a7b97;
+  color: var(--muted);
 }
 
 body.light-theme .detail-back-link {

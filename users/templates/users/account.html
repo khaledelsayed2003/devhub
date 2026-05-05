@@ -195,13 +195,14 @@
                 <div class="user-profile-project-body">
                   <p class="user-profile-project-byline">Owned by you</p>
                   <h3><a href="{% url 'project' project.id %}">{{ project.title }}</a></h3>
-                  <p>{{ project.description|truncatechars:150 }}</p>
+                  <p class="account-project-feedback">{{ project.vote_ratio }}% positive feedback <span>({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</span></p>
+                  <p class="account-project-description">{{ project.description|default:"No description yet. Edit this project to add what it does, the stack behind it, and the problem it solves."|truncatechars:150 }}</p>
 
                   <div class="user-profile-project-tags">
                     {% for tag in project.tags.all|slice:":4" %}
                       <span>{{ tag.name }}</span>
                     {% empty %}
-                      <span>General</span>
+                      <span>Stack not specified</span>
                     {% endfor %}
                   </div>
 

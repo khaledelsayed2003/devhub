@@ -74,7 +74,7 @@
                 <span>Location</span>
                 <strong>{% if project.owner.location %}{{ project.owner.location }}{% else %}Remote{% endif %}</strong>
               </div>
-              <div class="project-meta-pill">
+              <div class="project-meta-pill project-meta-response">
                 <span>Response</span>
                 <strong>{{ project.vote_ratio }}% positive</strong>
               </div>
@@ -114,7 +114,10 @@
             <article class="project-detail-section project-detail-feedback">
               <span class="project-detail-section-label">Feedback</span>
               <h2>What other developers think</h2>
-              <p class="detail-feedback-summary">{{ project.vote_ratio }}% positive feedback ({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</p>
+              <p class="detail-feedback-summary">
+                <span class="detail-feedback-ratio">{{ project.vote_ratio }}% positive feedback</span>
+                <span class="detail-feedback-votes">({{ project.vote_total }} vote{{ project.vote_total|pluralize }})</span>
+              </p>
 
               {% if request.user.is_authenticated %}
                 {% if request.user.profile.id in project.reviewers %}
