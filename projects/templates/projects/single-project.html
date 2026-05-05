@@ -24,7 +24,7 @@
             {% for tag in project.tags.all %}
               <span>{{ tag.name }}</span>
             {% empty %}
-              <span>General</span>
+              <span>Stack not specified</span>
             {% endfor %}
           </div>
         </div>
@@ -39,7 +39,13 @@
               <a class="detail-inline-link detail-cta-link" href="{{ project.source_link }}" target="_blank" rel="noopener noreferrer">Source Code</a>
             {% endif %}
             {% if not project.demo_link and not project.source_link %}
-              <span class="project-detail-empty">Links will appear here when they are added.</span>
+              {% if request.user.is_authenticated and request.user.profile == project.owner %}
+                <span class="project-detail-empty">
+                  Add a live demo or source code to improve your project visibility.
+                </span>
+              {% else %}
+                <span class="project-detail-empty">Links will appear here when they are added.</span>
+              {% endif %}
             {% endif %}
           </div>
         </div>
@@ -54,13 +60,17 @@
       <div class="project-detail-main">
         <header class="project-detail-header">
           <div class="project-detail-copy">
-            {% if project.owner.name %}
+            {% if project.owner.name or project.owner.username %}
             <p class="project-detail-owner">
               <span>Made by</span>
-              <a class="project-detail-owner-link" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name }}</a>
+              <a class="project-detail-owner-link" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name|default:project.owner.username }}
+                {% if request.user.is_authenticated and request.user.profile == project.owner %}
+                  (You)
+                {% endif %}
+              </a>
             </p>
             {% else %}
-            <p class="project-detail-owner">Shared by the DevHub community</p>
+            <p class="project-detail-owner">Shared by DevHub developer</p>
             {% endif %}
 
             <h1>{{ project.title }}</h1>
@@ -105,9 +115,19 @@
           <div class="project-detail-story">
             <article class="project-detail-section project-detail-about">
               <span class="project-detail-section-label">About The Project</span>
-              <h2>The build story behind {{ project.title }}</h2>
+              <h2>The build story behind <span class="project-detail-title-accent">{{ project.title }}</span></h2>
               <p>
-                {{ project.description|default:"This project page showcases the full story behind the build, the engineering choices that shaped it, and the context that helps other developers understand the work." }}
+                {% if project.description %}
+                  {{ project.description }}
+                {% else %}
+                  {% if request.user.is_authenticated and request.user.profile == project.owner %}
+                    Add a description to explain your build and help others understand your work.
+                  {% else %}
+                    No description yet. Once 
+                    <span class="highlight-name">{{ project.owner.name|default:"this developer" }}</span> 
+                    adds more details, it will appear here.
+                  {% endif %}
+                {% endif %}
               </p>
             </article>
 
@@ -194,7 +214,10 @@
                       <div class="project-detail-review-header">
                         {% if review.owner %}
                           <a class="project-detail-review-author" href="{% url 'user-profile' review.owner.id %}">
-                            {{ review.owner.name|default:"DevHub developer" }}
+                            {{ review.owner.name|default:review.owner.username }}
+                            {% if request.user.is_authenticated and request.user.profile == review.owner %}
+                              (YOU)
+                            {% endif %}
                           </a>
                         {% else %}
                           <span class="project-detail-review-author">DevHub developer</span>
@@ -206,7 +229,13 @@
                   </article>
                   {% endif %}
                 {% empty %}
-                  <p class="project-detail-empty">No written comments yet. Be the first one to leave thoughtful feedback.</p>
+                  {% if request.user.is_authenticated and request.user.profile == project.owner %}
+                    <p class="project-detail-empty">
+                      No comments yet. Once people discover your project, feedback will appear here.
+                    </p>
+                  {% else %}
+                    <p class="project-detail-empty">No written comments yet. Be the first one to leave thoughtful feedback.</p>
+                  {% endif %}
                 {% endfor %}
               </div>
             </article>
@@ -228,12 +257,16 @@
                 <div>
                   <h3>
                     {% if project.owner %}
-                      <a class="project-detail-creator-name" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name|default:project.owner.username|default:"DevHub community creator" }}</a>
+                      <a class="project-detail-creator-name" href="{% url 'user-profile' project.owner.id %}">{{ project.owner.name|default:project.owner.username|default:"DevHub developer" }} 
+                        {% if request.user.is_authenticated and request.user.profile == project.owner %}
+                          (You)
+                        {% endif %}
+                      </a>
                     {% else %}
-                      DevHub community creator
+                      DevHub developer
                     {% endif %}
                   </h3>
-                  <p>{% if project.owner.short_intro %}{{ project.owner.short_intro }}{% else %}This project was published on DevHub and is here to show the build, the stack, and the thinking behind it.{% endif %}</p>
+                  <p>{% if project.owner.short_intro %}{{ project.owner.short_intro }}{% else %}Developer{% endif %}</p>
                 </div>
               </div>
             </article>

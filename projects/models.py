@@ -41,7 +41,7 @@ class Review(models.Model):
         ('dislike', 'Dislike'),
     )
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     body = models.TextField(null=True, blank=True)
     value = models.CharField(max_length=150, choices=VOTE_TYPE)

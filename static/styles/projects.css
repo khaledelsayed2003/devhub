@@ -894,6 +894,7 @@ body.light-theme .project-delete-summary {
   line-height: 1.62;
   min-height: 4.9rem;
   display: -webkit-box;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -2107,6 +2108,14 @@ body.project-image-modal-open {
   letter-spacing: -0.05em;
 }
 
+.project-detail-title-accent {
+  color: var(--cyan);
+  text-shadow: 0 0 18px rgba(75, 232, 255, 0.16);
+}
+.highlight-name {
+  color: #f59e0b;
+  font-weight: 600;
+}
 .project-detail-section p {
   margin: 0;
   color: var(--muted);
