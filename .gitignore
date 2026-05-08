@@ -22,3 +22,8 @@ static/images/profiles/*
 static/images/*
 !static/images/default.png
 !static/images/profiles/
+
+# Collected static files for production
+staticfiles/
+
+
