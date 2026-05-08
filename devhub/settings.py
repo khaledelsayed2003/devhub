@@ -84,9 +84,6 @@ WSGI_APPLICATION = 'devhub.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 # For Production(Live)
-import os
-import dj_database_url
-
 DATABASES = {
     'default': dj_database_url.parse(
         os.getenv('DATABASE_URL')
