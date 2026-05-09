@@ -127,10 +127,10 @@
             <div class="profile-avatar-editor">
               <div class="profile-avatar-preview-wrap">
                 <div class="profile-avatar-preview avatar avatar-xl avatar-cyan" id="profileAvatarPreview">
-                  {% if form.instance.profile_image %}
-                    <img class="avatar-image" src="{{ form.instance.profile_image.url }}" alt="{{ form.instance.name|default:form.instance.username }}">
+                  {% if form.instance.profile_image and form.instance.profile_image.name != "profiles/default.png" %}
+                    <img class="avatar-image" src="{{ form.instance.profile_image.url }}" alt="{{ form.instance.name|default:form.instance.username|default:'Developer avatar' }}">
                   {% else %}
-                    <span>{{ form.instance.name|default:form.instance.username|default:"D"|slice:":1"|upper }}</span>
+                    <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ form.instance.name|default:form.instance.username|default:'Developer avatar' }}">
                   {% endif %}
                 </div>
                 <p class="profile-form-file-note">This is how your avatar will appear across DevHub.</p>

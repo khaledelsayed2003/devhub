@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}DevHub | Inbox{% endblock title %}
 
 {% block body_class %}users-page-body{% endblock body_class %}
@@ -27,7 +28,11 @@
                 <div class="inbox-sender">
                   {% if message.sender %}
                     <span class="avatar avatar-md avatar-cyan" aria-hidden="true">
-                      <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.name }}">
+                      {% if message.sender.profile_image and message.sender.profile_image.name != "profiles/default.png" %}
+                        <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.sender.username|default:'Developer avatar' }}">
+                      {% else %}
+                        <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ message.sender.name|default:message.sender.username|default:'Developer avatar' }}">
+                      {% endif %}
                     </span>
                   {% else %}
                     <span class="avatar avatar-md avatar-cyan">Guest</span>

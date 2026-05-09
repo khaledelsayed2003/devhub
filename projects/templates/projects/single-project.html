@@ -102,11 +102,19 @@
               id="projectImageOpenBtn"
               aria-label="Open project image"
             >
-              <img
-                src="{{ project.featured_image.url }}"
-                alt="{{ project.title }}"
-                id="projectDetailImage"
-              >
+              {% if project.featured_image and project.featured_image.name != "default.png" %}
+                <img
+                  src="{{ project.featured_image.url }}"
+                  alt="{{ project.title|default:'Project image' }}"
+                  id="projectDetailImage"
+                >
+              {% else %}
+                <img
+                  src="{% static 'images/default.png' %}"
+                  alt="{{ project.title|default:'Project image' }}"
+                  id="projectDetailImage"
+                >
+              {% endif %}
             </button>
           </div>
         </div>
@@ -204,7 +212,11 @@
                     {% if review.owner %}
                       <a class="project-detail-review-avatar-link" href="{% url 'user-profile' review.owner.id %}" aria-label="Open {{ review.owner.name }} profile">
                         <span class="avatar avatar-md avatar-cyan">
-                          <img class="avatar-image" src="{{ review.owner.profile_image.url }}" alt="{{ review.owner.name }}">
+                          {% if review.owner.profile_image and review.owner.profile_image.name != "profiles/default.png" %}
+                            <img class="avatar-image" src="{{ review.owner.profile_image.url }}" alt="{{ review.owner.name|default:review.owner.username|default:'Developer avatar' }}">
+                          {% else %}
+                            <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ review.owner.name|default:review.owner.username|default:'Developer avatar' }}">
+                          {% endif %}
                         </span>
                       </a>
                     {% else %}
@@ -248,7 +260,11 @@
                 {% if project.owner %}
                   <a class="project-detail-creator-avatar-link" href="{% url 'user-profile' project.owner.id %}" aria-label="Open {{ project.owner.name|default:project.owner.username|default:'creator' }} profile">
                     <div class="avatar avatar-md avatar-cyan">
-                      <img class="avatar-image" src="{{ project.owner.profile_image.url }}" alt="{{ project.owner.name|default:project.owner.username|default:project.title }}">
+                      {% if project.owner.profile_image and project.owner.profile_image.name != "profiles/default.png" %}
+                        <img class="avatar-image" src="{{ project.owner.profile_image.url }}" alt="{{ project.owner.name|default:project.owner.username|default:'Developer avatar' }}">
+                      {% else %}
+                        <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ project.owner.name|default:project.owner.username|default:'Developer avatar' }}">
+                      {% endif %}
                     </div>
                   </a>
                 {% else %}
@@ -300,7 +316,11 @@
           <button type="button" class="project-image-modal-button" id="projectImageShotBtn">Save image</button>
           <button type="button" class="project-image-modal-button project-image-modal-button-close" id="projectImageCloseBtn">Close</button>
         </div>
-        <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" id="projectModalImage">
+        {% if project.featured_image and project.featured_image.name != "default.png" %}
+          <img src="{{ project.featured_image.url }}" alt="{{ project.title|default:'Project image' }}" id="projectModalImage">
+        {% else %}
+          <img src="{% static 'images/default.png' %}" alt="{{ project.title|default:'Project image' }}" id="projectModalImage">
+        {% endif %}
       </div>
     </div>
   </div>

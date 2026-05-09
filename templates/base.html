@@ -44,7 +44,7 @@
             <span class="sun-icon"></span>
           </span>
         </button>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.profile %}
           <a class="primary-button topbar-cta-button" href="{% url 'create-project' %}">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle>
@@ -57,7 +57,11 @@
           <details class="user-menu">
             <summary class="ghost-button user-menu-trigger">
               <span class="user-menu-avatar avatar avatar-sm avatar-cyan">
-                <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username }}">
+                {% if request.user.profile.profile_image and request.user.profile.profile_image.name != "profiles/default.png" %}
+                  <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+                {% else %}
+                  <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+                {% endif %}
               </span>
               {% if unread_count %}
                 <span class="user-menu-unread-badge user-menu-trigger-badge" aria-label="{{ unread_count }} unread message{{ unread_count|pluralize }}">{{ unread_count }}</span>
@@ -70,7 +74,11 @@
             <div class="user-menu-dropdown">
               <div class="user-menu-header">
                 <span class="user-menu-header-avatar avatar avatar-md avatar-cyan">
-                  <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username }}">
+                  {% if request.user.profile.profile_image and request.user.profile.profile_image.name != "profiles/default.png" %}
+                    <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+                  {% else %}
+                    <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+                  {% endif %}
                 </span>
                 <div class="user-menu-header-copy">
                   <strong>{{ request.user.profile.name|default:request.user.username }}</strong>

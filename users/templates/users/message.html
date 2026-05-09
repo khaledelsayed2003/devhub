@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}DevHub | {{ message.subject|default:"Message" }}{% endblock title %}
 
@@ -25,7 +26,11 @@
         <div class="message-sender-summary">
           {% if message.sender %}
             <a class="avatar avatar-md avatar-cyan" href="{% url 'user-profile' message.sender.id %}" aria-label="Open {{ message.sender.name|default:message.sender.username }} profile">
-              <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.sender.username }}">
+              {% if message.sender.profile_image and message.sender.profile_image.name != "profiles/default.png" %}
+                <img class="avatar-image" src="{{ message.sender.profile_image.url }}" alt="{{ message.sender.name|default:message.sender.username|default:'Developer avatar' }}">
+              {% else %}
+                <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ message.sender.name|default:message.sender.username|default:'Developer avatar' }}">
+              {% endif %}
             </a>
           {% else %}
             <span class="avatar avatar-md avatar-cyan">Guest</span>

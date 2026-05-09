@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}DevHub | Developers{% endblock title %}
 
@@ -163,7 +164,11 @@
         <div class="dev-card-top">
           <a class="dev-card-avatar-link" href="{% url 'user-profile' developer.id %}" aria-label="Open {{ developer.name }} profile">
             <div class="avatar avatar-lg avatar-cyan">
-              <img class="avatar-image" src="{{ developer.profile_image.url }}" alt="{{ developer.name }}">
+              {% if developer.profile_image and developer.profile_image.name != "profiles/default.png" %}
+                <img class="avatar-image" src="{{ developer.profile_image.url }}" alt="{{ developer.name|default:developer.username|default:'Developer avatar' }}">
+              {% else %}
+                <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ developer.name|default:developer.username|default:'Developer avatar' }}">
+              {% endif %}
             </div>
           </a>
           <div class="dev-copy">

@@ -139,15 +139,19 @@
                 <div
                   class="project-form-preview-art"
                   id="projectPreviewArt"
-                  {% if form.instance.featured_image %}
+                  {% if form.instance.featured_image and form.instance.featured_image.name != "default.png" %}
                   data-existing-src="{{ form.instance.featured_image.url }}"
+                  {% else %}
+                  data-existing-src="{% static 'images/default.png' %}"
+                  {% endif %}
+                  {% if form.instance.featured_image %}
                   data-existing-name="{{ form.instance.featured_image.name|cut:'projects/' }}"
                   {% endif %}
                 >
-                  {% if form.instance.featured_image %}
-                    <img src="{{ form.instance.featured_image.url }}" alt="{{ form.instance.title }} featured image">
+                  {% if form.instance.featured_image and form.instance.featured_image.name != "default.png" %}
+                    <img src="{{ form.instance.featured_image.url }}" alt="{{ form.instance.title|default:'Project image' }} featured image">
                   {% else %}
-                    <span>Featured image preview will appear here</span>
+                    <img src="{% static 'images/default.png' %}" alt="{{ form.instance.title|default:'Project image' }} featured image">
                   {% endif %}
                 </div>
               </div>

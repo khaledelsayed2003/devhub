@@ -85,7 +85,11 @@
       {% for project in projects %}
         <article id="project-{{ project.id }}" class="project-tile reveal">
           <a class="project-tile-media" href="{% url 'project' project.id %}">
-            <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+            {% if project.featured_image and project.featured_image.name != "default.png" %}
+              <img src="{{ project.featured_image.url }}" alt="{{ project.title|default:'Project image' }}">
+            {% else %}
+              <img src="{% static 'images/default.png' %}" alt="{{ project.title|default:'Project image' }}">
+            {% endif %}
           </a>
 
           <div class="project-tile-body">

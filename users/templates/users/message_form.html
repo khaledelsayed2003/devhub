@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}DevHub | Message {{ recipient.name|default:recipient.username }}{% endblock title %}
 
@@ -16,7 +17,11 @@
       <header class="message-compose-head">
         <span class="message-recipient-chip">
           <span class="avatar avatar-cyan">
-            <img class="avatar-image" src="{{ recipient.profile_image.url }}" alt="{{ recipient.name|default:recipient.username }}">
+            {% if recipient.profile_image and recipient.profile_image.name != "profiles/default.png" %}
+              <img class="avatar-image" src="{{ recipient.profile_image.url }}" alt="{{ recipient.name|default:recipient.username|default:'Developer avatar' }}">
+            {% else %}
+              <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ recipient.name|default:recipient.username|default:'Developer avatar' }}">
+            {% endif %}
           </span>
           <span class="message-recipient-chip-copy">
             <span>Recipient</span>
@@ -38,10 +43,14 @@
           </ul>
         {% endif %}
 
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.profile %}
           <div class="message-auth-note">
             <span class="avatar avatar-sm avatar-cyan">
-              <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username }}">
+              {% if request.user.profile.profile_image and request.user.profile.profile_image.name != "profiles/default.png" %}
+                <img class="avatar-image" src="{{ request.user.profile.profile_image.url }}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+              {% else %}
+                <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ request.user.profile.name|default:request.user.username|default:'Developer avatar' }}">
+              {% endif %}
             </span>
             <span>Sending as <strong>{{ request.user.profile.name|default:request.user.username }}</strong></span>
           </div>

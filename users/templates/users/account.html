@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}DevHub | Account{% endblock title %}
 
@@ -24,7 +25,11 @@
             </div>
 
             <div class="avatar avatar-xl avatar-cyan">
-              <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username }}">
+              {% if profile.profile_image and profile.profile_image.name != "profiles/default.png" %}
+                <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username|default:'Developer avatar' }}">
+              {% else %}
+                <img class="avatar-image" src="{% static 'images/profiles/default.png' %}" alt="{{ profile.name|default:profile.username|default:'Developer avatar' }}">
+              {% endif %}
             </div>
 
             <div class="user-profile-card-copy">
@@ -189,7 +194,11 @@
             {% for project in profile.project_set.all %}
               <article class="user-profile-project-card account-project-card">
                 <a class="user-profile-project-media" href="{% url 'project' project.id %}">
-                  <img src="{{ project.featured_image.url }}" alt="{{ project.title }}">
+                  {% if project.featured_image and project.featured_image.name != "default.png" %}
+                    <img src="{{ project.featured_image.url }}" alt="{{ project.title|default:'Project image' }}">
+                  {% else %}
+                    <img src="{% static 'images/default.png' %}" alt="{{ project.title|default:'Project image' }}">
+                  {% endif %}
                 </a>
 
                 <div class="user-profile-project-body">
