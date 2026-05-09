@@ -8,7 +8,8 @@ const existingProjectImageSrc =
   projectPreviewArt && projectPreviewArt.dataset ? projectPreviewArt.dataset.existingSrc || "" : "";
 const existingProjectImageName =
   projectPreviewArt && projectPreviewArt.dataset ? projectPreviewArt.dataset.existingName || "" : "";
-const defaultProjectImageSrc = "/images/default.png";
+const defaultProjectImageSrc =
+  projectPreviewArt && projectPreviewArt.dataset ? projectPreviewArt.dataset.defaultSrc || "" : "";
 let currentObjectUrl = null;
 
 function revokeCurrentObjectUrl() {
@@ -95,7 +96,7 @@ if (projectUploadDefault && projectImageInput) {
     if (projectRemoveFlag) {
       projectRemoveFlag.value = "on";
     }
-    setProjectPreviewFromSrc(defaultProjectImageSrc, "Default project image");
+    setProjectPreviewFromSrc(defaultProjectImageSrc || existingProjectImageSrc, "Default project image");
     if (projectUploadName) {
       projectUploadName.textContent = "Default image";
     }

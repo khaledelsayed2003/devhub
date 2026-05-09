@@ -136,9 +136,10 @@
             <div class="project-form-preview" id="projectImagePreview">
               <div class="project-form-preview-shell">
                 <span class="project-form-preview-badge">Preview</span>
-                <div
+                  <div
                   class="project-form-preview-art"
                   id="projectPreviewArt"
+                  data-default-src="{% static 'images/default.png' %}"
                   {% if form.instance.featured_image and form.instance.featured_image.name != "default.png" %}
                   data-existing-src="{{ form.instance.featured_image.url }}"
                   {% else %}
