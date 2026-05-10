@@ -2164,6 +2164,7 @@ html.reveal-ready .reveal.is-visible {
 
 .dev-card-bio {
   display: -webkit-box;
+  height: 5.25rem;
   min-height: 5.25rem;
   line-height: 1.75;
   line-clamp: 3;
@@ -2172,8 +2173,39 @@ html.reveal-ready .reveal.is-visible {
   overflow: hidden;
 }
 
+.dev-tech {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 38px;
+  overflow: hidden;
+}
+
+.dev-tech span {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 100%;
+  padding: 7px 8px;
+  font-size: 0.74rem;
+  line-height: 1.1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dev-tech .dev-tech-chip-sm {
+  font-size: 0.68rem;
+  padding-inline: 6px;
+}
+
+.dev-tech .dev-tech-chip-xs {
+  font-size: 0.62rem;
+  padding-inline: 5px;
+}
+
 .dev-card-link {
-  margin-top: auto;
+  margin-top: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
