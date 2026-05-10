@@ -208,24 +208,31 @@ DevHub is not just a portfolio viewer. It is a proof-of-work network for develop
 
 ## 🖼 Screenshots
 
-| Page                 | Preview                                                 |
-| -------------------- | ------------------------------------------------------- |
-| Landing / Developers | ![Landing page](screenshots/landing-top.png)            |
-| Register             | ![Register](screenshots/register.png)                   |
-| Login                | ![Login](screenshots/login.png)                         |
-| Edit Profile         | ![Edit profile](screenshots/edit-profile.png)           |
-| Account Dashboard    | ![Account dashboard](screenshots/account-dashboard.png) |
-| Delete Account       | ![Delete account](screenshots/delete-account.png)       |
-| Projects Catalog     | ![Projects catalog](screenshots/projects-catalog.png)   |
-| Project Detail       | ![Project detail](screenshots/project-detail.png)       |
-| Project Form         | ![Project form](screenshots/project-form.png)           |
-| Delete Project       | ![Delete project](screenshots/delete-project.png)       |
-| Send Message         | ![Send message](screenshots/send-message.png)           |
-| Inbox                | ![Inbox](screenshots/inbox.png)                         |
-| Full Message         | ![Full message](screenshots/message-detail.png)         |
-| Password Reset       | ![Password reset](screenshots/password-reset.png)       |
-| Reset Email          | ![Reset email](screenshots/reset-email.png)             |
-| Welcome Email        | ![Welcome email](screenshots/welcome-email.png)         |
+| Page                        | Preview                                                        |
+| --------------------------- | -------------------------------------------------------------- |
+| Landing-top / Developers    | ![Landing page](screenshots/landing-top.png)                   |
+| Landing-bottom / Developers | ![Landing page](screenshots/landing-bottom.png)                |
+| Landing/Account Menu        | ![Landing page](screenshots/my-profile-menu.png)               |
+| Register                    | ![Register](screenshots/register.png)                          |
+| Login                       | ![Login](screenshots/login.png)                                |
+| Edit Profile-top            | ![Edit profile](screenshots/edit-profile-top.png)              |
+| Edit Profile-bottom         | ![Edit profile](screenshots/edit-profile-bottom.png)           |
+| Account Dashboard-top       | ![Account dashboard](screenshots/account-dashboard-top.png)    |
+| Account Dashboard-bottom    | ![Account dashboard](screenshots/account-dashboard-bottom.png) |
+| Delete Account              | ![Delete account](screenshots/delete-account.png)              |
+| Projects Catalog-top        | ![Projects catalog](screenshots/projects-catalog-top.png)      |
+| Projects Catalog-bottom     | ![Projects catalog](screenshots/projects-catalog-bottom.png)   |
+| Project Detail-top          | ![Project detail](screenshots/project-detail-top.png)          |
+| Project Detail-bottom       | ![Project detail](screenshots/project-detail-bottom.png)       |
+| Project Form-top            | ![Project form](screenshots/project-form-top.png)              |
+| Project Form-bottom         | ![Project form](screenshots/project-form-bottom.png)           |
+| Delete Project              | ![Delete project](screenshots/delete-project.png)              |
+| Send Message                | ![Send message](screenshots/send-message.png)                  |
+| Inbox                       | ![Inbox](screenshots/inbox.png)                                |
+| Full Message                | ![Full message](screenshots/message-detail.png)                |
+| Password Reset              | ![Password reset](screenshots/password-reset.png)              |
+| Reset Email                 | ![Reset email](screenshots/reset-email.png)                    |
+| Welcome Email               | ![Welcome email](screenshots/welcome-email.png)                |
 
 ---
 
@@ -348,6 +355,29 @@ devhub/
 ├── users/migrations/                   # User app database history
 ├── projects/migrations/                # Project app database history
 ├── screenshots/
+│   ├── account-dashboard-bottom.png
+│   ├── account-dashboard-top.png
+│   ├── delete-account.png
+│   ├── delete-project.png
+│   ├── edit-profile-bottom.png
+│   ├── edit-profile-top.png
+│   ├── inbox.png
+│   ├── landing-bottom.png
+│   ├── landing-top.png
+│   ├── login.png
+│   ├── message-detail.png
+│   ├── my-profile-menu.png
+│   ├── password-reset.png
+│   ├── project-detail-bottom.png
+│   ├── project-detail-top.png
+│   ├── project-form-bottom.png
+│   ├── project-form-top.png
+│   ├── projects-catalog-bottom.png
+│   ├── projects-catalog-top.png
+│   ├── register.png
+│   ├── reset-email.png
+│   ├── send-message.png
+│   └── welcome-email.png
 ├── manage.py
 ├── requirements.txt
 ├── Procfile                            # Render/Gunicorn start command
