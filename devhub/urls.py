@@ -10,7 +10,16 @@ urlpatterns = [
     path('projects/', include('projects.urls')),
     path('', include('users.urls')),
     
-    path('reset-password/', auth_views.PasswordResetView.as_view(template_name='users/reset_password.html'), name='reset_password'), 
+    path(
+        'reset-password/',
+        auth_views.PasswordResetView.as_view(
+            template_name='users/reset_password.html',
+            email_template_name='users/password_reset_email.txt',
+            html_email_template_name='users/password_reset_email.html',
+            subject_template_name='users/password_reset_subject.txt',
+        ),
+        name='reset_password'
+    ), 
     path('reset-password-sent/', auth_views.PasswordResetDoneView.as_view(template_name='users/reset_password_sent.html'), name='password_reset_done'),
     path(
         'reset/<uidb64>/<token>/',
