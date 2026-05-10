@@ -132,6 +132,29 @@ def editAccount(request):
     return render(request, 'users/profile_form.html', {'form': form})
 
 @login_required(login_url='login')
+def deleteAccount(request):
+    profile = request.user.profile
+    expected_username = request.user.username
+
+    if request.method == 'POST':
+        confirmation_username = request.POST.get('username', '').strip()
+
+        if confirmation_username != expected_username:
+            messages.error(request, "Username does not match. Type your username exactly to delete your account.")
+            return render(
+                request,
+                'users/delete_account.html',
+                {'profile': profile, 'confirmation_username': confirmation_username}
+            )
+
+        logout(request)
+        profile.delete()
+        messages.success(request, "Your DevHub account has been deleted.")
+        return redirect('profiles')
+
+    return render(request, 'users/delete_account.html', {'profile': profile})
+
+@login_required(login_url='login')
 def createSkill(request):
     form = SkillForm()
     profile = request.user.profile

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DevHub | Delete Account{% endblock title %}
+
+{% block body_class %}users-page-body{% endblock body_class %}
+
+{% block content %}
+  <section class="account-delete-page section">
+    <div class="account-delete-shell">
+      <div class="account-delete-copy">
+        <span class="section-label">Danger Zone</span>
+        <h1>Delete your account only if you are ready to leave DevHub.</h1>
+        <p>
+          This action removes your profile and the account you use to sign in. To protect you from accidental deletion, type your username exactly before confirming.
+        </p>
+
+        <div class="account-delete-points">
+          <article class="account-delete-point">
+            <strong>Your profile disappears</strong>
+            <span>Your public profile, skills, socials, inbox, and account access will be removed from DevHub.</span>
+          </article>
+          <article class="account-delete-point">
+            <strong>Projects stay detached</strong>
+            <span>Your published projects and reviews can remain visible, but they will no longer be connected to your profile.</span>
+          </article>
+          <article class="account-delete-point">
+            <strong>No undo button</strong>
+            <span>After this is confirmed, you would need to create a new account if you want to use DevHub again.</span>
+          </article>
+        </div>
+      </div>
+
+      <article class="account-delete-card">
+        <div class="account-delete-card-glow" aria-hidden="true"></div>
+        <div class="account-delete-card-head">
+          <div class="account-delete-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3 2.8 19a1 1 0 0 0 .87 1.5h16.66A1 1 0 0 0 21.2 19L12 3Z" fill="currentColor" opacity="0.18"/>
+              <path d="M12 8v5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.2"/>
+              <circle cx="12" cy="16.5" r="1.2" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="account-delete-pill">Username required</span>
+        </div>
+
+        <div class="account-delete-card-copy">
+          <p class="account-delete-eyebrow">You are about to delete</p>
+          <h2>{{ profile.name|default:request.user.username }}</h2>
+          <p class="account-delete-description">
+            Type <strong>{{ request.user.username }}</strong> below to confirm this is really your account.
+          </p>
+        </div>
+
+        <div class="account-delete-summary">
+          <div class="account-delete-summary-row">
+            <span>Username</span>
+            <strong>{{ request.user.username }}</strong>
+          </div>
+          <div class="account-delete-summary-row">
+            <span>Email</span>
+            <strong>{{ profile.email|default:request.user.email|default:"Not provided" }}</strong>
+          </div>
+          <div class="account-delete-summary-row">
+            <span>Joined</span>
+            <strong>{{ profile.created|date:"M d, Y" }}</strong>
+          </div>
+        </div>
+
+        <form action="" method="POST" class="account-delete-actions account-delete-confirmation">
+          {% csrf_token %}
+
+          <label class="account-delete-field" for="id_username_confirm">
+            <span>Confirm username</span>
+            <input
+              id="id_username_confirm"
+              class="account-delete-input"
+              type="text"
+              name="username"
+              value="{{ confirmation_username|default:'' }}"
+              placeholder="{{ request.user.username }}"
+              autocomplete="off"
+              required
+            >
+          </label>
+
+          <button type="submit" class="account-delete-confirm">Delete my account</button>
+          <a href="{% url 'account' %}" class="ghost-button account-delete-cancel">Keep my account</a>
+        </form>
+      </article>
+    </div>
+  </section>
+{% endblock content %}
