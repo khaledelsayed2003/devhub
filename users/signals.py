@@ -1,9 +1,12 @@
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from django.contrib.auth.models import User
-from .models import Profile
-from django.core.mail import send_mail
+import logging
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
+from django.db.models.signals import post_delete, post_save
+from django.template.loader import render_to_string
+from .models import Profile
+
+logger = logging.getLogger(__name__)
 
 
 def createProfile(sender, instance, created, **kwargs):
@@ -15,45 +18,42 @@ def createProfile(sender, instance, created, **kwargs):
             email=user.email,
             name=user.first_name,
         )
-        
-        subject = "Welcome to DevHub 🚀 Your developer journey starts now"
 
-        message = """Hey there 👋
+        context = {
+            'user': user,
+            'profile': profile,
+            'site_url': settings.SITE_URL.rstrip('/') if settings.SITE_URL else '',
+        }
 
-        Your DevHub profile is live — welcome aboard 🚀
+        subject = render_to_string('users/welcome_email_subject.txt', context).strip()
+        message = render_to_string('users/welcome_email.txt', context)
+        html_message = render_to_string('users/welcome_email.html', context)
 
-        You're now part of a community where developers showcase their work, connect, and grow together.
-
-        ✨ Next steps to stand out:
-        - Complete your profile
-        - Add your projects
-        - Share your skills
-        - Connect with other developers
-
-        Your journey starts here — make it count 💻
-
-        — DevHub Team
-        """
-        
-        send_mail(
+        email = EmailMultiAlternatives(
             subject,
             message,
-            settings.EMAIL_HOST_USER,
+            settings.DEFAULT_FROM_EMAIL,
             [profile.email],
-            fail_silently=False,
         )
+        email.attach_alternative(html_message, 'text/html')
+
+        try:
+            email.send(fail_silently=False)
+        except Exception:
+            logger.exception("Welcome email failed for user id %s", user.id)
 
 
 def updateUser(sender, instance, created, **kwargs):
     profile = instance
     user = profile.user
-    
+
     if created == False and user:
         user.username = profile.username or user.username
         user.email = profile.email or ""
         user.first_name = profile.name or ""
         user.save()
-         
+
+
 def deleteUser(sender, instance, **kwargs):
     try:
         user = instance.user

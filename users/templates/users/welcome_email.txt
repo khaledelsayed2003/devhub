@@ -1,0 +1,18 @@
+{% autoescape off %}
+Hi {{ profile.name|default:user.username }},
+
+Welcome to DevHub. Your developer profile is live and ready for your work.
+
+Here are a few good next steps:
+- Complete your profile
+- Add your strongest skills
+- Publish your first project
+- Share your DevHub profile with people who should see your work
+
+{% if site_url %}Open DevHub:
+{{ site_url }}
+{% endif %}
+
+Thanks for joining DevHub,
+The DevHub Team
+{% endautoescape %}

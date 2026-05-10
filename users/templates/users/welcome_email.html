@@ -1,0 +1,56 @@
+{% autoescape off %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to DevHub</title>
+  </head>
+  <body style="margin:0; padding:0; background:#07111f; font-family:Arial, Helvetica, sans-serif; color:#edf5ff;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#07111f; padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px; background:#111b2d; border:1px solid #263a5d; border-radius:24px; overflow:hidden;">
+            <tr>
+              <td style="padding:34px 34px 24px; background:linear-gradient(135deg, #12344a 0%, #1d1c3a 100%);">
+                <p style="margin:0 0 14px; color:#4deaff; font-size:13px; font-weight:700; letter-spacing:3px; text-transform:uppercase;">Welcome to DevHub</p>
+                <h1 style="margin:0; color:#ffffff; font-size:34px; line-height:1.15; font-weight:800;">Your profile is live.</h1>
+                <p style="margin:16px 0 0; color:#b7c5e6; font-size:17px; line-height:1.6;">Hi {{ profile.name|default:user.username }}, you now have a home for your projects, skills, and developer story.</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:34px;">
+                <p style="margin:0 0 22px; color:#d7e1f7; font-size:16px; line-height:1.7;">Start shaping your DevHub presence by adding the details that help people understand what you build and why it matters.</p>
+
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 26px;">
+                  <tr>
+                    <td style="padding:16px 18px; border-radius:18px; background:#0d1728; border:1px solid #253758;">
+                      <p style="margin:0 0 10px; color:#4deaff; font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase;">Good next steps</p>
+                      <p style="margin:0; color:#d7e1f7; font-size:15px; line-height:1.8;">Complete your profile, add your strongest skills, publish your first project, and share your profile when you want your work to be seen.</p>
+                    </td>
+                  </tr>
+                </table>
+
+                {% if site_url %}
+                <table role="presentation" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td style="border-radius:999px; background:linear-gradient(135deg, #55d8ff 0%, #9b5cff 100%);">
+                      <a href="{{ site_url }}" style="display:inline-block; padding:15px 28px; color:#ffffff; font-size:16px; font-weight:700; text-decoration:none; border-radius:999px;">Open DevHub</a>
+                    </td>
+                  </tr>
+                </table>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 34px 34px;">
+                <p style="margin:0; color:#d7e1f7; font-size:15px; line-height:1.6;">Thanks for joining us,<br><strong style="color:#ffffff;">The DevHub Team</strong></p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+{% endautoescape %}
