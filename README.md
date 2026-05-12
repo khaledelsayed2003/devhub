@@ -19,7 +19,7 @@
 
 <br/>
 
-> **DevHub** is a full-stack Django platform where developers create public profiles, publish project case studies, collect feedback, message each other, and build a portfolio that explains the work behind the code.
+> **DevHub** is a full-stack Django platform where developers create public profiles, publish project case studies, follow other developers, collect feedback, message each other, and build a portfolio that explains the work behind the code.
 
 <br/>
 
@@ -41,7 +41,7 @@ DevHub is designed around one simple idea: a developer portfolio should show mor
 
 Instead of only listing projects, DevHub gives every build a story: what the project does, which tools powered it, who created it, how people reviewed it, and how other developers can reach out.
 
-The application includes a polished dark/light UI, authenticated account management, project publishing, custom tag handling, profile editing, inbox messaging, review voting, Cloudinary-backed uploads, SMTP email delivery, and production deployment support for Render.
+The application includes a polished dark/light UI, authenticated account management, project publishing, custom tag handling, profile editing, follow/unfollow relationships, inbox messaging, review voting, Cloudinary-backed uploads, SMTP email delivery, and production deployment support for Render.
 
 ---
 
@@ -68,12 +68,16 @@ The application includes a polished dark/light UI, authenticated account managem
 </td>
 <td width="50%" valign="top">
 
-### 👤 Developer Profiles
+### 👤 Developer Profiles & Follow System
 
 - Public developer cards on the landing page
 - Search developers by name, role, or skill
 - Paginated developer directory
-- Personal profile page with avatar, stats, socials, skills, and projects
+- Personal profile page with avatar, stats, socials, skills, projects, and follower count
+- Follow and unfollow other developer profiles
+- Prevent users from following their own profile
+- Show dynamic Follow / Unfollow actions based on relationship state
+- Redirect guests to login before following a developer
 - Separate account view for the logged-in owner
 - Profile image fallback for local static defaults and Cloudinary uploads
 - Skill descriptions separated from simple skill chips
@@ -197,6 +201,7 @@ DevHub is not just a portfolio viewer. It is a proof-of-work network for develop
 | Browse the project catalog             | ✅                                | ✅               |
 | View full project details              | ✅                                | ✅               |
 | Send a message to a developer          | ✅ _(with optional name & email)_ | ✅               |
+| Follow a developer profile             |                                   | ✅               |
 | Edit profile, avatar, bio, and socials |                                   | ✅               |
 | Add and manage skills                  |                                   | ✅               |
 | Create, edit, and delete projects      |                                   | ✅               |
@@ -227,6 +232,9 @@ DevHub is not just a portfolio viewer. It is a proof-of-work network for develop
 | Project Form-top            | ![Project form](screenshots/project-form-top.png)              |
 | Project Form-bottom         | ![Project form](screenshots/project-form-bottom.png)           |
 | Delete Project              | ![Delete project](screenshots/delete-project.png)              |
+| Follow                      | ![Follow](screenshots/follow.png)                              |
+| Unfollow                    | ![Unfollow](screenshots/unfollow.png)                          |
+| Followers Count             | ![Followers count](screenshots/followers.png)                  |
 | Send Message                | ![Send message](screenshots/send-message.png)                  |
 | Inbox                       | ![Inbox](screenshots/inbox.png)                                |
 | Full Message                | ![Full message](screenshots/message-detail.png)                |
@@ -257,14 +265,15 @@ DevHub is not just a portfolio viewer. It is a proof-of-work network for develop
 
 ## 🧱 Data Model
 
-| Model     | App        | What It Stores                                                   |
-| --------- | ---------- | ---------------------------------------------------------------- |
-| `Profile` | `users`    | Public developer identity, avatar, bio, socials, location, intro |
-| `Skill`   | `users`    | Developer skills with optional explanation                       |
-| `Message` | `users`    | Inbox messages between developers or from guests                 |
-| `Project` | `projects` | Project title, story, image, links, owner, tags, vote stats      |
-| `Tag`     | `projects` | Approved public tags and custom project tags                     |
-| `Review`  | `projects` | Project feedback vote and optional written comment               |
+| Model      | App        | What It Stores                                                   |
+| ---------- | ---------- | ---------------------------------------------------------------- |
+| `Profile`  | `users`    | Public developer identity, avatar, bio, socials, location, intro |
+| `Skill`    | `users`    | Developer skills with optional explanation                       |
+| `Message`  | `users`    | Inbox messages between developers or from guests                 |
+| `Follower` | `users`    | Follow relationships between developer profiles                  |
+| `Project`  | `projects` | Project title, story, image, links, owner, tags, vote stats      |
+| `Tag`      | `projects` | Approved public tags and custom project tags                     |
+| `Review`   | `projects` | Project feedback vote and optional written comment               |
 
 Important deletion behavior:
 
@@ -272,6 +281,8 @@ Important deletion behavior:
 - Projects use `on_delete=SET_NULL`, so published work can remain visible after account deletion, but the owner identity is no longer shown.
 - Reviews use `on_delete=SET_NULL`, so feedback history can remain visible after reviewer deletion, but the reviewer identity is no longer shown.
 - Messages keep sender/recipient relationships nullable so deleted profiles do not break message history, but the sender identity will appear as Guest.
+- Follower relationships use `on_delete=CASCADE`, so follow records are removed automatically when either related profile is deleted.
+- Each follower relationship is unique, so the same developer cannot follow the same profile more than once.
 
 ---
 
@@ -287,14 +298,16 @@ devhub/
 │   └── wsgi.py
 │
 ├── users/
-│   ├── models.py                       # Profile, Skill, Message
+│   ├── models.py                       # Profile, Skill, Message, Follower
 │   ├── forms.py                        # Register, profile, skill, message forms
-│   ├── views.py                        # Auth, profiles, account, skills, inbox, messages
+│   ├── views.py                        # Auth, profiles, follow system, account, skills, inbox, messages
 │   ├── urls.py                         # User-facing routes
 │   ├── utils.py                        # Developer search and pagination
 │   ├── signals.py                      # Auto profile creation, welcome email, user sync/delete
 │   ├── admin.py                        # Profile, Skill, Message admin registration
 │   ├── apps.py                         # Loads signals on app ready
+│   ├── templatetags/
+│   │   └── user_extras.py              # Number formatter template filter.
 │   │
 │   └── templates/users/
 │       ├── profiles.html               # Landing page and developer directory
@@ -377,7 +390,10 @@ devhub/
 │   ├── register.png
 │   ├── reset-email.png
 │   ├── send-message.png
-│   └── welcome-email.png
+│   ├── welcome-email.png
+│   ├── follow.png
+│   ├── unfollow.png
+│   └── followers.png
 ├── manage.py
 ├── requirements.txt
 ├── Procfile                            # Render/Gunicorn start command
@@ -535,6 +551,19 @@ http://127.0.0.1:8000
 6. Comments appear in the project detail page with relative timestamps.
 ```
 
+### Following Developers
+
+```text
+1. Authenticated user opens another developer's profile.
+2. The profile page checks whether the current user already follows that developer.
+3. If not following, a Follow button is shown.
+4. If already following, an Unfollow button is shown.
+5. Guests see a Follow button that redirects them to login with the current profile URL as the next page.
+6. Users cannot follow their own profile.
+7. Follow relationships are stored uniquely so duplicate follows cannot be created.
+8. Follower counts are calculated from related follower records or annotated totals when available.
+```
+
 ### Messaging
 
 ```text
@@ -676,6 +705,12 @@ Use this list after changes or before a release:
 - Send a message as an authenticated user.
 - Confirm unread message badge appears in navbar.
 - Open a message and confirm it becomes read.
+- Follow another developer profile.
+- Unfollow a developer profile.
+- Confirm a user cannot follow their own profile.
+- Confirm guests are redirected to login when trying to follow.
+- Confirm follower count updates after follow/unfollow.
+- Confirm duplicate follow records cannot be created.
 - Request a password reset email.
 - Complete password reset with a valid token.
 - Delete account only after typing the exact username.
