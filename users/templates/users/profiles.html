@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static user_extras %}
 
 {% block title %}DevHub | Developers{% endblock title %}
 
@@ -175,7 +175,10 @@
             {% if own_profile_id == developer.id %}
             <span class="dev-card-owner-tag">Your Profile</span>
             {% endif %}
-            <h3><a class="dev-card-name-link" href="{% url 'user-profile' developer.id %}">{{ developer.name|default:developer.username }}</a></h3>
+            <h3>
+              <a class="dev-card-name-link" href="{% url 'user-profile' developer.id %}">{{ developer.name|default:developer.username }}</a>
+              <span class="dev-card-followers">· {{ developer.follower_count|compact_number }} follower{{ developer.follower_count|pluralize }}</span>
+            </h3>
             <p>{{ developer.short_intro|default:"Developer" }}</p>
           </div>
         </div>
