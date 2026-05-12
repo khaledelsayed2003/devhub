@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static user_extras %}
 
 {% block title %}DevHub | Account{% endblock title %}
 
@@ -38,12 +38,12 @@
             </div>
           </div>
 
-          <div class="user-profile-meta">
-            <div class="user-profile-meta-item">
+          <div class="user-profile-meta user-profile-public-meta">
+            <div class="user-profile-meta-item user-profile-meta-item-wide">
               <span>Location</span>
               <strong>{{ profile.location|default:"Remote" }}</strong>
             </div>
-            <div class="user-profile-meta-item">
+            <div class="user-profile-meta-item user-profile-meta-item-wide">
               <span>Joined</span>
               <strong>{{ profile.created|date:"M Y" }}</strong>
             </div>
@@ -54,6 +54,10 @@
             <div class="user-profile-meta-item">
               <span>Skills</span>
               <strong>{{ profile.skill_set.count }}</strong>
+            </div>
+            <div class="user-profile-meta-item user-profile-followers-stat">
+              <span>Followers</span>
+              <strong>{{ profile.follower_count|compact_number }}</strong>
             </div>
           </div>
 
