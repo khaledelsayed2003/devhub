@@ -99,10 +99,7 @@
                 </button>
               </form>
             {% elif not request.user.is_authenticated %}
-              <div class="user-profile-follow-guest">
-                <a class="ghost-button user-profile-follow-button is-follow" href="{% url 'login' %}?next={{ request.path }}">Follow</a>
-                <span class="user-profile-follow-note">Login to follow this developer.</span>
-              </div>
+              <a class="ghost-button user-profile-follow-button user-profile-follow-login is-follow" href="{% url 'login' %}?next={{ request.path }}">Follow</a>
             {% endif %}
 
             <a class="primary-button large-button user-profile-contact" href="{% url 'create-message' profile.id %}">
@@ -112,6 +109,10 @@
               </svg>
               <span>Send Message</span>
             </a>
+
+            {% if not request.user.is_authenticated %}
+              <span class="user-profile-follow-note">Login to follow this developer.</span>
+            {% endif %}
           </div>
 
         </article>

@@ -3444,30 +3444,28 @@ body.light-theme .user-profile-social-instagram {
 }
 
 .user-profile-actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
   align-items: stretch;
   gap: 10px;
 }
 
-.user-profile-follow-form {
+.user-profile-follow-form,
+.user-profile-follow-login {
   display: flex;
-  flex: 0 0 112px;
+  width: 100%;
   margin: 0;
   min-width: 0;
 }
 
-.user-profile-follow-guest {
-  display: grid;
-  flex: 0 0 112px;
-  gap: 8px;
-  min-width: 0;
-}
-
 .user-profile-follow-note {
+  flex: 0 0 100%;
+  grid-column: 1 / -1;
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 700;
   line-height: 1.35;
+  text-align: center;
 }
 
 .user-profile-follow-button {
@@ -3495,8 +3493,7 @@ body.light-theme .user-profile-social-instagram {
 }
 
 .user-profile-contact {
-  flex: 1 1 auto;
-  width: auto;
+  width: 100%;
   min-width: 0;
   min-height: 58px;
   gap: 10px;
@@ -4597,13 +4594,7 @@ body.light-theme .account-action-button:focus-visible {
   }
 
   .user-profile-actions {
-    display: grid;
-    grid-template-columns: minmax(96px, 0.75fr) minmax(0, 1.7fr);
-  }
-
-  .user-profile-follow-form,
-  .user-profile-follow-guest {
-    width: 100%;
+    grid-template-columns: minmax(96px, 112px) minmax(0, 1fr);
   }
 
   .user-profile-projects {
@@ -5125,24 +5116,35 @@ body.light-theme .site-footer__bottom {
   .developer-pagination {
     grid-template-columns: 1fr;
     align-items: stretch;
-    gap: 12px;
-    border-radius: 22px;
+    gap: 14px;
+    border-radius: 24px;
   }
 
   .developer-pagination-status {
     min-width: 0;
-    justify-self: center;
+    justify-self: stretch;
     text-align: center;
   }
 
+  .developer-pagination-status span,
+  .developer-pagination-status strong {
+    white-space: nowrap;
+  }
+
   .developer-pagination-controls {
+    grid-column: auto;
     justify-content: center;
     gap: 10px;
   }
 
   .pager-button {
-    min-width: 52px;
-    padding: 10px 14px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 13px;
+  }
+
+  .pager-button-arrow {
+    min-width: 78px;
   }
 
   .site-footer {
@@ -5171,7 +5173,18 @@ body.light-theme .site-footer__bottom {
   }
 
   .user-profile-actions {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(92px, 108px) minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .user-profile-follow-button,
+  .user-profile-contact {
+    min-height: 52px;
+    padding-inline: 12px;
+  }
+
+  .user-profile-contact {
+    gap: 8px;
   }
 
   .floating-card {
