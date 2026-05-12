@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static user_extras %}
 
 {% block title %}DevHub | {{ profile.name|default:profile.username }}{% endblock title %}
 
@@ -11,9 +11,8 @@
 
     <div class="user-profile-shell">
       <aside class="user-profile-sidebar">
-        <article class="user-profile-card">
-          <div class="user-profile-card-top">
-            <span class="section-label user-profile-card-label">Developer Profile</span>
+        <article class="user-profile-card user-profile-public-card">
+          <div class="user-profile-card-top user-profile-public-top">
             <div class="avatar avatar-xl avatar-cyan">
               {% if profile.profile_image and profile.profile_image.name != "profiles/default.png" %}
                 <img class="avatar-image" src="{{ profile.profile_image.url }}" alt="{{ profile.name|default:profile.username|default:'Developer avatar' }}">
@@ -28,12 +27,12 @@
             </div>
           </div>
 
-          <div class="user-profile-meta">
-            <div class="user-profile-meta-item">
+          <div class="user-profile-meta user-profile-public-meta">
+            <div class="user-profile-meta-item user-profile-meta-item-wide">
               <span>Location</span>
               <strong>{{ profile.location|default:"Remote" }}</strong>
             </div>
-            <div class="user-profile-meta-item">
+            <div class="user-profile-meta-item user-profile-meta-item-wide">
               <span>Joined</span>
               <strong>{{ profile.created|date:"M Y" }}</strong>
             </div>
@@ -45,9 +44,14 @@
               <span>Skills</span>
               <strong>{{ profile.skill_set.count }}</strong>
             </div>
+            <div class="user-profile-meta-item user-profile-followers-stat">
+              <span>Followers</span>
+              <strong>{{ profile.follower_count|compact_number }}</strong>
+            </div>
           </div>
 
-          <div class="user-profile-socials">
+          {% if profile.social_github or profile.social_linkedin or profile.social_youtube or profile.social_website or profile.social_insta %}
+          <div class="user-profile-socials user-profile-public-socials">
             {% if profile.social_github %}
               <a class="user-profile-social-github" href="{{ profile.social_github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -84,6 +88,22 @@
               </a>
             {% endif %}
           </div>
+          {% endif %}
+
+          <div class="user-profile-actions">
+            {% if can_follow %}
+              <form class="user-profile-follow-form" action="{% url 'toggle-follow' profile.id %}" method="POST">
+                {% csrf_token %}
+                <button class="ghost-button user-profile-follow-button {% if is_following %}is-unfollow{% else %}is-follow{% endif %}" type="submit">
+                  {% if is_following %}Unfollow{% else %}Follow{% endif %}
+                </button>
+              </form>
+            {% elif not request.user.is_authenticated %}
+              <div class="user-profile-follow-guest">
+                <a class="ghost-button user-profile-follow-button is-follow" href="{% url 'login' %}?next={{ request.path }}">Follow</a>
+                <span class="user-profile-follow-note">Login to follow this developer.</span>
+              </div>
+            {% endif %}
 
             <a class="primary-button large-button user-profile-contact" href="{% url 'create-message' profile.id %}">
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -92,6 +112,7 @@
               </svg>
               <span>Send Message</span>
             </a>
+          </div>
 
         </article>
       </aside>

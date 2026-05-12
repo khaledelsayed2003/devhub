@@ -2,11 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Prefetch, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
-from .models import Profile
+from .models import Follower, Profile
 from projects.models import Project, Review
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .utils import paginateProfiles, searchProfiles
 from django.utils import timezone
 from datetime import timedelta
@@ -100,15 +101,45 @@ def userProfile(request, pk):
     topSkills = profile.skill_set.exclude(description__isnull=True).exclude(description__exact="")
     otherSkills = profile.skill_set.filter(Q(description__isnull=True) | Q(description=""))
     projects = profile.project_set.all()
+    is_following = False
+    can_follow = False
+
+    if request.user.is_authenticated and hasattr(request.user, 'profile'):
+        user_profile = request.user.profile
+        can_follow = str(user_profile.id) != str(profile.id)
+        is_following = Follower.objects.filter(owner=user_profile, followed=profile).exists()
 
     context = {
         'profile': profile,
         'topSkills': topSkills,
         'otherSkills': otherSkills,
         'projects': projects,
+        'can_follow': can_follow,
+        'is_following': is_following,
     }
 
     return render(request, 'users/user-profile.html', context)
+
+@login_required(login_url='login')
+@require_POST
+def toggleFollow(request, pk):
+    owner = request.user.profile
+    followed = get_object_or_404(Profile, id=pk)
+
+    if str(owner.id) == str(followed.id):
+        messages.info(request, "You cannot follow your own profile.")
+        return redirect('account')
+
+    follow = Follower.objects.filter(owner=owner, followed=followed)
+
+    if follow.exists():
+        follow.delete()
+        messages.success(request, f"You unfollowed {followed.name or followed.username}.")
+    else:
+        Follower.objects.create(owner=owner, followed=followed)
+        messages.success(request, f"You are now following {followed.name or followed.username}.")
+
+    return redirect('user-profile', pk=followed.id)
 
 @login_required(login_url='login')
 def userAccount(request):

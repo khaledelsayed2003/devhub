@@ -27,6 +27,10 @@ class Profile(models.Model):
     def unread_message_count(self):
         return self.messages.filter(is_read=False).count()
     
+    @property
+    def follower_count(self):
+        return self.followers.count()
+    
     
 
 class Skill(models.Model):
@@ -58,3 +62,18 @@ class Message(models.Model):
     
     class Meta:
         ordering = ['is_read', '-created']
+
+
+
+class Follower(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='following', null=True, blank=True)
+    followed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='followers', null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('owner', 'followed')
+
+    def __str__(self):
+        return f"{self.owner} follows {self.followed}"
+    
