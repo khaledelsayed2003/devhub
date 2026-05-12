@@ -1,6 +1,7 @@
 from .models import Profile, Skill
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Count
 
 
 def paginateProfiles(request, profiles, results_per_page=3):
@@ -30,6 +31,8 @@ def searchProfiles(request):
         Q(skill__in=skills),
         user__is_staff=False,
         user__is_superuser=False,
-    ).order_by('-created')
+    ).annotate(
+        follower_count=Count('followers')
+    ).order_by('-follower_count', '-created')
     
     return users, search_query
