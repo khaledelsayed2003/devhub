@@ -32,7 +32,7 @@ def searchProfiles(request):
         user__is_staff=False,
         user__is_superuser=False,
     ).annotate(
-        follower_count=Count('followers')
-    ).order_by('-follower_count', '-created')
+        followers_total=Count('followers', distinct=True)
+    ).order_by('-followers_total', '-created')
     
     return users, search_query

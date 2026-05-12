@@ -29,6 +29,9 @@ class Profile(models.Model):
     
     @property
     def follower_count(self):
+        if hasattr(self, 'followers_total'):
+            return self.followers_total
+
         return self.followers.count()
     
     
